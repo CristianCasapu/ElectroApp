@@ -11,11 +11,34 @@ import '../features/registru/estimare_screen.dart';
 import '../features/registru/solutie_detail_screen.dart';
 import '../core/models/solutie.dart';
 import '../features/setari/setari_screen.dart';
+import '../core/services/log_service.dart';
 
 final _rootKey = GlobalKey<NavigatorState>();
 
+/// Jurnalizează navigarea: la o problemă raportată, drumul parcurs înainte
+/// spune de obicei mai mult decât mesajul de eroare.
+class _JurnalNavigare extends NavigatorObserver {
+  void _noteaza(String actiune, Route<dynamic>? r) {
+    final nume = r?.settings.name;
+    if (nume != null) log.debug('navigare', '$actiune $nume');
+  }
+
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) =>
+      _noteaza('deschide', route);
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) =>
+      _noteaza('închide', route);
+
+  @override
+  void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) =>
+      _noteaza('înlocuiește cu', newRoute);
+}
+
 final appRouter = GoRouter(
   navigatorKey: _rootKey,
+  observers: [_JurnalNavigare()],
   initialLocation: '/registru',
   routes: [
     StatefulShellRoute.indexedStack(

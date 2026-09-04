@@ -9,7 +9,10 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
 /**
- * Selector de contact FĂRĂ permisiunea READ_CONTACTS: ACTION_PICK deschide
+ * Canalul nativ al aplicației: selectorul de contact și datele dispozitivului
+ * (marcă, model, versiune Android) pentru antetul jurnalului de depanare.
+ *
+ * Selectorul de contact funcționează FĂRĂ permisiunea READ_CONTACTS: ACTION_PICK deschide
  * agenda sistemului, iar Android acordă acces temporar doar la contactul ales.
  * Din acel URI citim numele, telefoanele, e-mailurile și adresele poștale
  * prin directorul `Contacts.Entity` (acoperit de aceeași permisiune temporară).
@@ -37,6 +40,14 @@ class MainActivity : FlutterActivity() {
                         result.error("indisponibil", "Agenda de contacte nu e disponibilă", null)
                     }
                 }
+                "infoDispozitiv" -> result.success(
+                    mapOf(
+                        "marca" to android.os.Build.MANUFACTURER,
+                        "model" to android.os.Build.MODEL,
+                        "android" to android.os.Build.VERSION.RELEASE,
+                        "api" to android.os.Build.VERSION.SDK_INT
+                    )
+                )
                 else -> result.notImplemented()
             }
         }

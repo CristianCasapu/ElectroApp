@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/solutie.dart';
+import '../services/log_service.dart';
 import 'database.dart';
 
 const _uuid = Uuid();
@@ -46,6 +47,11 @@ class SolutiiRepository {
               observatii: Value(observatii),
             ),
           );
+      log.info(
+        'solutie',
+        'Revizie salvată R${ultima + 1}',
+        '${snapshot.titluScurt} · lucrare $lucrareId',
+      );
       return id;
     });
   }
@@ -92,7 +98,13 @@ class SolutiiRepository {
         sha256: sha256,
         marimeBytes: Value(marimeBytes),
       );
-      return db.into(db.documente).insertReturning(rand);
+      final doc = await db.into(db.documente).insertReturning(rand);
+      log.info(
+        'documente',
+        '${tip.eticheta} v${ultima + 1} emis',
+        '$marimeBytes octeți · sha256 ${sha256.length > 12 ? '${sha256.substring(0, 12)}…' : sha256}',
+      );
+      return doc;
     });
   }
 }

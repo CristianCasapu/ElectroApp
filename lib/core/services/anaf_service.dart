@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import 'log_service.dart';
+
 /// Datele unei persoane juridice din registrul ANAF (serviciul public
 /// PlatitorTvaRest v9 — fără cheie, cu limită de o cerere pe secundă).
 class FirmaAnaf {
@@ -49,8 +51,10 @@ class AnafService {
     final cui = normalizeazaCui(cuiText);
     if (cui == null) {
       ultimaEroare = 'CUI invalid — introdu doar cifrele (cu sau fără RO).';
+      log.warn('anaf', 'CUI invalid', cuiText);
       return null;
     }
+    log.debug('anaf', 'Interogare ANAF', 'CUI $cui');
     try {
       final azi = DateTime.now();
       final data =
@@ -70,13 +74,24 @@ class AnafService {
           .timeout(const Duration(seconds: 15));
       if (resp.statusCode != 200) {
         ultimaEroare = 'ANAF a răspuns cu HTTP ${resp.statusCode}.';
+        log.warn('anaf', 'Răspuns neașteptat', 'HTTP ${resp.statusCode}');
         return null;
       }
       final f = parseRaspuns(resp.body);
-      if (f == null) ultimaEroare = 'CUI-ul nu a fost găsit la ANAF.';
+      if (f == null) {
+        ultimaEroare = 'CUI-ul nu a fost găsit la ANAF.';
+        log.info('anaf', 'CUI negăsit', '$cui');
+      } else {
+        log.info(
+          'anaf',
+          'Firmă găsită',
+          '${f.denumire} · TVA: ${f.platitorTva} · inactivă: ${f.inactiva}',
+        );
+      }
       return f;
-    } on Object catch (e) {
+    } on Object catch (e, s) {
       ultimaEroare = 'Nu s-a putut interoga ANAF: $e';
+      log.error('anaf', 'Interogare eșuată', e, s);
       return null;
     }
   }

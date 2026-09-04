@@ -3,6 +3,7 @@ import 'package:uuid/uuid.dart';
 
 import '../models/enums.dart';
 import '../models/profil_firma.dart';
+import '../services/log_service.dart';
 import 'database.dart';
 
 const _uuid = Uuid();
@@ -71,6 +72,7 @@ class ClientiRepository {
             updatedAt: Value(acum),
           ),
         );
+    log.info('clienti', 'Client creat', '${date.denumire.value} · $id');
     return id;
   }
 
@@ -83,6 +85,7 @@ class ClientiRepository {
           ),
         );
         await _incrementeazaVersiunea(db, db.clienti, id);
+        log.info('clienti', 'Client actualizat', id);
       });
 
   Future<int> numarLucrari(String clientId) async {
@@ -97,13 +100,17 @@ class ClientiRepository {
 
   /// Ștergere logică; refuzată dacă există fișe de lucrare asociate.
   Future<bool> sterge(String id) async {
-    if (await numarLucrari(id) > 0) return false;
+    if (await numarLucrari(id) > 0) {
+      log.warn('clienti', 'Ștergere refuzată — clientul are fișe', id);
+      return false;
+    }
     await db.transaction(() async {
       await (db.update(db.clienti)..where((c) => c.id.equals(id))).write(
         ClientiCompanion(deletedAt: Value(DateTime.now())),
       );
       await _incrementeazaVersiunea(db, db.clienti, id);
     });
+    log.info('clienti', 'Client șters', id);
     return true;
   }
 }
@@ -205,6 +212,7 @@ class LucrariRepository {
               observatie: const Value('Fișă deschisă'),
             ),
           );
+      log.info('registru', 'Fișă de lucrare creată', '$nr · $id');
       return id;
     });
   }
@@ -234,6 +242,7 @@ class LucrariRepository {
         id,
         coloanaId: 'lucrare_id',
       );
+      log.info('registru', 'Fișă actualizată', id);
     });
   }
 
@@ -249,9 +258,19 @@ class LucrariRepository {
       final curenta = await (db.select(
         db.lucrari,
       )..where((l) => l.id.equals(id))).getSingleOrNull();
-      if (curenta == null) return false;
+      if (curenta == null) {
+        log.warn('registru', 'Tranziție pe o fișă inexistentă', id);
+        return false;
+      }
       final stareCurenta = StareLucrare.dinCod(curenta.stare);
-      if (!stareCurenta.urmatoare.contains(stareNoua)) return false;
+      if (!stareCurenta.urmatoare.contains(stareNoua)) {
+        log.warn(
+          'registru',
+          'Tranziție refuzată',
+          '${curenta.nrInregistrare}: ${stareCurenta.cod} → ${stareNoua.cod}',
+        );
+        return false;
+      }
       final acum = DateTime.now();
       await (db.update(db.lucrari)..where((l) => l.id.equals(id))).write(
         LucrariCompanion(stare: Value(stareNoua.cod), updatedAt: Value(acum)),
@@ -270,6 +289,12 @@ class LucrariRepository {
               observatie: Value(observatie),
             ),
           );
+      log.info(
+        'registru',
+        'Stare schimbată',
+        '${curenta.nrInregistrare}: ${stareCurenta.cod} → ${stareNoua.cod}'
+            '${observatie.isEmpty ? '' : ' · $observatie'}',
+      );
       return true;
     });
   }
@@ -281,6 +306,7 @@ class LucrariRepository {
       LucrariCompanion(deletedAt: Value(DateTime.now())),
     );
     await _incrementeazaVersiunea(db, db.lucrari, id);
+    log.info('registru', 'Fișă ștearsă', id);
   });
 }
 
@@ -322,6 +348,7 @@ class FurnizoriRepository {
             createdAt: DateTime.now(),
           ),
         );
+    log.info('furnizori', 'Furnizor adăugat', nume);
     return nume;
   }
 
@@ -348,13 +375,16 @@ class SetariRepository {
             ProfilFirma.fromMap({for (final r in rows) r.cheie: r.valoare}),
       );
 
-  Future<void> salveazaProfil(ProfilFirma p) => db.batch((b) {
-    for (final e in p.toMap().entries) {
-      b.insert(
-        db.setari,
-        SetariCompanion.insert(cheie: e.key, valoare: e.value),
-        mode: InsertMode.insertOrReplace,
-      );
-    }
-  });
+  Future<void> salveazaProfil(ProfilFirma p) {
+    log.info('setari', 'Profil firmă salvat', p.denumire);
+    return db.batch((b) {
+      for (final e in p.toMap().entries) {
+        b.insert(
+          db.setari,
+          SetariCompanion.insert(cheie: e.key, valoare: e.value),
+          mode: InsertMode.insertOrReplace,
+        );
+      }
+    });
+  }
 }

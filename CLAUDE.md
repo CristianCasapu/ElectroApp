@@ -44,6 +44,8 @@ lib/
                             prețuri), cablu_ac (I7-2011, din ElectroCalc), verdict
     models/solutie.dart     snapshot serializabil al estimării (revizii + documente)
     services/raport_pdf_service.dart  fișa sistemului + oferte (pdf, fonturi Roboto din assets)
+    services/log_service.dart  jurnalul de depanare — `log.info('zona', 'mesaj', 'detaliu')`;
+                            orice operație nouă se jurnalizează, erorile cu `log.error(...)`
     utils/format.dart       formatData/formatNumar/parseNumar (virgulă zecimală)
   features/<domeniu>/       ecrane; registru/, clienti/, calcule/, setari/
   widgets/                  calc_widgets.dart, result_card.dart (din ElectroCalc), common_widgets.dart
@@ -58,6 +60,9 @@ test/                       core/ (enums, format, repositories cu NativeDatabase
 - Culorile doar prin `app_colors.dart` (`context.accentBlue`, `context.infoSurface`…); nu
   `Colors.grey` direct. `resizeToAvoidBottomInset: true` pe ecranele cu câmpuri text.
 - Fără comentarii pentru cod evident; fără feature flags sau shim-uri de compatibilitate.
+- **Orice funcție nouă lasă urmă în jurnal**: succes cu `log.info`, refuz cu `log.warn`,
+  excepție cu `log.error(zona, mesaj, e, s)`. Zona e un cuvânt scurt (registru, clienti,
+  estimare, pdf, anaf, osm, update). Fără date personale în detalii.
 - Orice modificare de schemă: crește `schemaVersion`, adaugă migrarea în `MigrationStrategy`,
   regenerează, adaugă test. Datele existente nu se pierd.
 

@@ -1,5 +1,31 @@
 # Changelog
 
+## [v0.1.4] — 2026-09-04
+
+### Added
+- **Jurnal de depanare** (Setări → Depanare): fiecare operație importantă se
+  înregistrează pe telefon cu oră, zonă și detalii — pornirea aplicației, migrările
+  bazei de date, clienți creați/modificați/șterși, fișe și tranziții de stare (inclusiv
+  cele refuzate, cu motivul), furnizori adăugați, interogări ANAF, geocodare și poziție
+  (OpenStreetMap), selectarea contactelor, calculul sistemului fotovoltaic (intrări și
+  rezultat), reviziile soluției, documentele PDF emise, verificarea și descărcarea
+  actualizărilor, navigarea între ecrane.
+- **Crash-urile se scriu automat** cu stack trace (erori Flutter și de platformă).
+- Niveluri configurabile Debug / Info / Warn / Error, comutator pornit/oprit,
+  căutare și filtrare în jurnal.
+- **„Trimite logurile"** — fișier cu antet de diagnostic (versiunea aplicației, marca,
+  modelul telefonului, versiunea Android) pe care îl poți atașa la un raport; plus
+  copiere în clipboard și ștergere. Jurnalul nu părăsește telefonul fără această acțiune.
+- Jurnal rotativ (max ~512 KB, se păstrează coada), scriere grupată ca să nu
+  încetinească interfața.
+
+### Fixed
+- Sumele de control scurte nu mai provoacă eroare la afișare și în jurnal.
+- Ștergerea jurnalului nu mai eșuează când fișierul e blocat de sistem.
+
+### Changed
+- CI: tag-ul mobil `latest` se mută automat pe ultimul release publicat.
+
 ## [v0.1.3] — 2026-09-04
 
 ### Added

@@ -1,5 +1,7 @@
 import 'package:flutter/services.dart';
 
+import 'log_service.dart';
+
 /// Contact ales din agenda telefonului (vezi MainActivity.kt): fără permisiunea
 /// READ_CONTACTS, Android acordă acces doar la contactul ales de utilizator.
 class ContactAles {
@@ -36,10 +38,22 @@ class ContactPickerService {
       final r = await _canal.invokeMethod<Map<Object?, Object?>>(
         'alegeContact',
       );
-      return r == null ? null : ContactAles.fromMap(r);
-    } on PlatformException {
+      if (r == null) {
+        log.debug('contacte', 'Selectare anulată');
+        return null;
+      }
+      final c = ContactAles.fromMap(r);
+      log.info(
+        'contacte',
+        'Contact ales',
+        '${c.telefoane.length} telefoane · ${c.emailuri.length} e-mailuri · ${c.adrese.length} adrese',
+      );
+      return c;
+    } on PlatformException catch (e) {
+      log.warn('contacte', 'Agenda indisponibilă', e.message);
       return null;
     } on MissingPluginException {
+      log.warn('contacte', 'Canal nativ indisponibil');
       return null;
     }
   }

@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'log_service.dart';
+
 /// Actualizare din aplicație prin GitHub Releases (repo public, fără token).
 /// Tag-ul release-ului este `vMAJOR.MINOR.BUILD`; local comparăm
 /// `MAJOR.MINOR` din versiune cu BUILD-ul din `buildNumber` (vezi CLAUDE.md).
@@ -38,19 +40,27 @@ class UpdateService {
           .timeout(const Duration(seconds: 12));
       if (resp.statusCode == 404) {
         ultimaEroare = 'Nu există încă niciun release publicat.';
+        log.info('update', 'Niciun release publicat');
         return null;
       }
       if (resp.statusCode != 200) {
         ultimaEroare = 'GitHub a răspuns cu HTTP ${resp.statusCode}.';
+        log.warn('update', 'Verificare eșuată', 'HTTP ${resp.statusCode}');
         return null;
       }
       final info = await PackageInfo.fromPlatform();
+      log.debug(
+        'update',
+        'Verificare actualizări',
+        'local ${versiuneLocalaDin(info.version, info.buildNumber)}',
+      );
       return parseRelease(
         jsonDecode(resp.body) as Map<String, dynamic>,
         versiuneLocala: versiuneLocalaDin(info.version, info.buildNumber),
       );
-    } on Object catch (e) {
+    } on Object catch (e, s) {
       ultimaEroare = 'Nu s-a putut verifica: $e';
+      log.error('update', 'Verificare eșuată', e, s);
       return null;
     }
   }
@@ -64,7 +74,15 @@ class UpdateService {
     final tag = json['tag_name'] as String?;
     if (tag == null) return null;
     final remote = tag.startsWith('v') ? tag.substring(1) : tag;
-    if (!esteMaiNoua(remote, versiuneLocala)) return null;
+    if (!esteMaiNoua(remote, versiuneLocala)) {
+      log.debug(
+        'update',
+        'Versiunea locală e la zi',
+        '$versiuneLocala ≥ $remote',
+      );
+      return null;
+    }
+    log.info('update', 'Actualizare disponibilă', '$versiuneLocala → $remote');
 
     final assets = (json['assets'] as List<dynamic>? ?? const [])
         .cast<Map<String, dynamic>>();
@@ -119,8 +137,14 @@ class UpdateService {
       await sink.flush();
       await sink.close();
       sink = null;
+      log.info(
+        'update',
+        'APK descărcat',
+        '${info.numeFisier} · $primit octeți',
+      );
       return file;
-    } on Object {
+    } on Object catch (e, s) {
+      log.error('update', 'Descărcare eșuată', e, s);
       return null;
     } finally {
       if (sink != null) {
@@ -146,8 +170,10 @@ class UpdateService {
         ],
       );
       await intent.launch();
+      log.info('update', 'Instalator lansat', nume);
       return true;
-    } on Object {
+    } on Object catch (e, s) {
+      log.error('update', 'Lansarea instalatorului a eșuat', e, s);
       return false;
     }
   }

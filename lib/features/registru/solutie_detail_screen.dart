@@ -11,6 +11,7 @@ import '../../app/providers.dart';
 import '../../core/db/database.dart';
 import '../../core/db/solutii_repository.dart';
 import '../../core/models/solutie.dart';
+import '../../core/services/log_service.dart';
 import '../../core/services/raport_pdf_service.dart';
 import '../../core/utils/format.dart';
 import '../../widgets/common_widgets.dart';
@@ -71,6 +72,7 @@ class _SolutieDetailScreenState extends ConsumerState<SolutieDetailScreen> {
     final profil = ref.read(profilFirmaProvider).value;
     if (s == null || snap == null || fisa == null || profil == null) return;
     setState(() => _genereaza = true);
+    log.info('documente', 'Generez ${tip.eticheta}', 'revizia R${s.revizie}');
     try {
       final pdf = ref.read(raportPdfProvider);
       final bytes = tip == TipDocument.fisaSistem
@@ -113,7 +115,8 @@ class _SolutieDetailScreenState extends ConsumerState<SolutieDetailScreen> {
       );
       if (!mounted) return;
       await deschideDocument(context, doc);
-    } on Object catch (e) {
+    } on Object catch (e, st) {
+      log.error('documente', 'Generarea ${tip.eticheta} a eșuat', e, st);
       if (mounted) {
         ScaffoldMessenger.of(
           context,
@@ -261,7 +264,7 @@ Future<void> deschideDocument(BuildContext context, DocumenteData d) async {
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
             subtitle: Text(
-              '${formatDataOra(d.emisLa)} · ${(d.marimeBytes / 1024).toStringAsFixed(0)} KB · SHA-256 ${d.sha256.substring(0, 12)}…',
+              '${formatDataOra(d.emisLa)} · ${(d.marimeBytes / 1024).toStringAsFixed(0)} KB · SHA-256 \${d.sha256.length > 12 ? d.sha256.substring(0, 12) : d.sha256}…',
             ),
           ),
           ListTile(

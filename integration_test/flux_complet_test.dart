@@ -56,7 +56,9 @@ Future<void> _vizibil(WidgetTester t, Finder f) async {
 }
 
 Future<void> _scrie(WidgetTester t, String label, String text) async {
-  final f = find.widgetWithText(TextFormField, label);
+  // TextFormField construiește un TextField intern, deci finder-ul pe TextField
+  // acoperă ambele (formularele și câmpurile simple din foile modale).
+  final f = find.widgetWithText(TextField, label);
   await _vizibil(t, f);
   await t.enterText(f, text);
   await t.pump();

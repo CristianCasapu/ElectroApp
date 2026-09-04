@@ -22,6 +22,9 @@ Disponibil acum:
 - **Profil firmă** — date firmă, atestat ANRE, electrician semnatar (grad, legitimație).
 - Temă luminoasă / întunecată.
 - **Actualizare din aplicație** din GitHub Releases (verificare la pornire + Setări).
+- **Jurnal de depanare** — fiecare operație și fiecare crash se înregistrează pe telefon,
+  cu niveluri configurabile; „Trimite logurile" atașează fișierul cu antet de diagnostic
+  la un raport de problemă.
 - **Soluția tehnică (E1)** — estimarea sistemului din consum și amplasament: kWp, module,
   string-uri verificate (IEC 62548), invertor, stocare, producție pe județ, autoconsum,
   economie, regim prosumator; necesar de materiale și manoperă cu prețuri orientative;
@@ -68,4 +71,4 @@ Build-ul de release cere `android/key.properties` cu keystore-ul propriu (nu est
 Cod sursă publicat pentru transparență. Toate drepturile rezervate — Cristian Casapu.
 
 ---
-v0.1.3
+v0.1.4

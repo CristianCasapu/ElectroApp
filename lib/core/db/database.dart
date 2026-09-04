@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
 import 'package:uuid/uuid.dart';
 
+import '../services/log_service.dart';
 import 'tables.dart';
 
 part 'database.g.dart';
@@ -29,8 +30,12 @@ class AppDatabase extends _$AppDatabase {
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
-    onCreate: (m) => m.createAll(),
+    onCreate: (m) async {
+      log.info('db', 'Bază de date nouă, schema v$schemaVersion');
+      await m.createAll();
+    },
     onUpgrade: (m, from, to) async {
+      log.info('db', 'Migrare bază de date', 'v$from → v$to');
       if (from < 2) {
         // v0.1.3: furnizor + POD pe client și pe locul de consum, lista de
         // furnizori. Coloane cu valoare implicită → ALTER TABLE fără pierderi.
@@ -47,15 +52,20 @@ class AppDatabase extends _$AppDatabase {
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');
-      await _seedFurnizori();
+      final noi = await _seedFurnizori();
+      log.debug(
+        'db',
+        'Bază de date deschisă',
+        'schema v${details.versionNow} · furnizori adăugați: $noi',
+      );
     },
   );
 
   /// Lista predefinită intră o singură dată; rândurile existente (inclusiv
   /// cele redenumite sau șterse de utilizator) nu se ating.
-  Future<void> _seedFurnizori() async {
+  Future<int> _seedFurnizori() async {
     final existente = await select(furnizori).get();
-    if (existente.isNotEmpty) return;
+    if (existente.isNotEmpty) return 0;
     const uuid = Uuid();
     final acum = DateTime.now();
     await batch((b) {
@@ -72,6 +82,7 @@ class AppDatabase extends _$AppDatabase {
         );
       }
     });
+    return furnizoriPredefiniti.length;
   }
 
   static QueryExecutor _deschide() =>

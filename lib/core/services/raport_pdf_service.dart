@@ -14,6 +14,7 @@ import '../models/enums.dart';
 import '../models/profil_firma.dart';
 import '../models/solutie.dart';
 import '../utils/format.dart';
+import 'log_service.dart';
 
 /// Documentele PDF emise dintr-o soluție tehnică (E1/E3): fișa sistemului
 /// fotovoltaic și ofertele (materiale, manoperă, completă). Fonturi Roboto
@@ -685,6 +686,7 @@ class RaportPdfService {
     final f = File('${dir.path}${Platform.pathSeparator}$nume');
     await f.writeAsBytes(bytes, flush: true);
     final hash = sha256.convert(bytes).toString();
+    log.info('pdf', '${tip.eticheta} salvat', '$nume · ${bytes.length} octeți');
     return (cale: f.path, sha256: hash, marime: bytes.length);
   }
 

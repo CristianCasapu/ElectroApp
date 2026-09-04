@@ -6,8 +6,10 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../app/app_colors.dart';
 import '../../app/providers.dart';
 import '../../core/models/profil_firma.dart';
+import '../../core/services/log_service.dart';
 import '../../core/services/update_service.dart';
 import '../../widgets/calc_widgets.dart';
+import 'jurnal_screen.dart';
 import 'update_dialog.dart';
 
 class SetariScreen extends ConsumerWidget {
@@ -55,6 +57,26 @@ class SetariScreen extends ConsumerWidget {
                 onChanged: (m) =>
                     ref.read(themeModeProvider.notifier).seteaza(m),
               ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Card(
+            child: ListTile(
+              leading: Icon(
+                Icons.bug_report_outlined,
+                color: context.accentOrange,
+              ),
+              title: const Text('Depanare'),
+              subtitle: Text(
+                log.activ
+                    ? 'Jurnal pornit · nivel ${log.nivel.eticheta} — vezi și trimite logurile'
+                    : 'Jurnal oprit — pornește-l ca să poți trimite loguri',
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.of(
+                context,
+                rootNavigator: true,
+              ).push(MaterialPageRoute(builder: (_) => const JurnalScreen())),
             ),
           ),
           const SizedBox(height: 12),

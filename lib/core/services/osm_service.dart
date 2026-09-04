@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
+import 'log_service.dart';
+
 /// Adresă poștală rezultată din geocodare inversă (OpenStreetMap Nominatim).
 class AdresaOsm {
   final String strada; // „Strada Teiului 5" (stradă + număr, dacă există)
@@ -76,9 +78,19 @@ class OsmService {
       final resp = await _client
           .get(uri, headers: const {'User-Agent': _ua})
           .timeout(const Duration(seconds: 10));
-      if (resp.statusCode != 200) return null;
-      return parseReverse(resp.body, lat: lat, lon: lon);
-    } on Object {
+      if (resp.statusCode != 200) {
+        log.warn('osm', 'Geocodare inversă eșuată', 'HTTP ${resp.statusCode}');
+        return null;
+      }
+      final a = parseReverse(resp.body, lat: lat, lon: lon);
+      log.info(
+        'osm',
+        'Adresă din coordonate',
+        a == null ? 'fără rezultat' : '${a.scurta} (${a.judet})',
+      );
+      return a;
+    } on Object catch (e, s) {
+      log.error('osm', 'Geocodare inversă eșuată', e, s);
       return null;
     }
   }
@@ -140,6 +152,7 @@ class OsmService {
     try {
       if (!await Geolocator.isLocationServiceEnabled()) {
         motivEsec = 'Locația este oprită pe telefon.';
+        log.warn('osm', 'Serviciul de locație e oprit');
         return null;
       }
       var perm = await Geolocator.checkPermission();
@@ -149,6 +162,7 @@ class OsmService {
       if (perm == LocationPermission.denied ||
           perm == LocationPermission.deniedForever) {
         motivEsec = 'Permisiunea de locație a fost refuzată.';
+        log.warn('osm', 'Permisiune de locație refuzată', '$perm');
         return null;
       }
       Position? p;
@@ -164,11 +178,18 @@ class OsmService {
       }
       if (p == null) {
         motivEsec = 'Poziția nu a putut fi determinată.';
+        log.warn('osm', 'Poziție indisponibilă');
         return null;
       }
+      log.info(
+        'osm',
+        'Poziție obținută',
+        '${p.latitude.toStringAsFixed(5)}, ${p.longitude.toStringAsFixed(5)} · ±${p.accuracy.toStringAsFixed(0)} m',
+      );
       return (lat: p.latitude, lon: p.longitude);
-    } on Object catch (e) {
+    } on Object catch (e, s) {
       motivEsec = 'Eroare de locație: $e';
+      log.error('osm', 'Locație eșuată', e, s);
       return null;
     }
   }

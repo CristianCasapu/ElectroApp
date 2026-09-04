@@ -3,6 +3,7 @@ import 'dart:math';
 import 'echipamente.dart';
 import 'pv_randament.dart';
 import 'pv_string.dart';
+import '../services/log_service.dart';
 import 'verdict.dart';
 
 /// Regulile de racordare care limitează dimensionarea (docs/CERCETARE.md §3.1):
@@ -184,6 +185,13 @@ class EstimatorPV {
   static const m2PerKwpAcoperis = 5.0;
 
   static EstimareSistem estimeaza(IntrariEstimare i) {
+    log.debug(
+      'estimare',
+      'Calcul sistem',
+      'consum ${i.consumAnualKwh.toStringAsFixed(0)} kWh · ${i.faze} faze · '
+          '${i.judet} · azimut ${i.azimutGrade.toStringAsFixed(0)}° · '
+          'înclinare ${i.inclinareGrade.toStringAsFixed(0)}° · stocare ${i.stocare.cod}',
+    );
     final limitari = <String>[];
     final r = i.reguli;
     final specific =
@@ -354,6 +362,16 @@ class EstimatorPV {
       );
     }
 
+    log.info(
+      'estimare',
+      'Sistem estimat',
+      '${config.kWp.toStringAsFixed(2)} kWp (${config.nrModule} module, '
+          '${config.nrStringuri}×${config.ns}) · ${invertor.denumire} · '
+          '${nrBaterii > 0 ? '$nrBaterii baterii · ' : ''}'
+          '${productie.toStringAsFixed(0)} kWh/an · '
+          '${verdicte.where((v) => v.nivel == NivelVerdict.neconform).length} neconformități'
+          '${limitari.isEmpty ? '' : ' · ${limitari.length} limitări'}',
+    );
     return EstimareSistem(
       intrari: i,
       config: config,

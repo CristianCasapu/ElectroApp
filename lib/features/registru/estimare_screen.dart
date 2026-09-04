@@ -11,6 +11,7 @@ import '../../core/data/localitati_romania.dart';
 import '../../core/db/repositories.dart';
 import '../../core/models/enums.dart';
 import '../../core/models/solutie.dart';
+import '../../core/services/log_service.dart';
 import '../../core/utils/format.dart';
 import '../../widgets/calc_widgets.dart';
 import '../../widgets/common_widgets.dart';
@@ -167,7 +168,10 @@ class _EstimareScreenState extends ConsumerState<EstimareScreen> {
   );
 
   void _calculeaza() {
-    if (!_form.currentState!.validate()) return;
+    if (!_form.currentState!.validate()) {
+      log.warn('estimare', 'Formular invalid la calcul');
+      return;
+    }
     final i = _intrari();
     final e = EstimatorPV.estimeaza(i.laEstimare());
     final n = NecesarMateriale.din(
