@@ -1,4 +1,6 @@
-# ElectroApp ☀️⚡
+<p align="center"><img src="assets/logo/logo_512.png" width="160" alt="ElectroApp"></p>
+
+# ElectroApp
 
 Aplicație Android pentru electricieni care proiectează și montează sisteme fotovoltaice
 (monofazat, trifazat, cu stocare, injecție în rețea JT / MT). Ține un **registru de lucrări**
@@ -19,6 +21,7 @@ Disponibil acum:
 - **Clienți** — persoane fizice/juridice cu date de contact, juridice și furnizor de energie.
 - **Profil firmă** — date firmă, atestat ANRE, electrician semnatar (grad, legitimație).
 - Temă luminoasă / întunecată.
+- **Actualizare din aplicație** din GitHub Releases (verificare la pornire + Setări).
 
 Urmează (vezi [docs/CERCETARE.md](docs/CERCETARE.md) §4.4):
 
@@ -59,4 +62,4 @@ Build-ul de release cere `android/key.properties` cu keystore-ul propriu (nu est
 Cod sursă publicat pentru transparență. Toate drepturile rezervate — Cristian Casapu.
 
 ---
-v0.1.0
+v0.1.2

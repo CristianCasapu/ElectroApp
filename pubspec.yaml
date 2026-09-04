@@ -2,7 +2,7 @@ name: electroapp
 description: "ElectroApp — fișe de lucrare, măsurători și dimensionări pentru sisteme fotovoltaice."
 publish_to: 'none'
 # MAJOR.MINOR.PATCH+BUILD — tag-ul GitHub este vMAJOR.MINOR.BUILD (vezi CLAUDE.md).
-version: 0.1.0+1
+version: 0.1.0+2
 
 environment:
   sdk: ^3.12.0
@@ -30,12 +30,26 @@ dependencies:
   url_launcher: ^6.3.1
   share_plus: ^13.2.1
 
+  # Actualizare din aplicație: instalarea APK-ului descărcat din GitHub Releases
+  android_intent_plus: ^6.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
   drift_dev: ^2.34.0
   build_runner: ^2.4.0
+  flutter_launcher_icons: ^0.14.0
 
 flutter:
   uses-material-design: true
+
+# Iconițele se regenerează cu: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: assets/logo/logo_1024.png
+  adaptive_icon_background: assets/logo/background.png
+  adaptive_icon_foreground: assets/logo/foreground.png
+  adaptive_icon_monochrome: assets/logo/foreground.png
+  min_sdk_android: 24

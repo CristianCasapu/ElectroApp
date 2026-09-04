@@ -29,10 +29,7 @@ class FisaLucrare {
   String get amplasament {
     final lc = locConsum;
     if (lc == null) return '';
-    return [
-      lc.localitate,
-      lc.judet,
-    ].where((s) => s.isNotEmpty).join(', ');
+    return [lc.localitate, lc.judet].where((s) => s.isNotEmpty).join(', ');
   }
 }
 
@@ -40,10 +37,11 @@ class ClientiRepository {
   ClientiRepository(this.db);
   final AppDatabase db;
 
-  Stream<List<ClientiData>> watchToti() => (db.select(db.clienti)
-        ..where((c) => c.deletedAt.isNull())
-        ..orderBy([(c) => OrderingTerm.asc(c.denumire)]))
-      .watch();
+  Stream<List<ClientiData>> watchToti() =>
+      (db.select(db.clienti)
+            ..where((c) => c.deletedAt.isNull())
+            ..orderBy([(c) => OrderingTerm.asc(c.denumire)]))
+          .watch();
 
   Future<ClientiData?> gaseste(String id) =>
       (db.select(db.clienti)..where((c) => c.id.equals(id))).getSingleOrNull();
@@ -51,13 +49,15 @@ class ClientiRepository {
   Future<String> creeaza(ClientiCompanion date) async {
     final acum = DateTime.now();
     final id = _uuid.v4();
-    await db.into(db.clienti).insert(
-      date.copyWith(
-        id: Value(id),
-        createdAt: Value(acum),
-        updatedAt: Value(acum),
-      ),
-    );
+    await db
+        .into(db.clienti)
+        .insert(
+          date.copyWith(
+            id: Value(id),
+            createdAt: Value(acum),
+            updatedAt: Value(acum),
+          ),
+        );
     return id;
   }
 
@@ -73,8 +73,9 @@ class ClientiRepository {
     final numar = db.lucrari.id.count();
     final q = db.selectOnly(db.lucrari)
       ..addColumns([numar])
-      ..where(db.lucrari.clientId.equals(clientId) &
-          db.lucrari.deletedAt.isNull());
+      ..where(
+        db.lucrari.clientId.equals(clientId) & db.lucrari.deletedAt.isNull(),
+      );
     return (await q.getSingle()).read(numar) ?? 0;
   }
 
@@ -94,10 +95,7 @@ class LucrariRepository {
 
   JoinedSelectStatement<HasResultSet, dynamic> _interogare() =>
       db.select(db.lucrari).join([
-        leftOuterJoin(
-          db.clienti,
-          db.clienti.id.equalsExp(db.lucrari.clientId),
-        ),
+        leftOuterJoin(db.clienti, db.clienti.id.equalsExp(db.lucrari.clientId)),
         leftOuterJoin(
           db.locuriConsum,
           db.locuriConsum.lucrareId.equalsExp(db.lucrari.id),
@@ -135,9 +133,9 @@ class LucrariRepository {
   Future<String> urmatorulNumar([DateTime? data]) async {
     final an = (data ?? DateTime.now()).year;
     final prefix = 'FL-$an-';
-    final rows = await (db.select(db.lucrari)
-          ..where((l) => l.nrInregistrare.like('$prefix%')))
-        .get();
+    final rows = await (db.select(
+      db.lucrari,
+    )..where((l) => l.nrInregistrare.like('$prefix%'))).get();
     var max = 0;
     for (final r in rows) {
       final n = int.tryParse(r.nrInregistrare.substring(prefix.length)) ?? 0;
@@ -154,33 +152,39 @@ class LucrariRepository {
       final acum = DateTime.now();
       final id = _uuid.v4();
       final nr = await urmatorulNumar(acum);
-      await db.into(db.lucrari).insert(
-        lucrare.copyWith(
-          id: Value(id),
-          nrInregistrare: Value(nr),
-          stare: Value(StareLucrare.lead.cod),
-          deschisaLa: Value(acum),
-          createdAt: Value(acum),
-          updatedAt: Value(acum),
-        ),
-      );
-      await db.into(db.locuriConsum).insert(
-        locConsum.copyWith(
-          id: Value(_uuid.v4()),
-          lucrareId: Value(id),
-          createdAt: Value(acum),
-          updatedAt: Value(acum),
-        ),
-      );
-      await db.into(db.lucrariStari).insert(
-        LucrariStariCompanion.insert(
-          id: _uuid.v4(),
-          lucrareId: id,
-          stareIn: StareLucrare.lead.cod,
-          la: acum,
-          observatie: const Value('Fișă deschisă'),
-        ),
-      );
+      await db
+          .into(db.lucrari)
+          .insert(
+            lucrare.copyWith(
+              id: Value(id),
+              nrInregistrare: Value(nr),
+              stare: Value(StareLucrare.lead.cod),
+              deschisaLa: Value(acum),
+              createdAt: Value(acum),
+              updatedAt: Value(acum),
+            ),
+          );
+      await db
+          .into(db.locuriConsum)
+          .insert(
+            locConsum.copyWith(
+              id: Value(_uuid.v4()),
+              lucrareId: Value(id),
+              createdAt: Value(acum),
+              updatedAt: Value(acum),
+            ),
+          );
+      await db
+          .into(db.lucrariStari)
+          .insert(
+            LucrariStariCompanion.insert(
+              id: _uuid.v4(),
+              lucrareId: id,
+              stareIn: StareLucrare.lead.cod,
+              la: acum,
+              observatie: const Value('Fișă deschisă'),
+            ),
+          );
       return id;
     });
   }
@@ -193,13 +197,9 @@ class LucrariRepository {
     return db.transaction(() async {
       final acum = DateTime.now();
       await (db.update(db.lucrari)..where((l) => l.id.equals(id))).write(
-        lucrare.copyWith(
-          updatedAt: Value(acum),
-          version: Value.absent(),
-        ),
+        lucrare.copyWith(updatedAt: Value(acum), version: Value.absent()),
       );
-      await (db.update(db.locuriConsum)
-            ..where((l) => l.lucrareId.equals(id)))
+      await (db.update(db.locuriConsum)..where((l) => l.lucrareId.equals(id)))
           .write(locConsum.copyWith(updatedAt: Value(acum)));
     });
   }
@@ -213,30 +213,29 @@ class LucrariRepository {
     String deCatre = '',
   }) {
     return db.transaction(() async {
-      final curenta = await (db.select(db.lucrari)
-            ..where((l) => l.id.equals(id)))
-          .getSingleOrNull();
+      final curenta = await (db.select(
+        db.lucrari,
+      )..where((l) => l.id.equals(id))).getSingleOrNull();
       if (curenta == null) return false;
       final stareCurenta = StareLucrare.dinCod(curenta.stare);
       if (!stareCurenta.urmatoare.contains(stareNoua)) return false;
       final acum = DateTime.now();
       await (db.update(db.lucrari)..where((l) => l.id.equals(id))).write(
-        LucrariCompanion(
-          stare: Value(stareNoua.cod),
-          updatedAt: Value(acum),
-        ),
+        LucrariCompanion(stare: Value(stareNoua.cod), updatedAt: Value(acum)),
       );
-      await db.into(db.lucrariStari).insert(
-        LucrariStariCompanion.insert(
-          id: _uuid.v4(),
-          lucrareId: id,
-          stareDin: Value(stareCurenta.cod),
-          stareIn: stareNoua.cod,
-          la: acum,
-          deCatre: Value(deCatre),
-          observatie: Value(observatie),
-        ),
-      );
+      await db
+          .into(db.lucrariStari)
+          .insert(
+            LucrariStariCompanion.insert(
+              id: _uuid.v4(),
+              lucrareId: id,
+              stareDin: Value(stareCurenta.cod),
+              stareIn: stareNoua.cod,
+              la: acum,
+              deCatre: Value(deCatre),
+              observatie: Value(observatie),
+            ),
+          );
       return true;
     });
   }
@@ -261,9 +260,10 @@ class SetariRepository {
   Stream<ProfilFirma> watchProfil() => db
       .select(db.setari)
       .watch()
-      .map((rows) => ProfilFirma.fromMap({
-            for (final r in rows) r.cheie: r.valoare,
-          }));
+      .map(
+        (rows) =>
+            ProfilFirma.fromMap({for (final r in rows) r.cheie: r.valoare}),
+      );
 
   Future<void> salveazaProfil(ProfilFirma p) => db.batch((b) {
     for (final e in p.toMap().entries) {

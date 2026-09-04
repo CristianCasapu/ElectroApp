@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.2] — 2026-09-04
+
+### Added
+- Actualizare din aplicație: verificare silențioasă la pornire și „Caută actualizări" în
+  Setări; descărcare din GitHub Releases cu progres și instalare directă (FileProvider).
+- Logo și iconiță adaptivă Android (panou fotovoltaic, invertor, fișă cu bife, soare),
+  generate din `scripts/logo.py`; variantă SVG în `assets/logo/logo.svg`.
+
 ## [v0.1.1] — 2026-09-04
 
 ### Added

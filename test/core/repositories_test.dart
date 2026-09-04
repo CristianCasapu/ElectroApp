@@ -20,7 +20,10 @@ void main() {
   tearDown(() => db.close());
 
   Future<String> clientNou([String nume = 'Ion Popescu']) => clienti.creeaza(
-    ClientiCompanion(tip: Value(TipClient.persoanaFizica.cod), denumire: Value(nume)),
+    ClientiCompanion(
+      tip: Value(TipClient.persoanaFizica.cod),
+      denumire: Value(nume),
+    ),
   );
 
   Future<String> fisaNoua(String clientId) => lucrari.creeaza(
@@ -93,14 +96,17 @@ void main() {
       expect(istoric.first.deCatre, 'Ion');
     });
 
-    test('ștergerea logică scoate fișa din registru, dar păstrează numărul', () async {
-      final c = await clientNou();
-      final an = DateTime.now().year;
-      final id = await fisaNoua(c);
-      await lucrari.sterge(id);
-      expect(await lucrari.watchRegistru().first, isEmpty);
-      expect(await lucrari.urmatorulNumar(), 'FL-$an-0002');
-    });
+    test(
+      'ștergerea logică scoate fișa din registru, dar păstrează numărul',
+      () async {
+        final c = await clientNou();
+        final an = DateTime.now().year;
+        final id = await fisaNoua(c);
+        await lucrari.sterge(id);
+        expect(await lucrari.watchRegistru().first, isEmpty);
+        expect(await lucrari.urmatorulNumar(), 'FL-$an-0002');
+      },
+    );
 
     test('actualizarea modifică fișa și locul de consum împreună', () async {
       final c = await clientNou();

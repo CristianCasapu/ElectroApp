@@ -37,9 +37,8 @@ final appRouter = GoRouter(
                     GoRoute(
                       path: 'editare',
                       parentNavigatorKey: _rootKey,
-                      builder: (context, state) => LucrareFormScreen(
-                        id: state.pathParameters['id'],
-                      ),
+                      builder: (context, state) =>
+                          LucrareFormScreen(id: state.pathParameters['id']),
                     ),
                   ],
                 ),

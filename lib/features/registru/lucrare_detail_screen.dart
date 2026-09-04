@@ -18,9 +18,8 @@ class LucrareDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final fisa = ref.watch(fisaProvider(id));
     return fisa.when(
-      loading: () => const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      ),
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (e, _) => Scaffold(
         appBar: AppBar(),
         body: Center(child: Text('Eroare: $e')),
@@ -217,11 +216,8 @@ class _Continut extends ConsumerWidget {
               istoric.when(
                 loading: () => const LinearProgressIndicator(),
                 error: (e, _) => Text('Eroare: $e'),
-                data: (lista) => Column(
-                  children: [
-                    for (final s in lista) _IstoricRand(s),
-                  ],
-                ),
+                data: (lista) =>
+                    Column(children: [for (final s in lista) _IstoricRand(s)]),
               ),
             ],
           ),
@@ -259,12 +255,14 @@ class _Continut extends ConsumerWidget {
     );
     if (rezultat == null) return;
     final profil = ref.read(profilFirmaProvider).value;
-    final ok = await ref.read(lucrariRepositoryProvider).schimbaStarea(
-      id: fisa.lucrare.id,
-      stareNoua: rezultat.$1,
-      observatie: rezultat.$2,
-      deCatre: profil?.electricianNume ?? '',
-    );
+    final ok = await ref
+        .read(lucrariRepositoryProvider)
+        .schimbaStarea(
+          id: fisa.lucrare.id,
+          stareNoua: rezultat.$1,
+          observatie: rezultat.$2,
+          deCatre: profil?.electricianNume ?? '',
+        );
     if (!ok && context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Tranziție nepermisă din starea curentă')),

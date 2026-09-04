@@ -106,7 +106,9 @@ class _ClientPickerState extends ConsumerState<_ClientPicker> {
                     return ListTile(
                       leading: CircleAvatar(
                         child: Text(
-                          c.denumire.isEmpty ? '?' : c.denumire[0].toUpperCase(),
+                          c.denumire.isEmpty
+                              ? '?'
+                              : c.denumire[0].toUpperCase(),
                         ),
                       ),
                       title: Text(c.denumire),

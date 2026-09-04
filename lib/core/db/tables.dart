@@ -23,11 +23,9 @@ class Clienti extends Table with EntitateComuna {
       text().withDefault(const Constant(''))();
   TextColumn get cui => text().withDefault(const Constant(''))();
   TextColumn get regCom => text().withDefault(const Constant(''))();
-  TextColumn get reprezentantLegal =>
-      text().withDefault(const Constant(''))();
+  TextColumn get reprezentantLegal => text().withDefault(const Constant(''))();
   TextColumn get furnizorEnergie => text().withDefault(const Constant(''))();
-  TextColumn get codClientFurnizor =>
-      text().withDefault(const Constant(''))();
+  TextColumn get codClientFurnizor => text().withDefault(const Constant(''))();
   TextColumn get observatii => text().withDefault(const Constant(''))();
 }
 

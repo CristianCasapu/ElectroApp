@@ -7,6 +7,7 @@ import '../../app/providers.dart';
 import '../../core/db/repositories.dart';
 import '../../core/models/enums.dart';
 import '../../core/utils/format.dart';
+import '../setari/update_dialog.dart';
 import '../../widgets/common_widgets.dart';
 
 enum _Filtru { active, toate, arhivate }
@@ -22,6 +23,25 @@ class _RegistruScreenState extends ConsumerState<RegistruScreen> {
   final _cautare = TextEditingController();
   _Filtru _filtru = _Filtru.active;
   StareLucrare? _stare;
+
+  static bool _verificatInSesiune = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (!_verificatInSesiune) {
+      _verificatInSesiune = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          verificaActualizari(
+            context,
+            service: ref.read(updateServiceProvider),
+            silentios: true,
+          );
+        }
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -202,7 +222,11 @@ class _FisaCard extends StatelessWidget {
                 const SizedBox(height: 6),
                 Row(
                   children: [
-                    Icon(Icons.place_outlined, size: 14, color: context.hintColor),
+                    Icon(
+                      Icons.place_outlined,
+                      size: 14,
+                      color: context.hintColor,
+                    ),
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
@@ -210,7 +234,10 @@ class _FisaCard extends StatelessWidget {
                           if (fisa.amplasament.isNotEmpty) fisa.amplasament,
                           ...detalii,
                         ].join(' · '),
-                        style: TextStyle(fontSize: 12, color: context.hintColor),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: context.hintColor,
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),

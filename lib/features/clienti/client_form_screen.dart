@@ -191,9 +191,8 @@ class _ClientFormScreenState extends ConsumerState<ClientFormScreen> {
                     decoration: InputDecoration(
                       labelText: _estePj ? 'Denumire' : 'Nume și prenume',
                     ),
-                    validator: (v) => (v == null || v.trim().isEmpty)
-                        ? 'Obligatoriu'
-                        : null,
+                    validator: (v) =>
+                        (v == null || v.trim().isEmpty) ? 'Obligatoriu' : null,
                   ),
                   const SizedBox(height: 12),
                   Row(
@@ -202,7 +201,9 @@ class _ClientFormScreenState extends ConsumerState<ClientFormScreen> {
                         child: TextFormField(
                           controller: _telefon,
                           keyboardType: TextInputType.phone,
-                          decoration: const InputDecoration(labelText: 'Telefon'),
+                          decoration: const InputDecoration(
+                            labelText: 'Telefon',
+                          ),
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -210,7 +211,9 @@ class _ClientFormScreenState extends ConsumerState<ClientFormScreen> {
                         child: TextFormField(
                           controller: _email,
                           keyboardType: TextInputType.emailAddress,
-                          decoration: const InputDecoration(labelText: 'E-mail'),
+                          decoration: const InputDecoration(
+                            labelText: 'E-mail',
+                          ),
                         ),
                       ),
                     ],

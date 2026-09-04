@@ -137,9 +137,9 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
   Future<void> _salveazaFisa() async {
     if (!_form.currentState!.validate()) return;
     if (_client == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Alege beneficiarul fișei')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Alege beneficiarul fișei')));
       return;
     }
     setState(() => _salveaza = true);
@@ -201,7 +201,10 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
               child: ListView(
                 padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
                 children: [
-                  const CalcSectionTitle('Identificare', icon: Icons.badge_outlined),
+                  const CalcSectionTitle(
+                    'Identificare',
+                    icon: Icons.badge_outlined,
+                  ),
                   _ClientTile(client: _client, onTap: _alegeClient),
                   const SizedBox(height: 12),
                   EnumDropdown<RolClient>(
@@ -361,7 +364,9 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
                   const SizedBox(height: 12),
                   TextFormField(
                     controller: _contorSerie,
-                    decoration: const InputDecoration(labelText: 'Serie contor'),
+                    decoration: const InputDecoration(
+                      labelText: 'Serie contor',
+                    ),
                   ),
                   SwitchListTile(
                     contentPadding: EdgeInsets.zero,
@@ -389,7 +394,9 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
                   FilledButton.icon(
                     onPressed: _salveaza ? null : _salveazaFisa,
                     icon: const Icon(Icons.save_outlined),
-                    label: Text(_editare ? 'Salvează modificările' : 'Deschide fișa'),
+                    label: Text(
+                      _editare ? 'Salvează modificările' : 'Deschide fișa',
+                    ),
                   ),
                 ],
               ),
@@ -459,7 +466,9 @@ class _LocalitateField extends StatelessWidget {
           focusNode: focus,
           decoration: InputDecoration(
             labelText: 'Localitate',
-            helperText: judet.isEmpty ? 'Alege din listă pentru județ' : 'Județ: $judet',
+            helperText: judet.isEmpty
+                ? 'Alege din listă pentru județ'
+                : 'Județ: $judet',
           ),
         );
       },

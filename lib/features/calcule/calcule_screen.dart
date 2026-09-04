@@ -96,9 +96,16 @@ class CalculeScreen extends StatelessWidget {
               enabled: false,
               leading: Icon(c.$3, color: context.hintColor),
               title: Text(c.$1),
-              subtitle: Text('${c.$2}\n${c.$4}', style: const TextStyle(fontSize: 12)),
+              subtitle: Text(
+                '${c.$2}\n${c.$4}',
+                style: const TextStyle(fontSize: 12),
+              ),
               isThreeLine: true,
-              trailing: Icon(Icons.lock_outline, size: 18, color: context.hintColor),
+              trailing: Icon(
+                Icons.lock_outline,
+                size: 18,
+                color: context.hintColor,
+              ),
             ),
           );
         },

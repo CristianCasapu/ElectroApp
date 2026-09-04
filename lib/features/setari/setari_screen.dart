@@ -7,6 +7,7 @@ import '../../app/app_colors.dart';
 import '../../app/providers.dart';
 import '../../core/models/profil_firma.dart';
 import '../../widgets/calc_widgets.dart';
+import 'update_dialog.dart';
 
 class SetariScreen extends ConsumerWidget {
   const SetariScreen({super.key});
@@ -27,8 +28,8 @@ class SetariScreen extends ConsumerWidget {
               subtitle: Text(
                 profil.value?.esteCompletat == true
                     ? profil.value!.denumire.isNotEmpty
-                        ? profil.value!.denumire
-                        : profil.value!.electricianNume
+                          ? profil.value!.denumire
+                          : profil.value!.electricianNume
                     : 'Necompletat — apare pe documentele emise',
               ),
               trailing: const Icon(Icons.chevron_right),
@@ -62,14 +63,42 @@ class SetariScreen extends ConsumerWidget {
   }
 }
 
-class _DespreCard extends StatelessWidget {
+class _DespreCard extends ConsumerStatefulWidget {
   const _DespreCard();
+
+  @override
+  ConsumerState<_DespreCard> createState() => _DespreCardState();
+}
+
+class _DespreCardState extends ConsumerState<_DespreCard> {
+  bool _verifica = false;
+
+  Future<void> _cautaActualizari() async {
+    setState(() => _verifica = true);
+    await verificaActualizari(
+      context,
+      service: ref.read(updateServiceProvider),
+    );
+    if (mounted) setState(() => _verifica = false);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Column(
         children: [
+          ListTile(
+            leading: _verifica
+                ? const SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : Icon(Icons.system_update, color: context.accentGreen),
+            title: const Text('Caută actualizări'),
+            subtitle: const Text('Instalare directă din GitHub Releases'),
+            onTap: _verifica ? null : _cautaActualizari,
+          ),
           FutureBuilder<PackageInfo>(
             future: PackageInfo.fromPlatform(),
             builder: (context, snap) {
@@ -90,7 +119,9 @@ class _DespreCard extends StatelessWidget {
             title: const Text('Cod sursă și actualizări'),
             subtitle: const Text('github.com/CristianCasapu/ElectroApp'),
             onTap: () => launchUrl(
-              Uri.parse('https://github.com/CristianCasapu/ElectroApp/releases'),
+              Uri.parse(
+                'https://github.com/CristianCasapu/ElectroApp/releases',
+              ),
               mode: LaunchMode.externalApplication,
             ),
           ),
@@ -134,7 +165,11 @@ class _ProfilFirmaScreenState extends ConsumerState<ProfilFirmaScreen> {
   @override
   void initState() {
     super.initState();
-    for (final f in [..._campuriFirma, ..._campuriAtestat, ..._campuriElectrician]) {
+    for (final f in [
+      ..._campuriFirma,
+      ..._campuriAtestat,
+      ..._campuriElectrician,
+    ]) {
       _c[f.$1] = TextEditingController();
     }
     _incarca();

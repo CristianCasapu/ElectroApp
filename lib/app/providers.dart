@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../core/db/database.dart';
 import '../core/db/repositories.dart';
 import '../core/models/profil_firma.dart';
+import '../core/services/update_service.dart';
 
 final databaseProvider = Provider<AppDatabase>((ref) {
   final db = AppDatabase();
@@ -22,6 +23,8 @@ final setariRepositoryProvider = Provider(
   (ref) => SetariRepository(ref.watch(databaseProvider)),
 );
 
+final updateServiceProvider = Provider((ref) => UpdateService());
+
 final registruProvider = StreamProvider<List<FisaLucrare>>(
   (ref) => ref.watch(lucrariRepositoryProvider).watchRegistru(),
 );
@@ -30,9 +33,10 @@ final fisaProvider = StreamProvider.family<FisaLucrare?, String>(
   (ref, id) => ref.watch(lucrariRepositoryProvider).watchFisa(id),
 );
 
-final istoricStariProvider = StreamProvider.family<List<LucrariStariData>, String>(
-  (ref, id) => ref.watch(lucrariRepositoryProvider).watchIstoricStari(id),
-);
+final istoricStariProvider =
+    StreamProvider.family<List<LucrariStariData>, String>(
+      (ref, id) => ref.watch(lucrariRepositoryProvider).watchIstoricStari(id),
+    );
 
 final clientiProvider = StreamProvider<List<ClientiData>>(
   (ref) => ref.watch(clientiRepositoryProvider).watchToti(),

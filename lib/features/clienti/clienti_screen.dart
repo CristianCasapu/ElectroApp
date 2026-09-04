@@ -72,7 +72,8 @@ class _ClientiScreenState extends ConsumerState<ClientiScreen> {
                   return const StareGoala(
                     icon: Icons.people_outline,
                     titlu: 'Niciun client',
-                    descriere: 'Adaugă beneficiarii lucrărilor cu „Client nou".',
+                    descriere:
+                        'Adaugă beneficiarii lucrărilor cu „Client nou".',
                   );
                 }
                 if (filtrata.isEmpty) {
