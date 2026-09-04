@@ -99,3 +99,12 @@ jobs:
             3. Deschide fișierul și instalează (Android 7.0+).
           files: "build/app/outputs/flutter-apk/ElectroApp-v${{ steps.version.outputs.VERSION }}.apk"
           fail_on_unmatched_files: true
+
+      # Tag-ul mobil `latest` arată mereu spre ultimul release publicat:
+      # https://github.com/<repo>/releases/tag/latest și `git checkout latest`.
+      - name: Mută tag-ul latest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -f latest "${{ steps.version.outputs.TAG }}"
+          git push -f origin latest
