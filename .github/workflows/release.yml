@@ -1,0 +1,100 @@
+name: Release Android
+
+# Declanșat la tag vMAJOR.MINOR.BUILD (ex. v0.1.3). Construiește APK-ul semnat cu
+# keystore-ul din Secrets și publică un GitHub Release. Verificările (analyze/test)
+# rulează tot aici, înainte de build.
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.0'
+          channel: 'stable'
+          cache: true
+
+      - name: Dependențe
+        run: flutter pub get
+
+      - name: Verificare cod generat (drift)
+        run: |
+          dart run build_runner build --delete-conflicting-outputs
+          git diff --exit-code -- lib/ || (echo "Codul generat nu este la zi: rulează build_runner și comite." && exit 1)
+
+      - name: Analyze + test
+        run: |
+          flutter analyze
+          flutter test
+
+      - name: Versiune din tag
+        id: version
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          VER="${TAG#v}"
+          BUILD="${VER##*.}"
+          PUB=$(grep -E '^version:' pubspec.yaml | sed 's/version: //')
+          PUB_BUILD="${PUB##*+}"
+          if [ "$BUILD" != "$PUB_BUILD" ]; then
+            echo "Tag-ul $TAG (build $BUILD) nu corespunde cu pubspec.yaml ($PUB)."
+            exit 1
+          fi
+          echo "TAG=$TAG" >> $GITHUB_OUTPUT
+          echo "VERSION=$VER" >> $GITHUB_OUTPUT
+
+      - name: Keystore din Secrets
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/electroapp-release.jks
+          cat > android/key.properties <<EOF
+          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          storeFile=electroapp-release.jks
+          EOF
+
+      - name: Build APK release
+        run: |
+          mkdir -p symbols/android
+          flutter build apk --release --obfuscate --split-debug-info=symbols/android/
+          mv build/app/outputs/flutter-apk/app-release.apk \
+             "build/app/outputs/flutter-apk/ElectroApp-v${{ steps.version.outputs.VERSION }}.apk"
+
+      - name: Simboluri debug
+        uses: actions/upload-artifact@v4
+        with:
+          name: symbols-v${{ steps.version.outputs.VERSION }}
+          path: symbols/android/
+          retention-days: 365
+
+      - name: GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.TAG }}
+          name: "ElectroApp v${{ steps.version.outputs.VERSION }}"
+          body: |
+            ## ElectroApp v${{ steps.version.outputs.VERSION }}
+
+            Detalii în [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md).
+
+            ### Instalare
+            1. Descarcă fișierul `.apk` de mai jos.
+            2. Pe telefon: Setări → Securitate → Instalare aplicații necunoscute.
+            3. Deschide fișierul și instalează (Android 7.0+).
+          files: "build/app/outputs/flutter-apk/ElectroApp-v${{ steps.version.outputs.VERSION }}.apk"
+          fail_on_unmatched_files: true
