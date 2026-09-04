@@ -253,8 +253,9 @@ class _EstimareScreenState extends ConsumerState<EstimareScreen> {
                     suffix: 'kWh',
                     onChanged: (v) {
                       final n = parseNumar(v);
-                      if (n != null)
+                      if (n != null) {
                         _consumAnual.text = formatNumar(n * 12, zecimale: 0);
+                      }
                     },
                   ),
                 ),
@@ -267,8 +268,9 @@ class _EstimareScreenState extends ConsumerState<EstimareScreen> {
                     validator: _obligatoriuNumar,
                     onChanged: (v) {
                       final n = parseNumar(v);
-                      if (n != null)
+                      if (n != null) {
                         _consumLunar.text = formatNumar(n / 12, zecimale: 0);
+                      }
                     },
                   ),
                 ),

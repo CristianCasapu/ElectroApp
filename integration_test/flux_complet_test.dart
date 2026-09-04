@@ -23,24 +23,22 @@ Future<void> _settle(WidgetTester t) async {
   await t.pumpAndSettle(const Duration(milliseconds: 100));
 }
 
-/// Așteaptă widget-ul (stream-urile drift emit prin I/O real), apoi, dacă tot
-/// nu există, derulează lista vizibilă — listele sunt leneșe și un widget de
-/// sub marginea ecranului nu e construit încă.
+/// Așteaptă widget-ul (stream-urile drift emit prin I/O real), apoi derulează
+/// lista — listele sunt leneșe, iar un câmp de sub marginea ecranului nu e
+/// construit încă. `scrollUntilVisible` nu e fiabil aici (mai multe Scrollable
+/// pe ecran), deci derulăm explicit lista principală.
 Future<void> _vizibil(WidgetTester t, Finder f) async {
   for (var i = 0; i < 20 && f.evaluate().isEmpty; i++) {
     await t.pump(const Duration(milliseconds: 100));
   }
-  if (f.evaluate().isEmpty && find.byType(Scrollable).evaluate().isNotEmpty) {
-    try {
-      await t.scrollUntilVisible(
-        f,
-        200,
-        scrollable: find.byType(Scrollable).last,
-      );
-    } on Object {
-      // rămâne verificarea de mai jos, cu mesajul ei
+  final lista = find.byType(ListView);
+  if (lista.evaluate().isNotEmpty) {
+    for (final directie in [-280.0, 280.0]) {
+      for (var i = 0; i < 10 && f.evaluate().isEmpty; i++) {
+        await t.drag(lista.first, Offset(0, directie));
+        await t.pump(const Duration(milliseconds: 120));
+      }
     }
-    await t.pump();
   }
   if (f.evaluate().length != 1) {
     final texte = find
