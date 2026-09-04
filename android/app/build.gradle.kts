@@ -73,15 +73,12 @@ flutter {
     source = "../.."
 }
 
-// Un release fara key.properties ar produce un APK nesemnat sau semnat cu cheia
-// de debug; oprim explicit inainte de impachetare.
-tasks.matching { it.name == "assembleRelease" || it.name == "bundleRelease" }
-    .configureEach {
-        doFirst {
-            if (!keystorePropertiesFile.exists()) {
-                throw GradleException(
-                    "Lipseste android/key.properties - release-ul nu se semneaza cu cheia de debug (vezi CLAUDE.md)."
-                )
-            }
-        }
-    }
+// Un release fara key.properties ar produce un APK nesemnat; oprim la
+// configurare, inainte sa se compileze ceva, doar cand s-a cerut un task de
+// release (flutter build apk/appbundle --release => assembleRelease/bundleRelease).
+val cereRelease = gradle.startParameter.taskNames.any { it.contains("Release", ignoreCase = true) }
+if (cereRelease && !keystorePropertiesFile.exists()) {
+    throw GradleException(
+        "Lipseste android/key.properties - release-ul nu se semneaza cu cheia de debug (vezi CLAUDE.md)."
+    )
+}

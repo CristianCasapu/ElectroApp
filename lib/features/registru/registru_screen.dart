@@ -79,6 +79,8 @@ class _RegistruScreenState extends ConsumerState<RegistruScreen> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(title: const Text('Registru lucrări')),
       floatingActionButton: FloatingActionButton.extended(
+        // tab-urile stau simultan în IndexedStack: tag-uri Hero distincte
+        heroTag: 'fab-registru',
         onPressed: () => context.push('/registru/noua'),
         icon: const Icon(Icons.add),
         label: const Text('Fișă nouă'),
@@ -116,20 +118,28 @@ class _RegistruScreenState extends ConsumerState<RegistruScreen> {
                       _Filtru.arhivate => 'Arhivate',
                     }),
                     selected: _filtru == f,
-                    onSelected: (_) => setState(() => _filtru = f),
+                    onSelected: (_) => setState(() {
+                      _filtru = f;
+                      // chip-urile de stare sunt doar pentru stările active
+                      if (f == _Filtru.arhivate) _stare = null;
+                    }),
                   ),
                   const SizedBox(width: 8),
                 ],
                 const VerticalDivider(width: 16, indent: 12, endIndent: 12),
-                for (final s in StareLucrare.values.where((s) => s.esteActiva))
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: FilterChip(
-                      label: Text(s.eticheta),
-                      selected: _stare == s,
-                      onSelected: (v) => setState(() => _stare = v ? s : null),
+                if (_filtru != _Filtru.arhivate)
+                  for (final s in StareLucrare.values.where(
+                    (s) => s.esteActiva,
+                  ))
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: FilterChip(
+                        label: Text(s.eticheta),
+                        selected: _stare == s,
+                        onSelected: (v) =>
+                            setState(() => _stare = v ? s : null),
+                      ),
                     ),
-                  ),
               ],
             ),
           ),

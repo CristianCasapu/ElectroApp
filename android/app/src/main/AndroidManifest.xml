@@ -4,6 +4,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Instalarea actualizărilor descărcate din GitHub Releases -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!-- Adresa automată din poziția telefonului (OpenStreetMap Nominatim) -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:label="ElectroApp"
@@ -62,6 +65,11 @@
         </intent>
         <intent>
             <action android:name="android.intent.action.SEND"/>
+        </intent>
+        <!-- Selectorul de contacte al sistemului (fără READ_CONTACTS) -->
+        <intent>
+            <action android:name="android.intent.action.PICK"/>
+            <data android:mimeType="vnd.android.cursor.dir/contact"/>
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW"/>

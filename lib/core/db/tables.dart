@@ -26,6 +26,8 @@ class Clienti extends Table with EntitateComuna {
   TextColumn get reprezentantLegal => text().withDefault(const Constant(''))();
   TextColumn get furnizorEnergie => text().withDefault(const Constant(''))();
   TextColumn get codClientFurnizor => text().withDefault(const Constant(''))();
+  // v2: POD-ul locului de consum principal al clientului (dacă îl știe)
+  TextColumn get codPod => text().withDefault(const Constant(''))();
   TextColumn get observatii => text().withDefault(const Constant(''))();
 }
 
@@ -65,6 +67,10 @@ class LocuriConsum extends Table with EntitateComuna {
   RealColumn get lon => real().nullable()();
   TextColumn get operatorDistributie => text()(); // OperatorDistributie.cod
   TextColumn get codPod => text().withDefault(const Constant(''))();
+  // v2: furnizorul și codul de client sunt ale locului de consum, nu ale
+  // persoanei — un client poate avea mai multe locuri, cu furnizori diferiți
+  TextColumn get furnizorEnergie => text().withDefault(const Constant(''))();
+  TextColumn get codClientFurnizor => text().withDefault(const Constant(''))();
   TextColumn get nivelTensiune => text()(); // NivelTensiune.cod
   TextColumn get bransament => text()(); // TipBransament.cod
   RealColumn get putereAprobataKva => real().nullable()();
@@ -80,6 +86,71 @@ class LocuriConsum extends Table with EntitateComuna {
   TextColumn get destinatieCladire => text()(); // DestinatieCladire.cod
   IntColumn get anConstructie => integer().nullable()();
   TextColumn get observatii => text().withDefault(const Constant(''))();
+}
+
+/// Furnizorii de energie (v2): lista predefinită a marilor furnizori din
+/// România plus cei adăugați de utilizator. Valoarea specială pentru
+/// consumatorii fără racord este [furnizorOffGrid].
+class Furnizori extends Table {
+  TextColumn get id => text()();
+  TextColumn get denumire => text().unique()();
+  BoolColumn get predefinit => boolean().withDefault(const Constant(false))();
+  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get deletedAt => dateTime().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+const furnizorOffGrid = 'Off-grid (fără racord la rețea)';
+
+/// Marii furnizori de energie electrică din România (2026). Se inserează o
+/// singură dată; utilizatorul poate adăuga alții.
+const furnizoriPredefiniti = [
+  'Hidroelectrica',
+  'PPC Energie (fost Enel Energie)',
+  'PPC Energie Muntenia',
+  'Electrica Furnizare',
+  'E.ON Energie România',
+  'Engie România',
+  'Premier Energy (fost CEZ Vânzare)',
+  'Tinmar Energy',
+  'Restart Energy',
+  'Nova Power & Gas',
+  'MET România Energy',
+  'CIGA Energy',
+];
+
+/// Soluția tehnică adoptată (§6.2 F), pe revizii imutabile (R1, R2, …): datele
+/// de intrare și rezultatul estimării se păstrează ca JSON, ca documentele
+/// emise dintr-o revizie să poată fi regenerate identic mai târziu.
+class Solutii extends Table {
+  TextColumn get id => text()();
+  TextColumn get lucrareId => text().references(Lucrari, #id)();
+  IntColumn get revizie => integer()();
+  DateTimeColumn get creataLa => dateTime()();
+  TextColumn get intrariJson => text()();
+  TextColumn get rezultatJson => text()();
+  TextColumn get observatii => text().withDefault(const Constant(''))();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+/// Documentele emise (§6.2 H): imutabile, cu versiune, hash și cale locală.
+class Documente extends Table {
+  TextColumn get id => text()();
+  TextColumn get lucrareId => text().references(Lucrari, #id)();
+  TextColumn get solutieId => text().nullable()();
+  TextColumn get tip => text()(); // TipDocument.cod
+  IntColumn get versiune => integer()();
+  DateTimeColumn get emisLa => dateTime()();
+  TextColumn get cale => text()();
+  TextColumn get sha256 => text()();
+  IntColumn get marimeBytes => integer().withDefault(const Constant(0))();
+
+  @override
+  Set<Column> get primaryKey => {id};
 }
 
 /// Setări cheie-valoare (profil firmă, preferințe), ca în ElectroCalc.

@@ -11,6 +11,7 @@ import '../../core/models/enums.dart';
 import '../../core/utils/format.dart';
 import '../../widgets/calc_widgets.dart';
 import '../../widgets/common_widgets.dart';
+import '../../widgets/form_helpers.dart';
 import '../clienti/client_picker_sheet.dart';
 
 /// Creare (id == null) sau editare a unei fișe de lucrare: identificare,
@@ -26,6 +27,7 @@ class LucrareFormScreen extends ConsumerStatefulWidget {
 class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
   final _form = GlobalKey<FormState>();
   bool _incarcat = false;
+  bool _inexistenta = false;
   bool _salveaza = false;
 
   // Identificare
@@ -39,6 +41,14 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
   final _adresa = TextEditingController();
   final _localitate = TextEditingController();
   String _judet = '';
+  String _ultimaAleasa = '';
+  double? _lat;
+  double? _lon;
+  // Autocomplete-ul păstrează textul intern; când adresa vine din locație,
+  // cheia nouă îl reconstruiește cu localitatea detectată.
+  int _cheieLocalitate = 0;
+  String _furnizor = '';
+  final _codClient = TextEditingController();
   OperatorDistributie _od = OperatorDistributie.ppc;
   final _pod = TextEditingController();
   NivelTensiune _nivel = NivelTensiune.jt;
@@ -72,7 +82,14 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
         .read(lucrariRepositoryProvider)
         .watchFisa(widget.id!)
         .first;
-    if (!mounted || fisa == null) return;
+    if (!mounted) return;
+    if (fisa == null) {
+      setState(() {
+        _incarcat = true;
+        _inexistenta = true;
+      });
+      return;
+    }
     final l = fisa.lucrare;
     final lc = fisa.locConsum;
     setState(() {
@@ -84,7 +101,12 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
       if (lc != null) {
         _adresa.text = lc.adresa;
         _localitate.text = lc.localitate;
+        _ultimaAleasa = lc.localitate;
         _judet = lc.judet;
+        _lat = lc.lat;
+        _lon = lc.lon;
+        _furnizor = lc.furnizorEnergie;
+        _codClient.text = lc.codClientFurnizor;
         _od = OperatorDistributie.dinCod(lc.operatorDistributie);
         _pod.text = lc.codPod;
         _nivel = NivelTensiune.dinCod(lc.nivelTensiune);
@@ -117,6 +139,7 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
       _adresa,
       _localitate,
       _pod,
+      _codClient,
       _putereAprobata,
       _putereContractata,
       _disjunctor,
@@ -129,9 +152,29 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
     super.dispose();
   }
 
+  String? _validNumar(String? v) =>
+      (v == null || v.trim().isEmpty || parseNumar(v) != null)
+      ? null
+      : 'Număr invalid (ex. 10,5)';
+
+  String? _validIntreg(String? v) =>
+      (v == null || v.trim().isEmpty || parseIntreg(v) != null)
+      ? null
+      : 'Număr întreg';
+
   Future<void> _alegeClient() async {
     final ales = await showClientPickerSheet(context);
-    if (ales != null) setState(() => _client = ales);
+    if (ales == null) return;
+    setState(() {
+      _client = ales;
+      // datele de energie ale clientului sunt valori de pornire pentru locul
+      // de consum; ce e deja completat în fișă rămâne
+      if (_pod.text.trim().isEmpty) _pod.text = ales.codPod;
+      if (_furnizor.isEmpty) _furnizor = ales.furnizorEnergie;
+      if (_codClient.text.trim().isEmpty) {
+        _codClient.text = ales.codClientFurnizor;
+      }
+    });
   }
 
   Future<void> _salveazaFisa() async {
@@ -154,6 +197,10 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
       adresa: Value(_adresa.text.trim()),
       localitate: Value(_localitate.text.trim()),
       judet: Value(_judet),
+      lat: Value(_lat),
+      lon: Value(_lon),
+      furnizorEnergie: Value(_furnizor),
+      codClientFurnizor: Value(_codClient.text.trim()),
       operatorDistributie: Value(_od.cod),
       codPod: Value(_pod.text.trim().toUpperCase()),
       nivelTensiune: Value(_nivel.cod),
@@ -172,17 +219,28 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
     );
     final repo = ref.read(lucrariRepositoryProvider);
     String id;
-    if (_editare) {
-      id = widget.id!;
-      await repo.actualizeaza(id: id, lucrare: lucrare, locConsum: loc);
-    } else {
-      id = await repo.creeaza(lucrare: lucrare, locConsum: loc);
+    try {
+      if (_editare) {
+        id = widget.id!;
+        await repo.actualizeaza(id: id, lucrare: lucrare, locConsum: loc);
+      } else {
+        id = await repo.creeaza(lucrare: lucrare, locConsum: loc);
+      }
+    } on Object catch (e) {
+      if (mounted) {
+        setState(() => _salveaza = false);
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Salvarea a eșuat: $e')));
+      }
+      return;
     }
     if (!mounted) return;
     if (_editare) {
       context.pop();
     } else {
-      context.pop();
+      // `go` înlocuiește tot stack-ul: formularul (pe navigatorul rădăcină)
+      // dispare și se deschide fișa nouă în tab-ul Registru.
       context.go('/registru/$id');
     }
   }
@@ -196,6 +254,12 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
       ),
       body: !_incarcat
           ? const Center(child: CircularProgressIndicator())
+          : _inexistenta
+          ? const StareGoala(
+              icon: Icons.folder_off_outlined,
+              titlu: 'Fișa nu există',
+              descriere: 'A fost ștearsă sau nu a putut fi încărcată.',
+            )
           : Form(
               key: _form,
               child: ListView(
@@ -236,21 +300,67 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
                     'Amplasament',
                     icon: Icons.place_outlined,
                   ),
-                  TextFormField(
+                  AdresaField(
                     controller: _adresa,
-                    textCapitalization: TextCapitalization.sentences,
-                    decoration: const InputDecoration(
-                      labelText: 'Adresă (stradă, număr)',
-                    ),
+                    onAdresa: (a) => setState(() {
+                      _adresa.text = a.strada;
+                      if (a.localitate.isNotEmpty) {
+                        _localitate.text = a.localitate;
+                        _ultimaAleasa = a.localitate;
+                        _judet = a.judet;
+                        _cheieLocalitate++;
+                      }
+                      _lat = a.lat;
+                      _lon = a.lon;
+                    }),
                   ),
+                  if (_lat != null && _lon != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 6),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.gps_fixed,
+                            size: 14,
+                            color: context.hintColor,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            'Coordonate ${_lat!.toStringAsFixed(5)}, ${_lon!.toStringAsFixed(5)}',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: context.hintColor,
+                            ),
+                          ),
+                          const Spacer(),
+                          TextButton(
+                            onPressed: () => setState(() {
+                              _lat = null;
+                              _lon = null;
+                            }),
+                            child: const Text('Șterge'),
+                          ),
+                        ],
+                      ),
+                    ),
                   const SizedBox(height: 12),
                   _LocalitateField(
+                    key: ValueKey('localitate-$_cheieLocalitate'),
                     controller: _localitate,
                     judet: _judet,
                     onAles: (loc, judet) => setState(() {
                       _localitate.text = loc;
+                      _ultimaAleasa = loc;
                       _judet = judet;
                     }),
+                    onText: (text) {
+                      _localitate.text = text;
+                      // Județul rămâne valid doar cât timp textul e cel ales
+                      // din listă; o localitate scrisă liber nu are județ.
+                      if (_judet.isNotEmpty && text.trim() != _ultimaAleasa) {
+                        setState(() => _judet = '');
+                      }
+                    },
                   ),
                   const SizedBox(height: 12),
                   EnumDropdown<DestinatieCladire>(
@@ -267,6 +377,7 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
                     decoration: const InputDecoration(
                       labelText: 'An construcție (opțional)',
                     ),
+                    validator: _validIntreg,
                   ),
                   const SizedBox(height: 20),
                   const CalcSectionTitle(
@@ -287,6 +398,18 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
                     decoration: const InputDecoration(
                       labelText: 'Cod POD (punct de măsură)',
                       hintText: 'ex. RO001E…',
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  FurnizorField(
+                    valoare: _furnizor,
+                    onChanged: (v) => setState(() => _furnizor = v),
+                  ),
+                  const SizedBox(height: 12),
+                  TextFormField(
+                    controller: _codClient,
+                    decoration: const InputDecoration(
+                      labelText: 'Cod client la furnizor',
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -314,6 +437,7 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
                           controller: _putereAprobata,
                           label: 'Putere aprobată',
                           suffix: 'kVA',
+                          validator: _validNumar,
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -322,6 +446,7 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
                           controller: _putereContractata,
                           label: 'Putere contractată',
                           suffix: 'kW',
+                          validator: _validNumar,
                         ),
                       ),
                     ],
@@ -334,6 +459,7 @@ class _LucrareFormScreenState extends ConsumerState<LucrareFormScreen> {
                       labelText: 'Disjunctor la punctul de delimitare',
                       suffixText: 'A',
                     ),
+                    validator: _validIntreg,
                   ),
                   const SizedBox(height: 12),
                   EnumDropdown<SchemaLegarePamant>(
@@ -439,11 +565,14 @@ class _LocalitateField extends StatelessWidget {
   final TextEditingController controller;
   final String judet;
   final void Function(String localitate, String judet) onAles;
+  final ValueChanged<String> onText;
 
   const _LocalitateField({
+    super.key,
     required this.controller,
     required this.judet,
     required this.onAles,
+    required this.onText,
   });
 
   static final _sugestii = getSugestiiLocalitati();
@@ -457,13 +586,39 @@ class _LocalitateField extends StatelessWidget {
         if (q.length < 2) return const Iterable.empty();
         return _sugestii.where((s) => s.toLowerCase().contains(q)).take(12);
       },
+      // În câmp intră doar localitatea; județul se vede în lista de sugestii
+      // și în textul ajutător, nu se duplică în câmp.
+      displayStringForOption: getLocalitateaDinSuggestie,
+      optionsViewBuilder: (context, onSelected, options) => Align(
+        alignment: Alignment.topLeft,
+        child: Material(
+          elevation: 4,
+          borderRadius: BorderRadius.circular(12),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxHeight: 240, maxWidth: 360),
+            child: ListView(
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              children: [
+                for (final o in options)
+                  ListTile(
+                    dense: true,
+                    title: Text(o),
+                    onTap: () => onSelected(o),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ),
       onSelected: (s) =>
           onAles(getLocalitateaDinSuggestie(s), getJudetDinSuggestie(s) ?? ''),
       fieldViewBuilder: (context, textCtrl, focus, onSubmit) {
-        textCtrl.addListener(() => controller.text = textCtrl.text);
         return TextFormField(
           controller: textCtrl,
           focusNode: focus,
+          onChanged: onText,
+          textCapitalization: TextCapitalization.words,
           decoration: InputDecoration(
             labelText: 'Localitate',
             helperText: judet.isEmpty

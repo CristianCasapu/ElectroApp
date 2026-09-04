@@ -7,7 +7,7 @@ Aplicație Android pentru electricieni care proiectează și montează sisteme f
 în care fiecare fișă adună beneficiarul, locul de consum, releveul de șantier, măsurătorile,
 soluția tehnică adoptată, pașii de racordare și documentele emise. Funcționează complet offline.
 
-## Stare: etapa E0 (schelet)
+## Stare: etapele E0 + E1
 
 Disponibil acum:
 
@@ -18,18 +18,24 @@ Disponibil acum:
   localitate cu autocomplete, operator de distribuție, cod POD, nivel de tensiune, branșament
   mono/trifazat, putere aprobată/contractată, disjunctor, schemă de legare la pământ, grup de
   măsură, destinația clădirii).
-- **Clienți** — persoane fizice/juridice cu date de contact, juridice și furnizor de energie.
+- **Clienți** — persoane fizice/juridice/asociații/instituții; date din agenda telefonului, adresă din locație (OpenStreetMap), completare automată de la ANAF după CUI; furnizor de energie din listă (sau off-grid), cod client, POD.
 - **Profil firmă** — date firmă, atestat ANRE, electrician semnatar (grad, legitimație).
 - Temă luminoasă / întunecată.
 - **Actualizare din aplicație** din GitHub Releases (verificare la pornire + Setări).
+- **Soluția tehnică (E1)** — estimarea sistemului din consum și amplasament: kWp, module,
+  string-uri verificate (IEC 62548), invertor, stocare, producție pe județ, autoconsum,
+  economie, regim prosumator; necesar de materiale și manoperă cu prețuri orientative;
+  revizii salvate în fișă.
+- **Documente PDF** — fișa sistemului fotovoltaic, ofertă materiale / manoperă / completă,
+  cu datele firmei, electricianului și beneficiarului; versiuni și hash per document.
 
 Urmează (vezi [docs/CERCETARE.md](docs/CERCETARE.md) §4.4):
 
 | Etapă | Conținut |
 |---|---|
-| E1 | Motor de calcul: string-uri (Voc/Vmp/MPPT, IEC 62548), circuit AC (I7-2011), cablu DC și protecții, stocare, randament PVGIS + model offline |
+| E1 ✅ | Motor de calcul: string-uri, circuit AC (I7-2011), cablu DC și protecții, stocare, randament pe județ (model offline); PVGIS cu coordonate urmează în E2 |
 | E2 | Releveu tehnic (plane de acoperiș, umbrire, tablou, trasee, poze), măsurători instrumentale și teste PIF IEC 62446-1 |
-| E3 | Rapoarte PDF: ofertă, PV recepție, raport verificări, buletin PRAM, listă DIU |
+| E3 | Rapoarte PDF: PV recepție, raport verificări, buletin PRAM, listă DIU (oferta și fișa sistemului sunt livrate) |
 | E4 | Catalog echipamente, urmărire racordare/avize (ATR, DIU, certificat), export/backup |
 | E5 | Sincronizare cu electroprep.ro, hartă, QR serii, MT |
 
@@ -62,4 +68,4 @@ Build-ul de release cere `android/key.properties` cu keystore-ul propriu (nu est
 Cod sursă publicat pentru transparență. Toate drepturile rezervate — Cristian Casapu.
 
 ---
-v0.1.2
+v0.1.3

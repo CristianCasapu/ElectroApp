@@ -174,6 +174,16 @@ class $ClientiTable extends Clienti with TableInfo<$ClientiTable, ClientiData> {
         requiredDuringInsert: false,
         defaultValue: const Constant(''),
       );
+  static const VerificationMeta _codPodMeta = const VerificationMeta('codPod');
+  @override
+  late final GeneratedColumn<String> codPod = GeneratedColumn<String>(
+    'cod_pod',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
   static const VerificationMeta _observatiiMeta = const VerificationMeta(
     'observatii',
   );
@@ -203,6 +213,7 @@ class $ClientiTable extends Clienti with TableInfo<$ClientiTable, ClientiData> {
     reprezentantLegal,
     furnizorEnergie,
     codClientFurnizor,
+    codPod,
     observatii,
   ];
   @override
@@ -326,6 +337,12 @@ class $ClientiTable extends Clienti with TableInfo<$ClientiTable, ClientiData> {
         ),
       );
     }
+    if (data.containsKey('cod_pod')) {
+      context.handle(
+        _codPodMeta,
+        codPod.isAcceptableOrUnknown(data['cod_pod']!, _codPodMeta),
+      );
+    }
     if (data.containsKey('observatii')) {
       context.handle(
         _observatiiMeta,
@@ -401,6 +418,10 @@ class $ClientiTable extends Clienti with TableInfo<$ClientiTable, ClientiData> {
         DriftSqlType.string,
         data['${effectivePrefix}cod_client_furnizor'],
       )!,
+      codPod: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}cod_pod'],
+      )!,
       observatii: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}observatii'],
@@ -430,6 +451,7 @@ class ClientiData extends DataClass implements Insertable<ClientiData> {
   final String reprezentantLegal;
   final String furnizorEnergie;
   final String codClientFurnizor;
+  final String codPod;
   final String observatii;
   const ClientiData({
     required this.id,
@@ -447,6 +469,7 @@ class ClientiData extends DataClass implements Insertable<ClientiData> {
     required this.reprezentantLegal,
     required this.furnizorEnergie,
     required this.codClientFurnizor,
+    required this.codPod,
     required this.observatii,
   });
   @override
@@ -469,6 +492,7 @@ class ClientiData extends DataClass implements Insertable<ClientiData> {
     map['reprezentant_legal'] = Variable<String>(reprezentantLegal);
     map['furnizor_energie'] = Variable<String>(furnizorEnergie);
     map['cod_client_furnizor'] = Variable<String>(codClientFurnizor);
+    map['cod_pod'] = Variable<String>(codPod);
     map['observatii'] = Variable<String>(observatii);
     return map;
   }
@@ -492,6 +516,7 @@ class ClientiData extends DataClass implements Insertable<ClientiData> {
       reprezentantLegal: Value(reprezentantLegal),
       furnizorEnergie: Value(furnizorEnergie),
       codClientFurnizor: Value(codClientFurnizor),
+      codPod: Value(codPod),
       observatii: Value(observatii),
     );
   }
@@ -519,6 +544,7 @@ class ClientiData extends DataClass implements Insertable<ClientiData> {
       reprezentantLegal: serializer.fromJson<String>(json['reprezentantLegal']),
       furnizorEnergie: serializer.fromJson<String>(json['furnizorEnergie']),
       codClientFurnizor: serializer.fromJson<String>(json['codClientFurnizor']),
+      codPod: serializer.fromJson<String>(json['codPod']),
       observatii: serializer.fromJson<String>(json['observatii']),
     );
   }
@@ -541,6 +567,7 @@ class ClientiData extends DataClass implements Insertable<ClientiData> {
       'reprezentantLegal': serializer.toJson<String>(reprezentantLegal),
       'furnizorEnergie': serializer.toJson<String>(furnizorEnergie),
       'codClientFurnizor': serializer.toJson<String>(codClientFurnizor),
+      'codPod': serializer.toJson<String>(codPod),
       'observatii': serializer.toJson<String>(observatii),
     };
   }
@@ -561,6 +588,7 @@ class ClientiData extends DataClass implements Insertable<ClientiData> {
     String? reprezentantLegal,
     String? furnizorEnergie,
     String? codClientFurnizor,
+    String? codPod,
     String? observatii,
   }) => ClientiData(
     id: id ?? this.id,
@@ -578,6 +606,7 @@ class ClientiData extends DataClass implements Insertable<ClientiData> {
     reprezentantLegal: reprezentantLegal ?? this.reprezentantLegal,
     furnizorEnergie: furnizorEnergie ?? this.furnizorEnergie,
     codClientFurnizor: codClientFurnizor ?? this.codClientFurnizor,
+    codPod: codPod ?? this.codPod,
     observatii: observatii ?? this.observatii,
   );
   ClientiData copyWithCompanion(ClientiCompanion data) {
@@ -605,6 +634,7 @@ class ClientiData extends DataClass implements Insertable<ClientiData> {
       codClientFurnizor: data.codClientFurnizor.present
           ? data.codClientFurnizor.value
           : this.codClientFurnizor,
+      codPod: data.codPod.present ? data.codPod.value : this.codPod,
       observatii: data.observatii.present
           ? data.observatii.value
           : this.observatii,
@@ -629,6 +659,7 @@ class ClientiData extends DataClass implements Insertable<ClientiData> {
           ..write('reprezentantLegal: $reprezentantLegal, ')
           ..write('furnizorEnergie: $furnizorEnergie, ')
           ..write('codClientFurnizor: $codClientFurnizor, ')
+          ..write('codPod: $codPod, ')
           ..write('observatii: $observatii')
           ..write(')'))
         .toString();
@@ -651,6 +682,7 @@ class ClientiData extends DataClass implements Insertable<ClientiData> {
     reprezentantLegal,
     furnizorEnergie,
     codClientFurnizor,
+    codPod,
     observatii,
   );
   @override
@@ -672,6 +704,7 @@ class ClientiData extends DataClass implements Insertable<ClientiData> {
           other.reprezentantLegal == this.reprezentantLegal &&
           other.furnizorEnergie == this.furnizorEnergie &&
           other.codClientFurnizor == this.codClientFurnizor &&
+          other.codPod == this.codPod &&
           other.observatii == this.observatii);
 }
 
@@ -691,6 +724,7 @@ class ClientiCompanion extends UpdateCompanion<ClientiData> {
   final Value<String> reprezentantLegal;
   final Value<String> furnizorEnergie;
   final Value<String> codClientFurnizor;
+  final Value<String> codPod;
   final Value<String> observatii;
   final Value<int> rowid;
   const ClientiCompanion({
@@ -709,6 +743,7 @@ class ClientiCompanion extends UpdateCompanion<ClientiData> {
     this.reprezentantLegal = const Value.absent(),
     this.furnizorEnergie = const Value.absent(),
     this.codClientFurnizor = const Value.absent(),
+    this.codPod = const Value.absent(),
     this.observatii = const Value.absent(),
     this.rowid = const Value.absent(),
   });
@@ -728,6 +763,7 @@ class ClientiCompanion extends UpdateCompanion<ClientiData> {
     this.reprezentantLegal = const Value.absent(),
     this.furnizorEnergie = const Value.absent(),
     this.codClientFurnizor = const Value.absent(),
+    this.codPod = const Value.absent(),
     this.observatii = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
@@ -751,6 +787,7 @@ class ClientiCompanion extends UpdateCompanion<ClientiData> {
     Expression<String>? reprezentantLegal,
     Expression<String>? furnizorEnergie,
     Expression<String>? codClientFurnizor,
+    Expression<String>? codPod,
     Expression<String>? observatii,
     Expression<int>? rowid,
   }) {
@@ -771,6 +808,7 @@ class ClientiCompanion extends UpdateCompanion<ClientiData> {
       if (reprezentantLegal != null) 'reprezentant_legal': reprezentantLegal,
       if (furnizorEnergie != null) 'furnizor_energie': furnizorEnergie,
       if (codClientFurnizor != null) 'cod_client_furnizor': codClientFurnizor,
+      if (codPod != null) 'cod_pod': codPod,
       if (observatii != null) 'observatii': observatii,
       if (rowid != null) 'rowid': rowid,
     });
@@ -792,6 +830,7 @@ class ClientiCompanion extends UpdateCompanion<ClientiData> {
     Value<String>? reprezentantLegal,
     Value<String>? furnizorEnergie,
     Value<String>? codClientFurnizor,
+    Value<String>? codPod,
     Value<String>? observatii,
     Value<int>? rowid,
   }) {
@@ -811,6 +850,7 @@ class ClientiCompanion extends UpdateCompanion<ClientiData> {
       reprezentantLegal: reprezentantLegal ?? this.reprezentantLegal,
       furnizorEnergie: furnizorEnergie ?? this.furnizorEnergie,
       codClientFurnizor: codClientFurnizor ?? this.codClientFurnizor,
+      codPod: codPod ?? this.codPod,
       observatii: observatii ?? this.observatii,
       rowid: rowid ?? this.rowid,
     );
@@ -864,6 +904,9 @@ class ClientiCompanion extends UpdateCompanion<ClientiData> {
     if (codClientFurnizor.present) {
       map['cod_client_furnizor'] = Variable<String>(codClientFurnizor.value);
     }
+    if (codPod.present) {
+      map['cod_pod'] = Variable<String>(codPod.value);
+    }
     if (observatii.present) {
       map['observatii'] = Variable<String>(observatii.value);
     }
@@ -891,6 +934,7 @@ class ClientiCompanion extends UpdateCompanion<ClientiData> {
           ..write('reprezentantLegal: $reprezentantLegal, ')
           ..write('furnizorEnergie: $furnizorEnergie, ')
           ..write('codClientFurnizor: $codClientFurnizor, ')
+          ..write('codPod: $codPod, ')
           ..write('observatii: $observatii, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -2255,6 +2299,31 @@ class $LocuriConsumTable extends LocuriConsum
     requiredDuringInsert: false,
     defaultValue: const Constant(''),
   );
+  static const VerificationMeta _furnizorEnergieMeta = const VerificationMeta(
+    'furnizorEnergie',
+  );
+  @override
+  late final GeneratedColumn<String> furnizorEnergie = GeneratedColumn<String>(
+    'furnizor_energie',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _codClientFurnizorMeta = const VerificationMeta(
+    'codClientFurnizor',
+  );
+  @override
+  late final GeneratedColumn<String> codClientFurnizor =
+      GeneratedColumn<String>(
+        'cod_client_furnizor',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+        defaultValue: const Constant(''),
+      );
   static const VerificationMeta _nivelTensiuneMeta = const VerificationMeta(
     'nivelTensiune',
   );
@@ -2422,6 +2491,8 @@ class $LocuriConsumTable extends LocuriConsum
     lon,
     operatorDistributie,
     codPod,
+    furnizorEnergie,
+    codClientFurnizor,
     nivelTensiune,
     bransament,
     putereAprobataKva,
@@ -2534,6 +2605,24 @@ class $LocuriConsumTable extends LocuriConsum
       context.handle(
         _codPodMeta,
         codPod.isAcceptableOrUnknown(data['cod_pod']!, _codPodMeta),
+      );
+    }
+    if (data.containsKey('furnizor_energie')) {
+      context.handle(
+        _furnizorEnergieMeta,
+        furnizorEnergie.isAcceptableOrUnknown(
+          data['furnizor_energie']!,
+          _furnizorEnergieMeta,
+        ),
+      );
+    }
+    if (data.containsKey('cod_client_furnizor')) {
+      context.handle(
+        _codClientFurnizorMeta,
+        codClientFurnizor.isAcceptableOrUnknown(
+          data['cod_client_furnizor']!,
+          _codClientFurnizorMeta,
+        ),
       );
     }
     if (data.containsKey('nivel_tensiune')) {
@@ -2715,6 +2804,14 @@ class $LocuriConsumTable extends LocuriConsum
         DriftSqlType.string,
         data['${effectivePrefix}cod_pod'],
       )!,
+      furnizorEnergie: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}furnizor_energie'],
+      )!,
+      codClientFurnizor: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}cod_client_furnizor'],
+      )!,
       nivelTensiune: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}nivel_tensiune'],
@@ -2791,6 +2888,8 @@ class LocuriConsumData extends DataClass
   final double? lon;
   final String operatorDistributie;
   final String codPod;
+  final String furnizorEnergie;
+  final String codClientFurnizor;
   final String nivelTensiune;
   final String bransament;
   final double? putereAprobataKva;
@@ -2818,6 +2917,8 @@ class LocuriConsumData extends DataClass
     this.lon,
     required this.operatorDistributie,
     required this.codPod,
+    required this.furnizorEnergie,
+    required this.codClientFurnizor,
     required this.nivelTensiune,
     required this.bransament,
     this.putereAprobataKva,
@@ -2854,6 +2955,8 @@ class LocuriConsumData extends DataClass
     }
     map['operator_distributie'] = Variable<String>(operatorDistributie);
     map['cod_pod'] = Variable<String>(codPod);
+    map['furnizor_energie'] = Variable<String>(furnizorEnergie);
+    map['cod_client_furnizor'] = Variable<String>(codClientFurnizor);
     map['nivel_tensiune'] = Variable<String>(nivelTensiune);
     map['bransament'] = Variable<String>(bransament);
     if (!nullToAbsent || putereAprobataKva != null) {
@@ -2895,6 +2998,8 @@ class LocuriConsumData extends DataClass
       lon: lon == null && nullToAbsent ? const Value.absent() : Value(lon),
       operatorDistributie: Value(operatorDistributie),
       codPod: Value(codPod),
+      furnizorEnergie: Value(furnizorEnergie),
+      codClientFurnizor: Value(codClientFurnizor),
       nivelTensiune: Value(nivelTensiune),
       bransament: Value(bransament),
       putereAprobataKva: putereAprobataKva == null && nullToAbsent
@@ -2940,6 +3045,8 @@ class LocuriConsumData extends DataClass
         json['operatorDistributie'],
       ),
       codPod: serializer.fromJson<String>(json['codPod']),
+      furnizorEnergie: serializer.fromJson<String>(json['furnizorEnergie']),
+      codClientFurnizor: serializer.fromJson<String>(json['codClientFurnizor']),
       nivelTensiune: serializer.fromJson<String>(json['nivelTensiune']),
       bransament: serializer.fromJson<String>(json['bransament']),
       putereAprobataKva: serializer.fromJson<double?>(
@@ -2980,6 +3087,8 @@ class LocuriConsumData extends DataClass
       'lon': serializer.toJson<double?>(lon),
       'operatorDistributie': serializer.toJson<String>(operatorDistributie),
       'codPod': serializer.toJson<String>(codPod),
+      'furnizorEnergie': serializer.toJson<String>(furnizorEnergie),
+      'codClientFurnizor': serializer.toJson<String>(codClientFurnizor),
       'nivelTensiune': serializer.toJson<String>(nivelTensiune),
       'bransament': serializer.toJson<String>(bransament),
       'putereAprobataKva': serializer.toJson<double?>(putereAprobataKva),
@@ -3010,6 +3119,8 @@ class LocuriConsumData extends DataClass
     Value<double?> lon = const Value.absent(),
     String? operatorDistributie,
     String? codPod,
+    String? furnizorEnergie,
+    String? codClientFurnizor,
     String? nivelTensiune,
     String? bransament,
     Value<double?> putereAprobataKva = const Value.absent(),
@@ -3037,6 +3148,8 @@ class LocuriConsumData extends DataClass
     lon: lon.present ? lon.value : this.lon,
     operatorDistributie: operatorDistributie ?? this.operatorDistributie,
     codPod: codPod ?? this.codPod,
+    furnizorEnergie: furnizorEnergie ?? this.furnizorEnergie,
+    codClientFurnizor: codClientFurnizor ?? this.codClientFurnizor,
     nivelTensiune: nivelTensiune ?? this.nivelTensiune,
     bransament: bransament ?? this.bransament,
     putereAprobataKva: putereAprobataKva.present
@@ -3078,6 +3191,12 @@ class LocuriConsumData extends DataClass
           ? data.operatorDistributie.value
           : this.operatorDistributie,
       codPod: data.codPod.present ? data.codPod.value : this.codPod,
+      furnizorEnergie: data.furnizorEnergie.present
+          ? data.furnizorEnergie.value
+          : this.furnizorEnergie,
+      codClientFurnizor: data.codClientFurnizor.present
+          ? data.codClientFurnizor.value
+          : this.codClientFurnizor,
       nivelTensiune: data.nivelTensiune.present
           ? data.nivelTensiune.value
           : this.nivelTensiune,
@@ -3134,6 +3253,8 @@ class LocuriConsumData extends DataClass
           ..write('lon: $lon, ')
           ..write('operatorDistributie: $operatorDistributie, ')
           ..write('codPod: $codPod, ')
+          ..write('furnizorEnergie: $furnizorEnergie, ')
+          ..write('codClientFurnizor: $codClientFurnizor, ')
           ..write('nivelTensiune: $nivelTensiune, ')
           ..write('bransament: $bransament, ')
           ..write('putereAprobataKva: $putereAprobataKva, ')
@@ -3166,6 +3287,8 @@ class LocuriConsumData extends DataClass
     lon,
     operatorDistributie,
     codPod,
+    furnizorEnergie,
+    codClientFurnizor,
     nivelTensiune,
     bransament,
     putereAprobataKva,
@@ -3197,6 +3320,8 @@ class LocuriConsumData extends DataClass
           other.lon == this.lon &&
           other.operatorDistributie == this.operatorDistributie &&
           other.codPod == this.codPod &&
+          other.furnizorEnergie == this.furnizorEnergie &&
+          other.codClientFurnizor == this.codClientFurnizor &&
           other.nivelTensiune == this.nivelTensiune &&
           other.bransament == this.bransament &&
           other.putereAprobataKva == this.putereAprobataKva &&
@@ -3226,6 +3351,8 @@ class LocuriConsumCompanion extends UpdateCompanion<LocuriConsumData> {
   final Value<double?> lon;
   final Value<String> operatorDistributie;
   final Value<String> codPod;
+  final Value<String> furnizorEnergie;
+  final Value<String> codClientFurnizor;
   final Value<String> nivelTensiune;
   final Value<String> bransament;
   final Value<double?> putereAprobataKva;
@@ -3254,6 +3381,8 @@ class LocuriConsumCompanion extends UpdateCompanion<LocuriConsumData> {
     this.lon = const Value.absent(),
     this.operatorDistributie = const Value.absent(),
     this.codPod = const Value.absent(),
+    this.furnizorEnergie = const Value.absent(),
+    this.codClientFurnizor = const Value.absent(),
     this.nivelTensiune = const Value.absent(),
     this.bransament = const Value.absent(),
     this.putereAprobataKva = const Value.absent(),
@@ -3283,6 +3412,8 @@ class LocuriConsumCompanion extends UpdateCompanion<LocuriConsumData> {
     this.lon = const Value.absent(),
     required String operatorDistributie,
     this.codPod = const Value.absent(),
+    this.furnizorEnergie = const Value.absent(),
+    this.codClientFurnizor = const Value.absent(),
     required String nivelTensiune,
     required String bransament,
     this.putereAprobataKva = const Value.absent(),
@@ -3321,6 +3452,8 @@ class LocuriConsumCompanion extends UpdateCompanion<LocuriConsumData> {
     Expression<double>? lon,
     Expression<String>? operatorDistributie,
     Expression<String>? codPod,
+    Expression<String>? furnizorEnergie,
+    Expression<String>? codClientFurnizor,
     Expression<String>? nivelTensiune,
     Expression<String>? bransament,
     Expression<double>? putereAprobataKva,
@@ -3351,6 +3484,8 @@ class LocuriConsumCompanion extends UpdateCompanion<LocuriConsumData> {
       if (operatorDistributie != null)
         'operator_distributie': operatorDistributie,
       if (codPod != null) 'cod_pod': codPod,
+      if (furnizorEnergie != null) 'furnizor_energie': furnizorEnergie,
+      if (codClientFurnizor != null) 'cod_client_furnizor': codClientFurnizor,
       if (nivelTensiune != null) 'nivel_tensiune': nivelTensiune,
       if (bransament != null) 'bransament': bransament,
       if (putereAprobataKva != null) 'putere_aprobata_kva': putereAprobataKva,
@@ -3387,6 +3522,8 @@ class LocuriConsumCompanion extends UpdateCompanion<LocuriConsumData> {
     Value<double?>? lon,
     Value<String>? operatorDistributie,
     Value<String>? codPod,
+    Value<String>? furnizorEnergie,
+    Value<String>? codClientFurnizor,
     Value<String>? nivelTensiune,
     Value<String>? bransament,
     Value<double?>? putereAprobataKva,
@@ -3416,6 +3553,8 @@ class LocuriConsumCompanion extends UpdateCompanion<LocuriConsumData> {
       lon: lon ?? this.lon,
       operatorDistributie: operatorDistributie ?? this.operatorDistributie,
       codPod: codPod ?? this.codPod,
+      furnizorEnergie: furnizorEnergie ?? this.furnizorEnergie,
+      codClientFurnizor: codClientFurnizor ?? this.codClientFurnizor,
       nivelTensiune: nivelTensiune ?? this.nivelTensiune,
       bransament: bransament ?? this.bransament,
       putereAprobataKva: putereAprobataKva ?? this.putereAprobataKva,
@@ -3474,6 +3613,12 @@ class LocuriConsumCompanion extends UpdateCompanion<LocuriConsumData> {
     }
     if (codPod.present) {
       map['cod_pod'] = Variable<String>(codPod.value);
+    }
+    if (furnizorEnergie.present) {
+      map['furnizor_energie'] = Variable<String>(furnizorEnergie.value);
+    }
+    if (codClientFurnizor.present) {
+      map['cod_client_furnizor'] = Variable<String>(codClientFurnizor.value);
     }
     if (nivelTensiune.present) {
       map['nivel_tensiune'] = Variable<String>(nivelTensiune.value);
@@ -3538,6 +3683,8 @@ class LocuriConsumCompanion extends UpdateCompanion<LocuriConsumData> {
           ..write('lon: $lon, ')
           ..write('operatorDistributie: $operatorDistributie, ')
           ..write('codPod: $codPod, ')
+          ..write('furnizorEnergie: $furnizorEnergie, ')
+          ..write('codClientFurnizor: $codClientFurnizor, ')
           ..write('nivelTensiune: $nivelTensiune, ')
           ..write('bransament: $bransament, ')
           ..write('putereAprobataKva: $putereAprobataKva, ')
@@ -3551,6 +3698,1409 @@ class LocuriConsumCompanion extends UpdateCompanion<LocuriConsumData> {
           ..write('destinatieCladire: $destinatieCladire, ')
           ..write('anConstructie: $anConstructie, ')
           ..write('observatii: $observatii, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $FurnizoriTable extends Furnizori
+    with TableInfo<$FurnizoriTable, FurnizoriData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FurnizoriTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _denumireMeta = const VerificationMeta(
+    'denumire',
+  );
+  @override
+  late final GeneratedColumn<String> denumire = GeneratedColumn<String>(
+    'denumire',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'),
+  );
+  static const VerificationMeta _predefinitMeta = const VerificationMeta(
+    'predefinit',
+  );
+  @override
+  late final GeneratedColumn<bool> predefinit = GeneratedColumn<bool>(
+    'predefinit',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("predefinit" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> deletedAt = GeneratedColumn<DateTime>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    denumire,
+    predefinit,
+    createdAt,
+    deletedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'furnizori';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<FurnizoriData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('denumire')) {
+      context.handle(
+        _denumireMeta,
+        denumire.isAcceptableOrUnknown(data['denumire']!, _denumireMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_denumireMeta);
+    }
+    if (data.containsKey('predefinit')) {
+      context.handle(
+        _predefinitMeta,
+        predefinit.isAcceptableOrUnknown(data['predefinit']!, _predefinitMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  FurnizoriData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FurnizoriData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      denumire: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}denumire'],
+      )!,
+      predefinit: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}predefinit'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}deleted_at'],
+      ),
+    );
+  }
+
+  @override
+  $FurnizoriTable createAlias(String alias) {
+    return $FurnizoriTable(attachedDatabase, alias);
+  }
+}
+
+class FurnizoriData extends DataClass implements Insertable<FurnizoriData> {
+  final String id;
+  final String denumire;
+  final bool predefinit;
+  final DateTime createdAt;
+  final DateTime? deletedAt;
+  const FurnizoriData({
+    required this.id,
+    required this.denumire,
+    required this.predefinit,
+    required this.createdAt,
+    this.deletedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['denumire'] = Variable<String>(denumire);
+    map['predefinit'] = Variable<bool>(predefinit);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt);
+    }
+    return map;
+  }
+
+  FurnizoriCompanion toCompanion(bool nullToAbsent) {
+    return FurnizoriCompanion(
+      id: Value(id),
+      denumire: Value(denumire),
+      predefinit: Value(predefinit),
+      createdAt: Value(createdAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+    );
+  }
+
+  factory FurnizoriData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FurnizoriData(
+      id: serializer.fromJson<String>(json['id']),
+      denumire: serializer.fromJson<String>(json['denumire']),
+      predefinit: serializer.fromJson<bool>(json['predefinit']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'denumire': serializer.toJson<String>(denumire),
+      'predefinit': serializer.toJson<bool>(predefinit),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
+    };
+  }
+
+  FurnizoriData copyWith({
+    String? id,
+    String? denumire,
+    bool? predefinit,
+    DateTime? createdAt,
+    Value<DateTime?> deletedAt = const Value.absent(),
+  }) => FurnizoriData(
+    id: id ?? this.id,
+    denumire: denumire ?? this.denumire,
+    predefinit: predefinit ?? this.predefinit,
+    createdAt: createdAt ?? this.createdAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+  );
+  FurnizoriData copyWithCompanion(FurnizoriCompanion data) {
+    return FurnizoriData(
+      id: data.id.present ? data.id.value : this.id,
+      denumire: data.denumire.present ? data.denumire.value : this.denumire,
+      predefinit: data.predefinit.present
+          ? data.predefinit.value
+          : this.predefinit,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FurnizoriData(')
+          ..write('id: $id, ')
+          ..write('denumire: $denumire, ')
+          ..write('predefinit: $predefinit, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, denumire, predefinit, createdAt, deletedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FurnizoriData &&
+          other.id == this.id &&
+          other.denumire == this.denumire &&
+          other.predefinit == this.predefinit &&
+          other.createdAt == this.createdAt &&
+          other.deletedAt == this.deletedAt);
+}
+
+class FurnizoriCompanion extends UpdateCompanion<FurnizoriData> {
+  final Value<String> id;
+  final Value<String> denumire;
+  final Value<bool> predefinit;
+  final Value<DateTime> createdAt;
+  final Value<DateTime?> deletedAt;
+  final Value<int> rowid;
+  const FurnizoriCompanion({
+    this.id = const Value.absent(),
+    this.denumire = const Value.absent(),
+    this.predefinit = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  FurnizoriCompanion.insert({
+    required String id,
+    required String denumire,
+    this.predefinit = const Value.absent(),
+    required DateTime createdAt,
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       denumire = Value(denumire),
+       createdAt = Value(createdAt);
+  static Insertable<FurnizoriData> custom({
+    Expression<String>? id,
+    Expression<String>? denumire,
+    Expression<bool>? predefinit,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? deletedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (denumire != null) 'denumire': denumire,
+      if (predefinit != null) 'predefinit': predefinit,
+      if (createdAt != null) 'created_at': createdAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  FurnizoriCompanion copyWith({
+    Value<String>? id,
+    Value<String>? denumire,
+    Value<bool>? predefinit,
+    Value<DateTime>? createdAt,
+    Value<DateTime?>? deletedAt,
+    Value<int>? rowid,
+  }) {
+    return FurnizoriCompanion(
+      id: id ?? this.id,
+      denumire: denumire ?? this.denumire,
+      predefinit: predefinit ?? this.predefinit,
+      createdAt: createdAt ?? this.createdAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (denumire.present) {
+      map['denumire'] = Variable<String>(denumire.value);
+    }
+    if (predefinit.present) {
+      map['predefinit'] = Variable<bool>(predefinit.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FurnizoriCompanion(')
+          ..write('id: $id, ')
+          ..write('denumire: $denumire, ')
+          ..write('predefinit: $predefinit, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SolutiiTable extends Solutii with TableInfo<$SolutiiTable, SolutiiData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SolutiiTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lucrareIdMeta = const VerificationMeta(
+    'lucrareId',
+  );
+  @override
+  late final GeneratedColumn<String> lucrareId = GeneratedColumn<String>(
+    'lucrare_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES lucrari (id)',
+    ),
+  );
+  static const VerificationMeta _revizieMeta = const VerificationMeta(
+    'revizie',
+  );
+  @override
+  late final GeneratedColumn<int> revizie = GeneratedColumn<int>(
+    'revizie',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _creataLaMeta = const VerificationMeta(
+    'creataLa',
+  );
+  @override
+  late final GeneratedColumn<DateTime> creataLa = GeneratedColumn<DateTime>(
+    'creata_la',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _intrariJsonMeta = const VerificationMeta(
+    'intrariJson',
+  );
+  @override
+  late final GeneratedColumn<String> intrariJson = GeneratedColumn<String>(
+    'intrari_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _rezultatJsonMeta = const VerificationMeta(
+    'rezultatJson',
+  );
+  @override
+  late final GeneratedColumn<String> rezultatJson = GeneratedColumn<String>(
+    'rezultat_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _observatiiMeta = const VerificationMeta(
+    'observatii',
+  );
+  @override
+  late final GeneratedColumn<String> observatii = GeneratedColumn<String>(
+    'observatii',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    lucrareId,
+    revizie,
+    creataLa,
+    intrariJson,
+    rezultatJson,
+    observatii,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'solutii';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SolutiiData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('lucrare_id')) {
+      context.handle(
+        _lucrareIdMeta,
+        lucrareId.isAcceptableOrUnknown(data['lucrare_id']!, _lucrareIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_lucrareIdMeta);
+    }
+    if (data.containsKey('revizie')) {
+      context.handle(
+        _revizieMeta,
+        revizie.isAcceptableOrUnknown(data['revizie']!, _revizieMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_revizieMeta);
+    }
+    if (data.containsKey('creata_la')) {
+      context.handle(
+        _creataLaMeta,
+        creataLa.isAcceptableOrUnknown(data['creata_la']!, _creataLaMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_creataLaMeta);
+    }
+    if (data.containsKey('intrari_json')) {
+      context.handle(
+        _intrariJsonMeta,
+        intrariJson.isAcceptableOrUnknown(
+          data['intrari_json']!,
+          _intrariJsonMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_intrariJsonMeta);
+    }
+    if (data.containsKey('rezultat_json')) {
+      context.handle(
+        _rezultatJsonMeta,
+        rezultatJson.isAcceptableOrUnknown(
+          data['rezultat_json']!,
+          _rezultatJsonMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_rezultatJsonMeta);
+    }
+    if (data.containsKey('observatii')) {
+      context.handle(
+        _observatiiMeta,
+        observatii.isAcceptableOrUnknown(data['observatii']!, _observatiiMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SolutiiData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SolutiiData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      lucrareId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}lucrare_id'],
+      )!,
+      revizie: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}revizie'],
+      )!,
+      creataLa: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}creata_la'],
+      )!,
+      intrariJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}intrari_json'],
+      )!,
+      rezultatJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}rezultat_json'],
+      )!,
+      observatii: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}observatii'],
+      )!,
+    );
+  }
+
+  @override
+  $SolutiiTable createAlias(String alias) {
+    return $SolutiiTable(attachedDatabase, alias);
+  }
+}
+
+class SolutiiData extends DataClass implements Insertable<SolutiiData> {
+  final String id;
+  final String lucrareId;
+  final int revizie;
+  final DateTime creataLa;
+  final String intrariJson;
+  final String rezultatJson;
+  final String observatii;
+  const SolutiiData({
+    required this.id,
+    required this.lucrareId,
+    required this.revizie,
+    required this.creataLa,
+    required this.intrariJson,
+    required this.rezultatJson,
+    required this.observatii,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['lucrare_id'] = Variable<String>(lucrareId);
+    map['revizie'] = Variable<int>(revizie);
+    map['creata_la'] = Variable<DateTime>(creataLa);
+    map['intrari_json'] = Variable<String>(intrariJson);
+    map['rezultat_json'] = Variable<String>(rezultatJson);
+    map['observatii'] = Variable<String>(observatii);
+    return map;
+  }
+
+  SolutiiCompanion toCompanion(bool nullToAbsent) {
+    return SolutiiCompanion(
+      id: Value(id),
+      lucrareId: Value(lucrareId),
+      revizie: Value(revizie),
+      creataLa: Value(creataLa),
+      intrariJson: Value(intrariJson),
+      rezultatJson: Value(rezultatJson),
+      observatii: Value(observatii),
+    );
+  }
+
+  factory SolutiiData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SolutiiData(
+      id: serializer.fromJson<String>(json['id']),
+      lucrareId: serializer.fromJson<String>(json['lucrareId']),
+      revizie: serializer.fromJson<int>(json['revizie']),
+      creataLa: serializer.fromJson<DateTime>(json['creataLa']),
+      intrariJson: serializer.fromJson<String>(json['intrariJson']),
+      rezultatJson: serializer.fromJson<String>(json['rezultatJson']),
+      observatii: serializer.fromJson<String>(json['observatii']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'lucrareId': serializer.toJson<String>(lucrareId),
+      'revizie': serializer.toJson<int>(revizie),
+      'creataLa': serializer.toJson<DateTime>(creataLa),
+      'intrariJson': serializer.toJson<String>(intrariJson),
+      'rezultatJson': serializer.toJson<String>(rezultatJson),
+      'observatii': serializer.toJson<String>(observatii),
+    };
+  }
+
+  SolutiiData copyWith({
+    String? id,
+    String? lucrareId,
+    int? revizie,
+    DateTime? creataLa,
+    String? intrariJson,
+    String? rezultatJson,
+    String? observatii,
+  }) => SolutiiData(
+    id: id ?? this.id,
+    lucrareId: lucrareId ?? this.lucrareId,
+    revizie: revizie ?? this.revizie,
+    creataLa: creataLa ?? this.creataLa,
+    intrariJson: intrariJson ?? this.intrariJson,
+    rezultatJson: rezultatJson ?? this.rezultatJson,
+    observatii: observatii ?? this.observatii,
+  );
+  SolutiiData copyWithCompanion(SolutiiCompanion data) {
+    return SolutiiData(
+      id: data.id.present ? data.id.value : this.id,
+      lucrareId: data.lucrareId.present ? data.lucrareId.value : this.lucrareId,
+      revizie: data.revizie.present ? data.revizie.value : this.revizie,
+      creataLa: data.creataLa.present ? data.creataLa.value : this.creataLa,
+      intrariJson: data.intrariJson.present
+          ? data.intrariJson.value
+          : this.intrariJson,
+      rezultatJson: data.rezultatJson.present
+          ? data.rezultatJson.value
+          : this.rezultatJson,
+      observatii: data.observatii.present
+          ? data.observatii.value
+          : this.observatii,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SolutiiData(')
+          ..write('id: $id, ')
+          ..write('lucrareId: $lucrareId, ')
+          ..write('revizie: $revizie, ')
+          ..write('creataLa: $creataLa, ')
+          ..write('intrariJson: $intrariJson, ')
+          ..write('rezultatJson: $rezultatJson, ')
+          ..write('observatii: $observatii')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    lucrareId,
+    revizie,
+    creataLa,
+    intrariJson,
+    rezultatJson,
+    observatii,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SolutiiData &&
+          other.id == this.id &&
+          other.lucrareId == this.lucrareId &&
+          other.revizie == this.revizie &&
+          other.creataLa == this.creataLa &&
+          other.intrariJson == this.intrariJson &&
+          other.rezultatJson == this.rezultatJson &&
+          other.observatii == this.observatii);
+}
+
+class SolutiiCompanion extends UpdateCompanion<SolutiiData> {
+  final Value<String> id;
+  final Value<String> lucrareId;
+  final Value<int> revizie;
+  final Value<DateTime> creataLa;
+  final Value<String> intrariJson;
+  final Value<String> rezultatJson;
+  final Value<String> observatii;
+  final Value<int> rowid;
+  const SolutiiCompanion({
+    this.id = const Value.absent(),
+    this.lucrareId = const Value.absent(),
+    this.revizie = const Value.absent(),
+    this.creataLa = const Value.absent(),
+    this.intrariJson = const Value.absent(),
+    this.rezultatJson = const Value.absent(),
+    this.observatii = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SolutiiCompanion.insert({
+    required String id,
+    required String lucrareId,
+    required int revizie,
+    required DateTime creataLa,
+    required String intrariJson,
+    required String rezultatJson,
+    this.observatii = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       lucrareId = Value(lucrareId),
+       revizie = Value(revizie),
+       creataLa = Value(creataLa),
+       intrariJson = Value(intrariJson),
+       rezultatJson = Value(rezultatJson);
+  static Insertable<SolutiiData> custom({
+    Expression<String>? id,
+    Expression<String>? lucrareId,
+    Expression<int>? revizie,
+    Expression<DateTime>? creataLa,
+    Expression<String>? intrariJson,
+    Expression<String>? rezultatJson,
+    Expression<String>? observatii,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (lucrareId != null) 'lucrare_id': lucrareId,
+      if (revizie != null) 'revizie': revizie,
+      if (creataLa != null) 'creata_la': creataLa,
+      if (intrariJson != null) 'intrari_json': intrariJson,
+      if (rezultatJson != null) 'rezultat_json': rezultatJson,
+      if (observatii != null) 'observatii': observatii,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SolutiiCompanion copyWith({
+    Value<String>? id,
+    Value<String>? lucrareId,
+    Value<int>? revizie,
+    Value<DateTime>? creataLa,
+    Value<String>? intrariJson,
+    Value<String>? rezultatJson,
+    Value<String>? observatii,
+    Value<int>? rowid,
+  }) {
+    return SolutiiCompanion(
+      id: id ?? this.id,
+      lucrareId: lucrareId ?? this.lucrareId,
+      revizie: revizie ?? this.revizie,
+      creataLa: creataLa ?? this.creataLa,
+      intrariJson: intrariJson ?? this.intrariJson,
+      rezultatJson: rezultatJson ?? this.rezultatJson,
+      observatii: observatii ?? this.observatii,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (lucrareId.present) {
+      map['lucrare_id'] = Variable<String>(lucrareId.value);
+    }
+    if (revizie.present) {
+      map['revizie'] = Variable<int>(revizie.value);
+    }
+    if (creataLa.present) {
+      map['creata_la'] = Variable<DateTime>(creataLa.value);
+    }
+    if (intrariJson.present) {
+      map['intrari_json'] = Variable<String>(intrariJson.value);
+    }
+    if (rezultatJson.present) {
+      map['rezultat_json'] = Variable<String>(rezultatJson.value);
+    }
+    if (observatii.present) {
+      map['observatii'] = Variable<String>(observatii.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SolutiiCompanion(')
+          ..write('id: $id, ')
+          ..write('lucrareId: $lucrareId, ')
+          ..write('revizie: $revizie, ')
+          ..write('creataLa: $creataLa, ')
+          ..write('intrariJson: $intrariJson, ')
+          ..write('rezultatJson: $rezultatJson, ')
+          ..write('observatii: $observatii, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DocumenteTable extends Documente
+    with TableInfo<$DocumenteTable, DocumenteData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DocumenteTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lucrareIdMeta = const VerificationMeta(
+    'lucrareId',
+  );
+  @override
+  late final GeneratedColumn<String> lucrareId = GeneratedColumn<String>(
+    'lucrare_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES lucrari (id)',
+    ),
+  );
+  static const VerificationMeta _solutieIdMeta = const VerificationMeta(
+    'solutieId',
+  );
+  @override
+  late final GeneratedColumn<String> solutieId = GeneratedColumn<String>(
+    'solutie_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _tipMeta = const VerificationMeta('tip');
+  @override
+  late final GeneratedColumn<String> tip = GeneratedColumn<String>(
+    'tip',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _versiuneMeta = const VerificationMeta(
+    'versiune',
+  );
+  @override
+  late final GeneratedColumn<int> versiune = GeneratedColumn<int>(
+    'versiune',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _emisLaMeta = const VerificationMeta('emisLa');
+  @override
+  late final GeneratedColumn<DateTime> emisLa = GeneratedColumn<DateTime>(
+    'emis_la',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _caleMeta = const VerificationMeta('cale');
+  @override
+  late final GeneratedColumn<String> cale = GeneratedColumn<String>(
+    'cale',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _sha256Meta = const VerificationMeta('sha256');
+  @override
+  late final GeneratedColumn<String> sha256 = GeneratedColumn<String>(
+    'sha256',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _marimeBytesMeta = const VerificationMeta(
+    'marimeBytes',
+  );
+  @override
+  late final GeneratedColumn<int> marimeBytes = GeneratedColumn<int>(
+    'marime_bytes',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    lucrareId,
+    solutieId,
+    tip,
+    versiune,
+    emisLa,
+    cale,
+    sha256,
+    marimeBytes,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'documente';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<DocumenteData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('lucrare_id')) {
+      context.handle(
+        _lucrareIdMeta,
+        lucrareId.isAcceptableOrUnknown(data['lucrare_id']!, _lucrareIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_lucrareIdMeta);
+    }
+    if (data.containsKey('solutie_id')) {
+      context.handle(
+        _solutieIdMeta,
+        solutieId.isAcceptableOrUnknown(data['solutie_id']!, _solutieIdMeta),
+      );
+    }
+    if (data.containsKey('tip')) {
+      context.handle(
+        _tipMeta,
+        tip.isAcceptableOrUnknown(data['tip']!, _tipMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_tipMeta);
+    }
+    if (data.containsKey('versiune')) {
+      context.handle(
+        _versiuneMeta,
+        versiune.isAcceptableOrUnknown(data['versiune']!, _versiuneMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_versiuneMeta);
+    }
+    if (data.containsKey('emis_la')) {
+      context.handle(
+        _emisLaMeta,
+        emisLa.isAcceptableOrUnknown(data['emis_la']!, _emisLaMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_emisLaMeta);
+    }
+    if (data.containsKey('cale')) {
+      context.handle(
+        _caleMeta,
+        cale.isAcceptableOrUnknown(data['cale']!, _caleMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_caleMeta);
+    }
+    if (data.containsKey('sha256')) {
+      context.handle(
+        _sha256Meta,
+        sha256.isAcceptableOrUnknown(data['sha256']!, _sha256Meta),
+      );
+    } else if (isInserting) {
+      context.missing(_sha256Meta);
+    }
+    if (data.containsKey('marime_bytes')) {
+      context.handle(
+        _marimeBytesMeta,
+        marimeBytes.isAcceptableOrUnknown(
+          data['marime_bytes']!,
+          _marimeBytesMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DocumenteData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DocumenteData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      lucrareId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}lucrare_id'],
+      )!,
+      solutieId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}solutie_id'],
+      ),
+      tip: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tip'],
+      )!,
+      versiune: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}versiune'],
+      )!,
+      emisLa: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}emis_la'],
+      )!,
+      cale: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}cale'],
+      )!,
+      sha256: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sha256'],
+      )!,
+      marimeBytes: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}marime_bytes'],
+      )!,
+    );
+  }
+
+  @override
+  $DocumenteTable createAlias(String alias) {
+    return $DocumenteTable(attachedDatabase, alias);
+  }
+}
+
+class DocumenteData extends DataClass implements Insertable<DocumenteData> {
+  final String id;
+  final String lucrareId;
+  final String? solutieId;
+  final String tip;
+  final int versiune;
+  final DateTime emisLa;
+  final String cale;
+  final String sha256;
+  final int marimeBytes;
+  const DocumenteData({
+    required this.id,
+    required this.lucrareId,
+    this.solutieId,
+    required this.tip,
+    required this.versiune,
+    required this.emisLa,
+    required this.cale,
+    required this.sha256,
+    required this.marimeBytes,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['lucrare_id'] = Variable<String>(lucrareId);
+    if (!nullToAbsent || solutieId != null) {
+      map['solutie_id'] = Variable<String>(solutieId);
+    }
+    map['tip'] = Variable<String>(tip);
+    map['versiune'] = Variable<int>(versiune);
+    map['emis_la'] = Variable<DateTime>(emisLa);
+    map['cale'] = Variable<String>(cale);
+    map['sha256'] = Variable<String>(sha256);
+    map['marime_bytes'] = Variable<int>(marimeBytes);
+    return map;
+  }
+
+  DocumenteCompanion toCompanion(bool nullToAbsent) {
+    return DocumenteCompanion(
+      id: Value(id),
+      lucrareId: Value(lucrareId),
+      solutieId: solutieId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(solutieId),
+      tip: Value(tip),
+      versiune: Value(versiune),
+      emisLa: Value(emisLa),
+      cale: Value(cale),
+      sha256: Value(sha256),
+      marimeBytes: Value(marimeBytes),
+    );
+  }
+
+  factory DocumenteData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DocumenteData(
+      id: serializer.fromJson<String>(json['id']),
+      lucrareId: serializer.fromJson<String>(json['lucrareId']),
+      solutieId: serializer.fromJson<String?>(json['solutieId']),
+      tip: serializer.fromJson<String>(json['tip']),
+      versiune: serializer.fromJson<int>(json['versiune']),
+      emisLa: serializer.fromJson<DateTime>(json['emisLa']),
+      cale: serializer.fromJson<String>(json['cale']),
+      sha256: serializer.fromJson<String>(json['sha256']),
+      marimeBytes: serializer.fromJson<int>(json['marimeBytes']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'lucrareId': serializer.toJson<String>(lucrareId),
+      'solutieId': serializer.toJson<String?>(solutieId),
+      'tip': serializer.toJson<String>(tip),
+      'versiune': serializer.toJson<int>(versiune),
+      'emisLa': serializer.toJson<DateTime>(emisLa),
+      'cale': serializer.toJson<String>(cale),
+      'sha256': serializer.toJson<String>(sha256),
+      'marimeBytes': serializer.toJson<int>(marimeBytes),
+    };
+  }
+
+  DocumenteData copyWith({
+    String? id,
+    String? lucrareId,
+    Value<String?> solutieId = const Value.absent(),
+    String? tip,
+    int? versiune,
+    DateTime? emisLa,
+    String? cale,
+    String? sha256,
+    int? marimeBytes,
+  }) => DocumenteData(
+    id: id ?? this.id,
+    lucrareId: lucrareId ?? this.lucrareId,
+    solutieId: solutieId.present ? solutieId.value : this.solutieId,
+    tip: tip ?? this.tip,
+    versiune: versiune ?? this.versiune,
+    emisLa: emisLa ?? this.emisLa,
+    cale: cale ?? this.cale,
+    sha256: sha256 ?? this.sha256,
+    marimeBytes: marimeBytes ?? this.marimeBytes,
+  );
+  DocumenteData copyWithCompanion(DocumenteCompanion data) {
+    return DocumenteData(
+      id: data.id.present ? data.id.value : this.id,
+      lucrareId: data.lucrareId.present ? data.lucrareId.value : this.lucrareId,
+      solutieId: data.solutieId.present ? data.solutieId.value : this.solutieId,
+      tip: data.tip.present ? data.tip.value : this.tip,
+      versiune: data.versiune.present ? data.versiune.value : this.versiune,
+      emisLa: data.emisLa.present ? data.emisLa.value : this.emisLa,
+      cale: data.cale.present ? data.cale.value : this.cale,
+      sha256: data.sha256.present ? data.sha256.value : this.sha256,
+      marimeBytes: data.marimeBytes.present
+          ? data.marimeBytes.value
+          : this.marimeBytes,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DocumenteData(')
+          ..write('id: $id, ')
+          ..write('lucrareId: $lucrareId, ')
+          ..write('solutieId: $solutieId, ')
+          ..write('tip: $tip, ')
+          ..write('versiune: $versiune, ')
+          ..write('emisLa: $emisLa, ')
+          ..write('cale: $cale, ')
+          ..write('sha256: $sha256, ')
+          ..write('marimeBytes: $marimeBytes')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    lucrareId,
+    solutieId,
+    tip,
+    versiune,
+    emisLa,
+    cale,
+    sha256,
+    marimeBytes,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DocumenteData &&
+          other.id == this.id &&
+          other.lucrareId == this.lucrareId &&
+          other.solutieId == this.solutieId &&
+          other.tip == this.tip &&
+          other.versiune == this.versiune &&
+          other.emisLa == this.emisLa &&
+          other.cale == this.cale &&
+          other.sha256 == this.sha256 &&
+          other.marimeBytes == this.marimeBytes);
+}
+
+class DocumenteCompanion extends UpdateCompanion<DocumenteData> {
+  final Value<String> id;
+  final Value<String> lucrareId;
+  final Value<String?> solutieId;
+  final Value<String> tip;
+  final Value<int> versiune;
+  final Value<DateTime> emisLa;
+  final Value<String> cale;
+  final Value<String> sha256;
+  final Value<int> marimeBytes;
+  final Value<int> rowid;
+  const DocumenteCompanion({
+    this.id = const Value.absent(),
+    this.lucrareId = const Value.absent(),
+    this.solutieId = const Value.absent(),
+    this.tip = const Value.absent(),
+    this.versiune = const Value.absent(),
+    this.emisLa = const Value.absent(),
+    this.cale = const Value.absent(),
+    this.sha256 = const Value.absent(),
+    this.marimeBytes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DocumenteCompanion.insert({
+    required String id,
+    required String lucrareId,
+    this.solutieId = const Value.absent(),
+    required String tip,
+    required int versiune,
+    required DateTime emisLa,
+    required String cale,
+    required String sha256,
+    this.marimeBytes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       lucrareId = Value(lucrareId),
+       tip = Value(tip),
+       versiune = Value(versiune),
+       emisLa = Value(emisLa),
+       cale = Value(cale),
+       sha256 = Value(sha256);
+  static Insertable<DocumenteData> custom({
+    Expression<String>? id,
+    Expression<String>? lucrareId,
+    Expression<String>? solutieId,
+    Expression<String>? tip,
+    Expression<int>? versiune,
+    Expression<DateTime>? emisLa,
+    Expression<String>? cale,
+    Expression<String>? sha256,
+    Expression<int>? marimeBytes,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (lucrareId != null) 'lucrare_id': lucrareId,
+      if (solutieId != null) 'solutie_id': solutieId,
+      if (tip != null) 'tip': tip,
+      if (versiune != null) 'versiune': versiune,
+      if (emisLa != null) 'emis_la': emisLa,
+      if (cale != null) 'cale': cale,
+      if (sha256 != null) 'sha256': sha256,
+      if (marimeBytes != null) 'marime_bytes': marimeBytes,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DocumenteCompanion copyWith({
+    Value<String>? id,
+    Value<String>? lucrareId,
+    Value<String?>? solutieId,
+    Value<String>? tip,
+    Value<int>? versiune,
+    Value<DateTime>? emisLa,
+    Value<String>? cale,
+    Value<String>? sha256,
+    Value<int>? marimeBytes,
+    Value<int>? rowid,
+  }) {
+    return DocumenteCompanion(
+      id: id ?? this.id,
+      lucrareId: lucrareId ?? this.lucrareId,
+      solutieId: solutieId ?? this.solutieId,
+      tip: tip ?? this.tip,
+      versiune: versiune ?? this.versiune,
+      emisLa: emisLa ?? this.emisLa,
+      cale: cale ?? this.cale,
+      sha256: sha256 ?? this.sha256,
+      marimeBytes: marimeBytes ?? this.marimeBytes,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (lucrareId.present) {
+      map['lucrare_id'] = Variable<String>(lucrareId.value);
+    }
+    if (solutieId.present) {
+      map['solutie_id'] = Variable<String>(solutieId.value);
+    }
+    if (tip.present) {
+      map['tip'] = Variable<String>(tip.value);
+    }
+    if (versiune.present) {
+      map['versiune'] = Variable<int>(versiune.value);
+    }
+    if (emisLa.present) {
+      map['emis_la'] = Variable<DateTime>(emisLa.value);
+    }
+    if (cale.present) {
+      map['cale'] = Variable<String>(cale.value);
+    }
+    if (sha256.present) {
+      map['sha256'] = Variable<String>(sha256.value);
+    }
+    if (marimeBytes.present) {
+      map['marime_bytes'] = Variable<int>(marimeBytes.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DocumenteCompanion(')
+          ..write('id: $id, ')
+          ..write('lucrareId: $lucrareId, ')
+          ..write('solutieId: $solutieId, ')
+          ..write('tip: $tip, ')
+          ..write('versiune: $versiune, ')
+          ..write('emisLa: $emisLa, ')
+          ..write('cale: $cale, ')
+          ..write('sha256: $sha256, ')
+          ..write('marimeBytes: $marimeBytes, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -3773,6 +5323,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $LucrariTable lucrari = $LucrariTable(this);
   late final $LucrariStariTable lucrariStari = $LucrariStariTable(this);
   late final $LocuriConsumTable locuriConsum = $LocuriConsumTable(this);
+  late final $FurnizoriTable furnizori = $FurnizoriTable(this);
+  late final $SolutiiTable solutii = $SolutiiTable(this);
+  late final $DocumenteTable documente = $DocumenteTable(this);
   late final $SetariTable setari = $SetariTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
@@ -3783,6 +5336,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     lucrari,
     lucrariStari,
     locuriConsum,
+    furnizori,
+    solutii,
+    documente,
     setari,
   ];
   @override
@@ -3807,6 +5363,7 @@ typedef $$ClientiTableCreateCompanionBuilder =
       Value<String> reprezentantLegal,
       Value<String> furnizorEnergie,
       Value<String> codClientFurnizor,
+      Value<String> codPod,
       Value<String> observatii,
       Value<int> rowid,
     });
@@ -3827,6 +5384,7 @@ typedef $$ClientiTableUpdateCompanionBuilder =
       Value<String> reprezentantLegal,
       Value<String> furnizorEnergie,
       Value<String> codClientFurnizor,
+      Value<String> codPod,
       Value<String> observatii,
       Value<int> rowid,
     });
@@ -3935,6 +5493,11 @@ class $$ClientiTableFilterComposer
 
   ColumnFilters<String> get codClientFurnizor => $composableBuilder(
     column: $table.codClientFurnizor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get codPod => $composableBuilder(
+    column: $table.codPod,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -4053,6 +5616,11 @@ class $$ClientiTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get codPod => $composableBuilder(
+    column: $table.codPod,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get observatii => $composableBuilder(
     column: $table.observatii,
     builder: (column) => ColumnOrderings(column),
@@ -4120,6 +5688,9 @@ class $$ClientiTableAnnotationComposer
     column: $table.codClientFurnizor,
     builder: (column) => column,
   );
+
+  GeneratedColumn<String> get codPod =>
+      $composableBuilder(column: $table.codPod, builder: (column) => column);
 
   GeneratedColumn<String> get observatii => $composableBuilder(
     column: $table.observatii,
@@ -4195,6 +5766,7 @@ class $$ClientiTableTableManager
                 Value<String> reprezentantLegal = const Value.absent(),
                 Value<String> furnizorEnergie = const Value.absent(),
                 Value<String> codClientFurnizor = const Value.absent(),
+                Value<String> codPod = const Value.absent(),
                 Value<String> observatii = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => ClientiCompanion(
@@ -4213,6 +5785,7 @@ class $$ClientiTableTableManager
                 reprezentantLegal: reprezentantLegal,
                 furnizorEnergie: furnizorEnergie,
                 codClientFurnizor: codClientFurnizor,
+                codPod: codPod,
                 observatii: observatii,
                 rowid: rowid,
               ),
@@ -4233,6 +5806,7 @@ class $$ClientiTableTableManager
                 Value<String> reprezentantLegal = const Value.absent(),
                 Value<String> furnizorEnergie = const Value.absent(),
                 Value<String> codClientFurnizor = const Value.absent(),
+                Value<String> codPod = const Value.absent(),
                 Value<String> observatii = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => ClientiCompanion.insert(
@@ -4251,6 +5825,7 @@ class $$ClientiTableTableManager
                 reprezentantLegal: reprezentantLegal,
                 furnizorEnergie: furnizorEnergie,
                 codClientFurnizor: codClientFurnizor,
+                codPod: codPod,
                 observatii: observatii,
                 rowid: rowid,
               ),
@@ -4397,6 +5972,42 @@ final class $$LucrariTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$SolutiiTable, List<SolutiiData>>
+  _solutiiRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.solutii,
+    aliasName: 'lucrari__id__solutii__lucrare_id',
+  );
+
+  $$SolutiiTableProcessedTableManager get solutiiRefs {
+    final manager = $$SolutiiTableTableManager(
+      $_db,
+      $_db.solutii,
+    ).filter((f) => f.lucrareId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_solutiiRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$DocumenteTable, List<DocumenteData>>
+  _documenteRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.documente,
+    aliasName: 'lucrari__id__documente__lucrare_id',
+  );
+
+  $$DocumenteTableProcessedTableManager get documenteRefs {
+    final manager = $$DocumenteTableTableManager(
+      $_db,
+      $_db.documente,
+    ).filter((f) => f.lucrareId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_documenteRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$LucrariTableFilterComposer
@@ -4532,6 +6143,56 @@ class $$LucrariTableFilterComposer
           }) => $$LocuriConsumTableFilterComposer(
             $db: $db,
             $table: $db.locuriConsum,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> solutiiRefs(
+    Expression<bool> Function($$SolutiiTableFilterComposer f) f,
+  ) {
+    final $$SolutiiTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.solutii,
+      getReferencedColumn: (t) => t.lucrareId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SolutiiTableFilterComposer(
+            $db: $db,
+            $table: $db.solutii,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> documenteRefs(
+    Expression<bool> Function($$DocumenteTableFilterComposer f) f,
+  ) {
+    final $$DocumenteTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.documente,
+      getReferencedColumn: (t) => t.lucrareId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DocumenteTableFilterComposer(
+            $db: $db,
+            $table: $db.documente,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -4760,6 +6421,56 @@ class $$LucrariTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> solutiiRefs<T extends Object>(
+    Expression<T> Function($$SolutiiTableAnnotationComposer a) f,
+  ) {
+    final $$SolutiiTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.solutii,
+      getReferencedColumn: (t) => t.lucrareId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SolutiiTableAnnotationComposer(
+            $db: $db,
+            $table: $db.solutii,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> documenteRefs<T extends Object>(
+    Expression<T> Function($$DocumenteTableAnnotationComposer a) f,
+  ) {
+    final $$DocumenteTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.documente,
+      getReferencedColumn: (t) => t.lucrareId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DocumenteTableAnnotationComposer(
+            $db: $db,
+            $table: $db.documente,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$LucrariTableTableManager
@@ -4779,6 +6490,8 @@ class $$LucrariTableTableManager
             bool clientId,
             bool lucrariStariRefs,
             bool locuriConsumRefs,
+            bool solutiiRefs,
+            bool documenteRefs,
           })
         > {
   $$LucrariTableTableManager(_$AppDatabase db, $LucrariTable table)
@@ -4869,12 +6582,16 @@ class $$LucrariTableTableManager
                 clientId = false,
                 lucrariStariRefs = false,
                 locuriConsumRefs = false,
+                solutiiRefs = false,
+                documenteRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
                   explicitlyWatchedTables: [
                     if (lucrariStariRefs) db.lucrariStari,
                     if (locuriConsumRefs) db.locuriConsum,
+                    if (solutiiRefs) db.solutii,
+                    if (documenteRefs) db.documente,
                   ],
                   addJoins:
                       <
@@ -4952,6 +6669,48 @@ class $$LucrariTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (solutiiRefs)
+                        await $_getPrefetchedData<
+                          LucrariData,
+                          $LucrariTable,
+                          SolutiiData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$LucrariTableReferences
+                              ._solutiiRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$LucrariTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).solutiiRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.lucrareId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (documenteRefs)
+                        await $_getPrefetchedData<
+                          LucrariData,
+                          $LucrariTable,
+                          DocumenteData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$LucrariTableReferences
+                              ._documenteRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$LucrariTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).documenteRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.lucrareId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -4976,6 +6735,8 @@ typedef $$LucrariTableProcessedTableManager =
         bool clientId,
         bool lucrariStariRefs,
         bool locuriConsumRefs,
+        bool solutiiRefs,
+        bool documenteRefs,
       })
     >;
 typedef $$LucrariStariTableCreateCompanionBuilder =
@@ -5351,6 +7112,8 @@ typedef $$LocuriConsumTableCreateCompanionBuilder =
       Value<double?> lon,
       required String operatorDistributie,
       Value<String> codPod,
+      Value<String> furnizorEnergie,
+      Value<String> codClientFurnizor,
       required String nivelTensiune,
       required String bransament,
       Value<double?> putereAprobataKva,
@@ -5381,6 +7144,8 @@ typedef $$LocuriConsumTableUpdateCompanionBuilder =
       Value<double?> lon,
       Value<String> operatorDistributie,
       Value<String> codPod,
+      Value<String> furnizorEnergie,
+      Value<String> codClientFurnizor,
       Value<String> nivelTensiune,
       Value<String> bransament,
       Value<double?> putereAprobataKva,
@@ -5486,6 +7251,16 @@ class $$LocuriConsumTableFilterComposer
 
   ColumnFilters<String> get codPod => $composableBuilder(
     column: $table.codPod,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get furnizorEnergie => $composableBuilder(
+    column: $table.furnizorEnergie,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get codClientFurnizor => $composableBuilder(
+    column: $table.codClientFurnizor,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -5647,6 +7422,16 @@ class $$LocuriConsumTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get furnizorEnergie => $composableBuilder(
+    column: $table.furnizorEnergie,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get codClientFurnizor => $composableBuilder(
+    column: $table.codClientFurnizor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get nivelTensiune => $composableBuilder(
     column: $table.nivelTensiune,
     builder: (column) => ColumnOrderings(column),
@@ -5785,6 +7570,16 @@ class $$LocuriConsumTableAnnotationComposer
   GeneratedColumn<String> get codPod =>
       $composableBuilder(column: $table.codPod, builder: (column) => column);
 
+  GeneratedColumn<String> get furnizorEnergie => $composableBuilder(
+    column: $table.furnizorEnergie,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get codClientFurnizor => $composableBuilder(
+    column: $table.codClientFurnizor,
+    builder: (column) => column,
+  );
+
   GeneratedColumn<String> get nivelTensiune => $composableBuilder(
     column: $table.nivelTensiune,
     builder: (column) => column,
@@ -5913,6 +7708,8 @@ class $$LocuriConsumTableTableManager
                 Value<double?> lon = const Value.absent(),
                 Value<String> operatorDistributie = const Value.absent(),
                 Value<String> codPod = const Value.absent(),
+                Value<String> furnizorEnergie = const Value.absent(),
+                Value<String> codClientFurnizor = const Value.absent(),
                 Value<String> nivelTensiune = const Value.absent(),
                 Value<String> bransament = const Value.absent(),
                 Value<double?> putereAprobataKva = const Value.absent(),
@@ -5941,6 +7738,8 @@ class $$LocuriConsumTableTableManager
                 lon: lon,
                 operatorDistributie: operatorDistributie,
                 codPod: codPod,
+                furnizorEnergie: furnizorEnergie,
+                codClientFurnizor: codClientFurnizor,
                 nivelTensiune: nivelTensiune,
                 bransament: bransament,
                 putereAprobataKva: putereAprobataKva,
@@ -5971,6 +7770,8 @@ class $$LocuriConsumTableTableManager
                 Value<double?> lon = const Value.absent(),
                 required String operatorDistributie,
                 Value<String> codPod = const Value.absent(),
+                Value<String> furnizorEnergie = const Value.absent(),
+                Value<String> codClientFurnizor = const Value.absent(),
                 required String nivelTensiune,
                 required String bransament,
                 Value<double?> putereAprobataKva = const Value.absent(),
@@ -5999,6 +7800,8 @@ class $$LocuriConsumTableTableManager
                 lon: lon,
                 operatorDistributie: operatorDistributie,
                 codPod: codPod,
+                furnizorEnergie: furnizorEnergie,
+                codClientFurnizor: codClientFurnizor,
                 nivelTensiune: nivelTensiune,
                 bransament: bransament,
                 putereAprobataKva: putereAprobataKva,
@@ -6079,6 +7882,964 @@ typedef $$LocuriConsumTableProcessedTableManager =
       $$LocuriConsumTableUpdateCompanionBuilder,
       (LocuriConsumData, $$LocuriConsumTableReferences),
       LocuriConsumData,
+      PrefetchHooks Function({bool lucrareId})
+    >;
+typedef $$FurnizoriTableCreateCompanionBuilder =
+    FurnizoriCompanion Function({
+      required String id,
+      required String denumire,
+      Value<bool> predefinit,
+      required DateTime createdAt,
+      Value<DateTime?> deletedAt,
+      Value<int> rowid,
+    });
+typedef $$FurnizoriTableUpdateCompanionBuilder =
+    FurnizoriCompanion Function({
+      Value<String> id,
+      Value<String> denumire,
+      Value<bool> predefinit,
+      Value<DateTime> createdAt,
+      Value<DateTime?> deletedAt,
+      Value<int> rowid,
+    });
+
+class $$FurnizoriTableFilterComposer
+    extends Composer<_$AppDatabase, $FurnizoriTable> {
+  $$FurnizoriTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get denumire => $composableBuilder(
+    column: $table.denumire,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get predefinit => $composableBuilder(
+    column: $table.predefinit,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$FurnizoriTableOrderingComposer
+    extends Composer<_$AppDatabase, $FurnizoriTable> {
+  $$FurnizoriTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get denumire => $composableBuilder(
+    column: $table.denumire,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get predefinit => $composableBuilder(
+    column: $table.predefinit,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$FurnizoriTableAnnotationComposer
+    extends Composer<_$AppDatabase, $FurnizoriTable> {
+  $$FurnizoriTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get denumire =>
+      $composableBuilder(column: $table.denumire, builder: (column) => column);
+
+  GeneratedColumn<bool> get predefinit => $composableBuilder(
+    column: $table.predefinit,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+}
+
+class $$FurnizoriTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $FurnizoriTable,
+          FurnizoriData,
+          $$FurnizoriTableFilterComposer,
+          $$FurnizoriTableOrderingComposer,
+          $$FurnizoriTableAnnotationComposer,
+          $$FurnizoriTableCreateCompanionBuilder,
+          $$FurnizoriTableUpdateCompanionBuilder,
+          (
+            FurnizoriData,
+            BaseReferences<_$AppDatabase, $FurnizoriTable, FurnizoriData>,
+          ),
+          FurnizoriData,
+          PrefetchHooks Function()
+        > {
+  $$FurnizoriTableTableManager(_$AppDatabase db, $FurnizoriTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$FurnizoriTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$FurnizoriTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$FurnizoriTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> denumire = const Value.absent(),
+                Value<bool> predefinit = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => FurnizoriCompanion(
+                id: id,
+                denumire: denumire,
+                predefinit: predefinit,
+                createdAt: createdAt,
+                deletedAt: deletedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String denumire,
+                Value<bool> predefinit = const Value.absent(),
+                required DateTime createdAt,
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => FurnizoriCompanion.insert(
+                id: id,
+                denumire: denumire,
+                predefinit: predefinit,
+                createdAt: createdAt,
+                deletedAt: deletedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$FurnizoriTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $FurnizoriTable,
+      FurnizoriData,
+      $$FurnizoriTableFilterComposer,
+      $$FurnizoriTableOrderingComposer,
+      $$FurnizoriTableAnnotationComposer,
+      $$FurnizoriTableCreateCompanionBuilder,
+      $$FurnizoriTableUpdateCompanionBuilder,
+      (
+        FurnizoriData,
+        BaseReferences<_$AppDatabase, $FurnizoriTable, FurnizoriData>,
+      ),
+      FurnizoriData,
+      PrefetchHooks Function()
+    >;
+typedef $$SolutiiTableCreateCompanionBuilder =
+    SolutiiCompanion Function({
+      required String id,
+      required String lucrareId,
+      required int revizie,
+      required DateTime creataLa,
+      required String intrariJson,
+      required String rezultatJson,
+      Value<String> observatii,
+      Value<int> rowid,
+    });
+typedef $$SolutiiTableUpdateCompanionBuilder =
+    SolutiiCompanion Function({
+      Value<String> id,
+      Value<String> lucrareId,
+      Value<int> revizie,
+      Value<DateTime> creataLa,
+      Value<String> intrariJson,
+      Value<String> rezultatJson,
+      Value<String> observatii,
+      Value<int> rowid,
+    });
+
+final class $$SolutiiTableReferences
+    extends BaseReferences<_$AppDatabase, $SolutiiTable, SolutiiData> {
+  $$SolutiiTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $LucrariTable _lucrareIdTable(_$AppDatabase db) =>
+      db.lucrari.createAlias('solutii__lucrare_id__lucrari__id');
+
+  $$LucrariTableProcessedTableManager get lucrareId {
+    final $_column = $_itemColumn<String>('lucrare_id')!;
+
+    final manager = $$LucrariTableTableManager(
+      $_db,
+      $_db.lucrari,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_lucrareIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$SolutiiTableFilterComposer
+    extends Composer<_$AppDatabase, $SolutiiTable> {
+  $$SolutiiTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get revizie => $composableBuilder(
+    column: $table.revizie,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get creataLa => $composableBuilder(
+    column: $table.creataLa,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get intrariJson => $composableBuilder(
+    column: $table.intrariJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get rezultatJson => $composableBuilder(
+    column: $table.rezultatJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$LucrariTableFilterComposer get lucrareId {
+    final $$LucrariTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.lucrareId,
+      referencedTable: $db.lucrari,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LucrariTableFilterComposer(
+            $db: $db,
+            $table: $db.lucrari,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SolutiiTableOrderingComposer
+    extends Composer<_$AppDatabase, $SolutiiTable> {
+  $$SolutiiTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get revizie => $composableBuilder(
+    column: $table.revizie,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get creataLa => $composableBuilder(
+    column: $table.creataLa,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get intrariJson => $composableBuilder(
+    column: $table.intrariJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get rezultatJson => $composableBuilder(
+    column: $table.rezultatJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$LucrariTableOrderingComposer get lucrareId {
+    final $$LucrariTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.lucrareId,
+      referencedTable: $db.lucrari,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LucrariTableOrderingComposer(
+            $db: $db,
+            $table: $db.lucrari,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SolutiiTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SolutiiTable> {
+  $$SolutiiTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get revizie =>
+      $composableBuilder(column: $table.revizie, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get creataLa =>
+      $composableBuilder(column: $table.creataLa, builder: (column) => column);
+
+  GeneratedColumn<String> get intrariJson => $composableBuilder(
+    column: $table.intrariJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get rezultatJson => $composableBuilder(
+    column: $table.rezultatJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => column,
+  );
+
+  $$LucrariTableAnnotationComposer get lucrareId {
+    final $$LucrariTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.lucrareId,
+      referencedTable: $db.lucrari,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LucrariTableAnnotationComposer(
+            $db: $db,
+            $table: $db.lucrari,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SolutiiTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SolutiiTable,
+          SolutiiData,
+          $$SolutiiTableFilterComposer,
+          $$SolutiiTableOrderingComposer,
+          $$SolutiiTableAnnotationComposer,
+          $$SolutiiTableCreateCompanionBuilder,
+          $$SolutiiTableUpdateCompanionBuilder,
+          (SolutiiData, $$SolutiiTableReferences),
+          SolutiiData,
+          PrefetchHooks Function({bool lucrareId})
+        > {
+  $$SolutiiTableTableManager(_$AppDatabase db, $SolutiiTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SolutiiTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SolutiiTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SolutiiTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> lucrareId = const Value.absent(),
+                Value<int> revizie = const Value.absent(),
+                Value<DateTime> creataLa = const Value.absent(),
+                Value<String> intrariJson = const Value.absent(),
+                Value<String> rezultatJson = const Value.absent(),
+                Value<String> observatii = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SolutiiCompanion(
+                id: id,
+                lucrareId: lucrareId,
+                revizie: revizie,
+                creataLa: creataLa,
+                intrariJson: intrariJson,
+                rezultatJson: rezultatJson,
+                observatii: observatii,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String lucrareId,
+                required int revizie,
+                required DateTime creataLa,
+                required String intrariJson,
+                required String rezultatJson,
+                Value<String> observatii = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SolutiiCompanion.insert(
+                id: id,
+                lucrareId: lucrareId,
+                revizie: revizie,
+                creataLa: creataLa,
+                intrariJson: intrariJson,
+                rezultatJson: rezultatJson,
+                observatii: observatii,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$SolutiiTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({lucrareId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (lucrareId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.lucrareId,
+                                referencedTable: $$SolutiiTableReferences
+                                    ._lucrareIdTable(db),
+                                referencedColumn: $$SolutiiTableReferences
+                                    ._lucrareIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$SolutiiTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SolutiiTable,
+      SolutiiData,
+      $$SolutiiTableFilterComposer,
+      $$SolutiiTableOrderingComposer,
+      $$SolutiiTableAnnotationComposer,
+      $$SolutiiTableCreateCompanionBuilder,
+      $$SolutiiTableUpdateCompanionBuilder,
+      (SolutiiData, $$SolutiiTableReferences),
+      SolutiiData,
+      PrefetchHooks Function({bool lucrareId})
+    >;
+typedef $$DocumenteTableCreateCompanionBuilder =
+    DocumenteCompanion Function({
+      required String id,
+      required String lucrareId,
+      Value<String?> solutieId,
+      required String tip,
+      required int versiune,
+      required DateTime emisLa,
+      required String cale,
+      required String sha256,
+      Value<int> marimeBytes,
+      Value<int> rowid,
+    });
+typedef $$DocumenteTableUpdateCompanionBuilder =
+    DocumenteCompanion Function({
+      Value<String> id,
+      Value<String> lucrareId,
+      Value<String?> solutieId,
+      Value<String> tip,
+      Value<int> versiune,
+      Value<DateTime> emisLa,
+      Value<String> cale,
+      Value<String> sha256,
+      Value<int> marimeBytes,
+      Value<int> rowid,
+    });
+
+final class $$DocumenteTableReferences
+    extends BaseReferences<_$AppDatabase, $DocumenteTable, DocumenteData> {
+  $$DocumenteTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $LucrariTable _lucrareIdTable(_$AppDatabase db) =>
+      db.lucrari.createAlias('documente__lucrare_id__lucrari__id');
+
+  $$LucrariTableProcessedTableManager get lucrareId {
+    final $_column = $_itemColumn<String>('lucrare_id')!;
+
+    final manager = $$LucrariTableTableManager(
+      $_db,
+      $_db.lucrari,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_lucrareIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$DocumenteTableFilterComposer
+    extends Composer<_$AppDatabase, $DocumenteTable> {
+  $$DocumenteTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get solutieId => $composableBuilder(
+    column: $table.solutieId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get tip => $composableBuilder(
+    column: $table.tip,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get versiune => $composableBuilder(
+    column: $table.versiune,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get emisLa => $composableBuilder(
+    column: $table.emisLa,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get cale => $composableBuilder(
+    column: $table.cale,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get sha256 => $composableBuilder(
+    column: $table.sha256,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get marimeBytes => $composableBuilder(
+    column: $table.marimeBytes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$LucrariTableFilterComposer get lucrareId {
+    final $$LucrariTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.lucrareId,
+      referencedTable: $db.lucrari,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LucrariTableFilterComposer(
+            $db: $db,
+            $table: $db.lucrari,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$DocumenteTableOrderingComposer
+    extends Composer<_$AppDatabase, $DocumenteTable> {
+  $$DocumenteTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get solutieId => $composableBuilder(
+    column: $table.solutieId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get tip => $composableBuilder(
+    column: $table.tip,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get versiune => $composableBuilder(
+    column: $table.versiune,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get emisLa => $composableBuilder(
+    column: $table.emisLa,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get cale => $composableBuilder(
+    column: $table.cale,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get sha256 => $composableBuilder(
+    column: $table.sha256,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get marimeBytes => $composableBuilder(
+    column: $table.marimeBytes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$LucrariTableOrderingComposer get lucrareId {
+    final $$LucrariTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.lucrareId,
+      referencedTable: $db.lucrari,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LucrariTableOrderingComposer(
+            $db: $db,
+            $table: $db.lucrari,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$DocumenteTableAnnotationComposer
+    extends Composer<_$AppDatabase, $DocumenteTable> {
+  $$DocumenteTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get solutieId =>
+      $composableBuilder(column: $table.solutieId, builder: (column) => column);
+
+  GeneratedColumn<String> get tip =>
+      $composableBuilder(column: $table.tip, builder: (column) => column);
+
+  GeneratedColumn<int> get versiune =>
+      $composableBuilder(column: $table.versiune, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get emisLa =>
+      $composableBuilder(column: $table.emisLa, builder: (column) => column);
+
+  GeneratedColumn<String> get cale =>
+      $composableBuilder(column: $table.cale, builder: (column) => column);
+
+  GeneratedColumn<String> get sha256 =>
+      $composableBuilder(column: $table.sha256, builder: (column) => column);
+
+  GeneratedColumn<int> get marimeBytes => $composableBuilder(
+    column: $table.marimeBytes,
+    builder: (column) => column,
+  );
+
+  $$LucrariTableAnnotationComposer get lucrareId {
+    final $$LucrariTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.lucrareId,
+      referencedTable: $db.lucrari,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LucrariTableAnnotationComposer(
+            $db: $db,
+            $table: $db.lucrari,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$DocumenteTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $DocumenteTable,
+          DocumenteData,
+          $$DocumenteTableFilterComposer,
+          $$DocumenteTableOrderingComposer,
+          $$DocumenteTableAnnotationComposer,
+          $$DocumenteTableCreateCompanionBuilder,
+          $$DocumenteTableUpdateCompanionBuilder,
+          (DocumenteData, $$DocumenteTableReferences),
+          DocumenteData,
+          PrefetchHooks Function({bool lucrareId})
+        > {
+  $$DocumenteTableTableManager(_$AppDatabase db, $DocumenteTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$DocumenteTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$DocumenteTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$DocumenteTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> lucrareId = const Value.absent(),
+                Value<String?> solutieId = const Value.absent(),
+                Value<String> tip = const Value.absent(),
+                Value<int> versiune = const Value.absent(),
+                Value<DateTime> emisLa = const Value.absent(),
+                Value<String> cale = const Value.absent(),
+                Value<String> sha256 = const Value.absent(),
+                Value<int> marimeBytes = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => DocumenteCompanion(
+                id: id,
+                lucrareId: lucrareId,
+                solutieId: solutieId,
+                tip: tip,
+                versiune: versiune,
+                emisLa: emisLa,
+                cale: cale,
+                sha256: sha256,
+                marimeBytes: marimeBytes,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String lucrareId,
+                Value<String?> solutieId = const Value.absent(),
+                required String tip,
+                required int versiune,
+                required DateTime emisLa,
+                required String cale,
+                required String sha256,
+                Value<int> marimeBytes = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => DocumenteCompanion.insert(
+                id: id,
+                lucrareId: lucrareId,
+                solutieId: solutieId,
+                tip: tip,
+                versiune: versiune,
+                emisLa: emisLa,
+                cale: cale,
+                sha256: sha256,
+                marimeBytes: marimeBytes,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$DocumenteTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({lucrareId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (lucrareId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.lucrareId,
+                                referencedTable: $$DocumenteTableReferences
+                                    ._lucrareIdTable(db),
+                                referencedColumn: $$DocumenteTableReferences
+                                    ._lucrareIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$DocumenteTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $DocumenteTable,
+      DocumenteData,
+      $$DocumenteTableFilterComposer,
+      $$DocumenteTableOrderingComposer,
+      $$DocumenteTableAnnotationComposer,
+      $$DocumenteTableCreateCompanionBuilder,
+      $$DocumenteTableUpdateCompanionBuilder,
+      (DocumenteData, $$DocumenteTableReferences),
+      DocumenteData,
       PrefetchHooks Function({bool lucrareId})
     >;
 typedef $$SetariTableCreateCompanionBuilder =
@@ -6227,6 +8988,12 @@ class $AppDatabaseManager {
       $$LucrariStariTableTableManager(_db, _db.lucrariStari);
   $$LocuriConsumTableTableManager get locuriConsum =>
       $$LocuriConsumTableTableManager(_db, _db.locuriConsum);
+  $$FurnizoriTableTableManager get furnizori =>
+      $$FurnizoriTableTableManager(_db, _db.furnizori);
+  $$SolutiiTableTableManager get solutii =>
+      $$SolutiiTableTableManager(_db, _db.solutii);
+  $$DocumenteTableTableManager get documente =>
+      $$DocumenteTableTableManager(_db, _db.documente);
   $$SetariTableTableManager get setari =>
       $$SetariTableTableManager(_db, _db.setari);
 }

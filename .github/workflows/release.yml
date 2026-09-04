@@ -51,8 +51,9 @@ jobs:
           BUILD="${VER##*.}"
           PUB=$(grep -E '^version:' pubspec.yaml | sed 's/version: //')
           PUB_BUILD="${PUB##*+}"
-          if [ "$BUILD" != "$PUB_BUILD" ]; then
-            echo "Tag-ul $TAG (build $BUILD) nu corespunde cu pubspec.yaml ($PUB)."
+          PUB_MAJMIN="${PUB%%+*}"; PUB_MAJMIN="${PUB_MAJMIN%.*}"
+          if [ "$BUILD" != "$PUB_BUILD" ] || [ "${VER%.*}" != "$PUB_MAJMIN" ]; then
+            echo "Tag-ul $TAG nu corespunde cu pubspec.yaml ($PUB): se asteapta v${PUB_MAJMIN}.${PUB_BUILD}."
             exit 1
           fi
           echo "TAG=$TAG" >> $GITHUB_OUTPUT

@@ -7,6 +7,19 @@ import 'database.dart';
 
 const _uuid = Uuid();
 
+/// `version` crește la orice scriere — baza sincronizării optimiste (E5).
+Future<void> _incrementeazaVersiunea(
+  AppDatabase db,
+  TableInfo tabela,
+  String id, {
+  String coloanaId = 'id',
+}) => db.customUpdate(
+  'UPDATE ${tabela.actualTableName} SET version = version + 1 '
+  'WHERE $coloanaId = ?',
+  variables: [Variable.withString(id)],
+  updates: {tabela},
+);
+
 /// O fișă de lucrare împreună cu beneficiarul și locul de consum — forma în
 /// care registrul afișează și deschide o înregistrare.
 class FisaLucrare {
@@ -62,12 +75,15 @@ class ClientiRepository {
   }
 
   Future<void> actualizeaza(String id, ClientiCompanion date) =>
-      (db.update(db.clienti)..where((c) => c.id.equals(id))).write(
-        date.copyWith(
-          updatedAt: Value(DateTime.now()),
-          version: Value.absent(),
-        ),
-      );
+      db.transaction(() async {
+        await (db.update(db.clienti)..where((c) => c.id.equals(id))).write(
+          date.copyWith(
+            updatedAt: Value(DateTime.now()),
+            version: const Value.absent(),
+          ),
+        );
+        await _incrementeazaVersiunea(db, db.clienti, id);
+      });
 
   Future<int> numarLucrari(String clientId) async {
     final numar = db.lucrari.id.count();
@@ -82,9 +98,12 @@ class ClientiRepository {
   /// Ștergere logică; refuzată dacă există fișe de lucrare asociate.
   Future<bool> sterge(String id) async {
     if (await numarLucrari(id) > 0) return false;
-    await (db.update(db.clienti)..where((c) => c.id.equals(id))).write(
-      ClientiCompanion(deletedAt: Value(DateTime.now())),
-    );
+    await db.transaction(() async {
+      await (db.update(db.clienti)..where((c) => c.id.equals(id))).write(
+        ClientiCompanion(deletedAt: Value(DateTime.now())),
+      );
+      await _incrementeazaVersiunea(db, db.clienti, id);
+    });
     return true;
   }
 }
@@ -129,7 +148,8 @@ class LucrariRepository {
             ]))
           .watch();
 
-  /// Numărul de înregistrare `FL-<an>-<secvență>`, unic pe an.
+  /// Numărul de înregistrare `FL-<an>-<secvență>`, unic pe an. Include și
+  /// fișele șterse logic — un număr nu se refolosește niciodată.
   Future<String> urmatorulNumar([DateTime? data]) async {
     final an = (data ?? DateTime.now()).year;
     final prefix = 'FL-$an-';
@@ -197,10 +217,23 @@ class LucrariRepository {
     return db.transaction(() async {
       final acum = DateTime.now();
       await (db.update(db.lucrari)..where((l) => l.id.equals(id))).write(
-        lucrare.copyWith(updatedAt: Value(acum), version: Value.absent()),
+        lucrare.copyWith(updatedAt: Value(acum), version: const Value.absent()),
       );
-      await (db.update(db.locuriConsum)..where((l) => l.lucrareId.equals(id)))
-          .write(locConsum.copyWith(updatedAt: Value(acum)));
+      await (db.update(
+        db.locuriConsum,
+      )..where((l) => l.lucrareId.equals(id))).write(
+        locConsum.copyWith(
+          updatedAt: Value(acum),
+          version: const Value.absent(),
+        ),
+      );
+      await _incrementeazaVersiunea(db, db.lucrari, id);
+      await _incrementeazaVersiunea(
+        db,
+        db.locuriConsum,
+        id,
+        coloanaId: 'lucrare_id',
+      );
     });
   }
 
@@ -223,6 +256,7 @@ class LucrariRepository {
       await (db.update(db.lucrari)..where((l) => l.id.equals(id))).write(
         LucrariCompanion(stare: Value(stareNoua.cod), updatedAt: Value(acum)),
       );
+      await _incrementeazaVersiunea(db, db.lucrari, id);
       await db
           .into(db.lucrariStari)
           .insert(
@@ -242,9 +276,58 @@ class LucrariRepository {
 
   /// Ștergere logică — permisă doar pentru fișe fără documente emise; în E0
   /// nu există încă documente, deci este permisă pentru orice fișă.
+  Future<void> sterge(String id) => db.transaction(() async {
+    await (db.update(db.lucrari)..where((l) => l.id.equals(id))).write(
+      LucrariCompanion(deletedAt: Value(DateTime.now())),
+    );
+    await _incrementeazaVersiunea(db, db.lucrari, id);
+  });
+}
+
+class FurnizoriRepository {
+  FurnizoriRepository(this.db);
+  final AppDatabase db;
+
+  /// Predefiniții primii, apoi cei adăugați, fiecare grup alfabetic.
+  Stream<List<FurnizoriData>> watchToti() =>
+      (db.select(db.furnizori)
+            ..where((f) => f.deletedAt.isNull())
+            ..orderBy([
+              (f) => OrderingTerm.desc(f.predefinit),
+              (f) => OrderingTerm.asc(f.denumire),
+            ]))
+          .watch();
+
+  /// Adaugă un furnizor nou sau reactivează unul șters cu același nume.
+  /// Întoarce denumirea normalizată (spații tăiate).
+  Future<String> adauga(String denumire) async {
+    final nume = denumire.trim();
+    if (nume.isEmpty) throw ArgumentError('Denumirea furnizorului lipsește');
+    final existent = await (db.select(
+      db.furnizori,
+    )..where((f) => f.denumire.equals(nume))).getSingleOrNull();
+    if (existent != null) {
+      if (existent.deletedAt != null) {
+        await (db.update(db.furnizori)..where((f) => f.id.equals(existent.id)))
+            .write(const FurnizoriCompanion(deletedAt: Value(null)));
+      }
+      return existent.denumire;
+    }
+    await db
+        .into(db.furnizori)
+        .insert(
+          FurnizoriCompanion.insert(
+            id: _uuid.v4(),
+            denumire: nume,
+            createdAt: DateTime.now(),
+          ),
+        );
+    return nume;
+  }
+
   Future<void> sterge(String id) =>
-      (db.update(db.lucrari)..where((l) => l.id.equals(id))).write(
-        LucrariCompanion(deletedAt: Value(DateTime.now())),
+      (db.update(db.furnizori)..where((f) => f.id.equals(id))).write(
+        FurnizoriCompanion(deletedAt: Value(DateTime.now())),
       );
 }
 

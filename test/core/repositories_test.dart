@@ -123,6 +123,70 @@ void main() {
     });
   });
 
+  group('versiune și furnizori', () {
+    test(
+      'version crește la fiecare scriere (client, fișă, loc de consum)',
+      () async {
+        final c = await clientNou();
+        await clienti.actualizeaza(
+          c,
+          const ClientiCompanion(telefon: Value('07')),
+        );
+        expect((await clienti.gaseste(c))!.version, 2);
+
+        final id = await fisaNoua(c);
+        await lucrari.actualizeaza(
+          id: id,
+          lucrare: const LucrariCompanion(titlu: Value('x')),
+          locConsum: const LocuriConsumCompanion(codPod: Value('P')),
+        );
+        await lucrari.schimbaStarea(id: id, stareNoua: StareLucrare.releveu);
+        final fisa = await lucrari.watchFisa(id).first;
+        expect(fisa!.lucrare.version, 3);
+        expect(fisa.locConsum!.version, 2);
+      },
+    );
+
+    test('tranzițiile din stări terminale sunt refuzate', () async {
+      final c = await clientNou();
+      final id = await fisaNoua(c);
+      expect(
+        await lucrari.schimbaStarea(id: id, stareNoua: StareLucrare.arhivat),
+        isTrue,
+      );
+      expect(
+        await lucrari.schimbaStarea(id: id, stareNoua: StareLucrare.releveu),
+        isFalse,
+      );
+    });
+
+    test('furnizorii predefiniți există și se pot adăuga alții', () async {
+      final furnizori = FurnizoriRepository(db);
+      final lista = await furnizori.watchToti().first;
+      expect(lista.map((f) => f.denumire), contains('Hidroelectrica'));
+      expect(lista.every((f) => f.predefinit), isTrue);
+
+      expect(
+        await furnizori.adauga('  Energie Locală SRL '),
+        'Energie Locală SRL',
+      );
+      expect(
+        await furnizori.adauga('Energie Locală SRL'),
+        'Energie Locală SRL',
+      );
+      final dupa = await furnizori.watchToti().first;
+      expect(dupa.length, lista.length + 1);
+      expect(dupa.last.denumire, 'Energie Locală SRL');
+      expect(dupa.last.predefinit, isFalse);
+
+      await furnizori.sterge(dupa.last.id);
+      expect((await furnizori.watchToti().first).length, lista.length);
+      // readăugarea reactivează rândul șters
+      await furnizori.adauga('Energie Locală SRL');
+      expect((await furnizori.watchToti().first).length, lista.length + 1);
+    });
+  });
+
   group('ClientiRepository', () {
     test('nu șterge un client cu fișe asociate', () async {
       final c = await clientNou();

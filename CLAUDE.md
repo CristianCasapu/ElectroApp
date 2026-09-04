@@ -21,8 +21,9 @@ Flutter 3.44 / Dart 3.12, Material 3 (temă preluată din ElectroCalc), Riverpod
 targetSdk/compileSdk 36, `applicationId ro.ccii.electroapp`.
 
 ## Etape (docs/CERCETARE.md §4.4)
-E0 schelet + registru ✅ · E1 motor de calcul · E2 releveu + măsurători · E3 rapoarte PDF ·
-E4 catalog, racordare, export · E5 sync electroprep.ro, hartă, MT.
+E0 schelet + registru ✅ · E1 motor de calcul + estimare + oferte PDF ✅ · E2 releveu +
+măsurători · E3 restul rapoartelor PDF · E4 catalog editabil, racordare, export · E5 sync
+electroprep.ro, hartă, MT.
 
 ## Structura
 ```
@@ -37,7 +38,12 @@ lib/
     db/repositories.dart    ClientiRepository, LucrariRepository (nr. FL-<an>-<secv>, tranziții de stare
                             jurnalizate), SetariRepository
     data/                   localitati_romania.dart (copiat din ElectroCalc), ulterior rules/ JSON
-    calc/                   (E1) motor de calcul pur Dart, cu teste — NICIO formulă în ecrane
+    calc/                   motor de calcul pur Dart, cu teste — NICIO formulă în ecrane:
+                            echipamente (catalog implicit), pv_string (IEC 62548), pv_randament
+                            (județ × orientare), pv_estimare (sistem din consum), materiale (BOM +
+                            prețuri), cablu_ac (I7-2011, din ElectroCalc), verdict
+    models/solutie.dart     snapshot serializabil al estimării (revizii + documente)
+    services/raport_pdf_service.dart  fișa sistemului + oferte (pdf, fonturi Roboto din assets)
     utils/format.dart       formatData/formatNumar/parseNumar (virgulă zecimală)
   features/<domeniu>/       ecrane; registru/, clienti/, calcule/, setari/
   widgets/                  calc_widgets.dart, result_card.dart (din ElectroCalc), common_widgets.dart

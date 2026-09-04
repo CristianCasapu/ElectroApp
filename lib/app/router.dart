@@ -7,6 +7,9 @@ import '../features/clienti/clienti_screen.dart';
 import '../features/registru/lucrare_detail_screen.dart';
 import '../features/registru/lucrare_form_screen.dart';
 import '../features/registru/registru_screen.dart';
+import '../features/registru/estimare_screen.dart';
+import '../features/registru/solutie_detail_screen.dart';
+import '../core/models/solutie.dart';
 import '../features/setari/setari_screen.dart';
 
 final _rootKey = GlobalKey<NavigatorState>();
@@ -39,6 +42,22 @@ final appRouter = GoRouter(
                       parentNavigatorKey: _rootKey,
                       builder: (context, state) =>
                           LucrareFormScreen(id: state.pathParameters['id']),
+                    ),
+                    GoRoute(
+                      path: 'estimare',
+                      parentNavigatorKey: _rootKey,
+                      builder: (context, state) => EstimareScreen(
+                        lucrareId: state.pathParameters['id']!,
+                        deLa: state.extra as IntrariSolutie?,
+                      ),
+                    ),
+                    GoRoute(
+                      path: 'solutie/:sid',
+                      parentNavigatorKey: _rootKey,
+                      builder: (context, state) => SolutieDetailScreen(
+                        lucrareId: state.pathParameters['id']!,
+                        solutieId: state.pathParameters['sid']!,
+                      ),
                     ),
                   ],
                 ),

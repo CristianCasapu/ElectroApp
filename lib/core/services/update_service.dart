@@ -84,31 +84,50 @@ class UpdateService {
     );
   }
 
-  /// Descarcă APK-ul în cache și raportează progresul 0..1.
+  /// Descarcă APK-ul în cache și raportează progresul 0..1. [anulat] este
+  /// consultat la fiecare bloc; la anulare sau eroare fișierul parțial se
+  /// șterge și se întoarce `null`. [director] înlocuiește cache-ul în teste.
   Future<File?> descarca(
     UpdateInfo info,
-    void Function(double progres) onProgres,
-  ) async {
+    void Function(double progres) onProgres, {
+    bool Function()? anulat,
+    Directory? director,
+  }) async {
+    File? file;
+    IOSink? sink;
     try {
-      final dir = await getTemporaryDirectory();
-      final file = File('${dir.path}/${info.numeFisier}');
+      final dir = director ?? await getTemporaryDirectory();
+      file = File('${dir.path}${Platform.pathSeparator}${info.numeFisier}');
       final req = http.Request('GET', Uri.parse(info.url))
         ..headers['User-Agent'] = 'ElectroApp';
-      final resp = await _client.send(req);
-      if (resp.statusCode != 200) return null;
+      final resp = await _client.send(req).timeout(const Duration(seconds: 30));
+      if (resp.statusCode != 200) {
+        await resp.stream.drain<void>();
+        return null;
+      }
       final total = resp.contentLength ?? info.dimensiuneBytes;
       var primit = 0;
-      final sink = file.openWrite();
-      await for (final chunk in resp.stream) {
+      sink = file.openWrite();
+      await for (final chunk in resp.stream.timeout(
+        const Duration(seconds: 60),
+      )) {
+        if (anulat?.call() ?? false) return null;
         sink.add(chunk);
         primit += chunk.length;
         if (total > 0) onProgres(primit / total);
       }
       await sink.flush();
       await sink.close();
+      sink = null;
       return file;
     } on Object {
       return null;
+    } finally {
+      if (sink != null) {
+        // eroare sau anulare: nu lăsăm un APK trunchiat în cache
+        await sink.close();
+        if (file != null && await file.exists()) await file.delete();
+      }
     }
   }
 

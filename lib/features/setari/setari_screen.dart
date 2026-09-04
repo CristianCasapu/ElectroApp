@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../app/app_colors.dart';
 import '../../app/providers.dart';
 import '../../core/models/profil_firma.dart';
+import '../../core/services/update_service.dart';
 import '../../widgets/calc_widgets.dart';
 import 'update_dialog.dart';
 
@@ -33,7 +34,8 @@ class SetariScreen extends ConsumerWidget {
                     : 'Necompletat — apare pe documentele emise',
               ),
               trailing: const Icon(Icons.chevron_right),
-              onTap: () => Navigator.of(context).push(
+              // Pe navigatorul rădăcină, ca formularul să acopere și bara de tab-uri.
+              onTap: () => Navigator.of(context, rootNavigator: true).push(
                 MaterialPageRoute(builder: (_) => const ProfilFirmaScreen()),
               ),
             ),
@@ -72,6 +74,7 @@ class _DespreCard extends ConsumerStatefulWidget {
 
 class _DespreCardState extends ConsumerState<_DespreCard> {
   bool _verifica = false;
+  final _info = PackageInfo.fromPlatform();
 
   Future<void> _cautaActualizari() async {
     setState(() => _verifica = true);
@@ -100,7 +103,7 @@ class _DespreCardState extends ConsumerState<_DespreCard> {
             onTap: _verifica ? null : _cautaActualizari,
           ),
           FutureBuilder<PackageInfo>(
-            future: PackageInfo.fromPlatform(),
+            future: _info,
             builder: (context, snap) {
               final v = snap.data;
               return ListTile(
@@ -109,7 +112,7 @@ class _DespreCardState extends ConsumerState<_DespreCard> {
                 subtitle: Text(
                   v == null
                       ? 'Fișe de lucrare pentru sisteme fotovoltaice'
-                      : 'Versiunea ${v.version} (build ${v.buildNumber})',
+                      : 'Versiunea ${versiuneLocalaDin(v.version, v.buildNumber)}',
                 ),
               );
             },

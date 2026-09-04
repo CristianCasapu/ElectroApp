@@ -9,6 +9,10 @@ import '../../core/db/repositories.dart';
 import '../../core/models/enums.dart';
 import '../../core/utils/format.dart';
 import '../../widgets/common_widgets.dart';
+import '../../core/db/solutii_repository.dart';
+import '../../core/models/solutie.dart';
+import '../../core/services/raport_pdf_service.dart';
+import 'solutie_detail_screen.dart';
 
 class LucrareDetailScreen extends ConsumerWidget {
   final String id;
@@ -106,6 +110,7 @@ class _Continut extends ConsumerWidget {
                 CampInfo('Reprezentant', c.reprezentantLegal),
                 CampInfo('Furnizor energie', c.furnizorEnergie),
                 CampInfo('Cod client furnizor', c.codClientFurnizor),
+                CampInfo('POD client', c.codPod),
               ],
             ],
           ),
@@ -129,6 +134,8 @@ class _Continut extends ConsumerWidget {
                   OperatorDistributie.dinCod(lc.operatorDistributie).eticheta,
                 ),
                 CampInfo('Cod POD', lc.codPod),
+                CampInfo('Furnizor energie', lc.furnizorEnergie),
+                CampInfo('Cod client furnizor', lc.codClientFurnizor),
                 CampInfo(
                   'Nivel tensiune',
                   NivelTensiune.dinCod(lc.nivelTensiune).eticheta,
@@ -193,21 +200,13 @@ class _Continut extends ConsumerWidget {
             icon: Icons.speed_outlined,
             etapa: 'E2',
           ),
-          const SectiunePlanificata(
-            titlu: 'Soluția tehnică adoptată',
-            icon: Icons.solar_power_outlined,
-            etapa: 'E1',
-          ),
+          _SectiuneSolutii(lucrareId: l.id),
           const SectiunePlanificata(
             titlu: 'Racordare și avize',
             icon: Icons.fact_check_outlined,
             etapa: 'E4',
           ),
-          const SectiunePlanificata(
-            titlu: 'Documente emise',
-            icon: Icons.picture_as_pdf_outlined,
-            etapa: 'E3',
-          ),
+          _SectiuneDocumente(lucrareId: l.id),
           const SizedBox(height: 12),
           SectiuneCard(
             titlu: 'Istoric stări',
@@ -466,6 +465,102 @@ class _StareSheetState extends State<_StareSheet> {
                 : () => Navigator.pop(context, (_aleasa!, _obs.text.trim())),
             child: const Text('Confirmă'),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SectiuneSolutii extends ConsumerWidget {
+  final String lucrareId;
+  const _SectiuneSolutii({required this.lucrareId});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final solutii = ref.watch(solutiiProvider(lucrareId)).value ?? const [];
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: SectiuneCard(
+        titlu: 'Soluția tehnică adoptată',
+        icon: Icons.solar_power_outlined,
+        actiune: TextButton.icon(
+          onPressed: () => context.push('/registru/$lucrareId/estimare'),
+          icon: const Icon(Icons.calculate_outlined, size: 18),
+          label: Text(solutii.isEmpty ? 'Estimare' : 'Revizie nouă'),
+        ),
+        children: [
+          if (solutii.isEmpty)
+            Text(
+              'Nicio estimare încă. Calculează sistemul din consum, amplasament și racord.',
+              style: TextStyle(fontSize: 13, color: context.subtitleColor),
+            ),
+          for (final s in solutii)
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              dense: true,
+              leading: CircleAvatar(
+                radius: 16,
+                backgroundColor: context.tintedSurface(context.accentBlue),
+                child: Text(
+                  'R${s.revizie}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: context.accentBlue,
+                  ),
+                ),
+              ),
+              title: Text(SolutiiRepository.decodeaza(s).titluScurt),
+              subtitle: Text(
+                [
+                  formatDataOra(s.creataLa),
+                  if (s.observatii.isNotEmpty) s.observatii,
+                ].join(' · '),
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => context.push('/registru/$lucrareId/solutie/${s.id}'),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SectiuneDocumente extends ConsumerWidget {
+  final String lucrareId;
+  const _SectiuneDocumente({required this.lucrareId});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final docs = ref.watch(documenteProvider(lucrareId)).value ?? const [];
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: SectiuneCard(
+        titlu: 'Documente emise',
+        icon: Icons.picture_as_pdf_outlined,
+        children: [
+          if (docs.isEmpty)
+            Text(
+              'Niciun document. Se emit din revizia salvată a soluției tehnice.',
+              style: TextStyle(fontSize: 13, color: context.subtitleColor),
+            ),
+          for (final d in docs)
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              dense: true,
+              leading: Icon(
+                TipDocument.dinCod(d.tip) == TipDocument.fisaSistem
+                    ? Icons.description_outlined
+                    : Icons.request_quote_outlined,
+                color: context.accentRed,
+              ),
+              title: Text(RaportPdfService.numeAfisat(d)),
+              subtitle: Text(
+                '${formatDataOra(d.emisLa)} · ${(d.marimeBytes / 1024).toStringAsFixed(0)} KB',
+              ),
+              trailing: const Icon(Icons.more_horiz),
+              onTap: () => deschideDocument(context, d),
+            ),
         ],
       ),
     );

@@ -31,6 +31,8 @@ class _ClientiScreenState extends ConsumerState<ClientiScreen> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(title: const Text('Clienți')),
       floatingActionButton: FloatingActionButton.extended(
+        // tab-urile stau simultan în IndexedStack: tag-uri Hero distincte
+        heroTag: 'fab-clienti',
         onPressed: () => context.push('/clienti/nou'),
         icon: const Icon(Icons.person_add_alt_1),
         label: const Text('Client nou'),

@@ -4,7 +4,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/db/database.dart';
 import '../core/db/repositories.dart';
+import '../core/db/solutii_repository.dart';
 import '../core/models/profil_firma.dart';
+import '../core/services/anaf_service.dart';
+import '../core/services/contact_picker_service.dart';
+import '../core/services/osm_service.dart';
+import '../core/services/raport_pdf_service.dart';
 import '../core/services/update_service.dart';
 
 final databaseProvider = Provider<AppDatabase>((ref) {
@@ -19,27 +24,52 @@ final clientiRepositoryProvider = Provider(
 final lucrariRepositoryProvider = Provider(
   (ref) => LucrariRepository(ref.watch(databaseProvider)),
 );
+final furnizoriRepositoryProvider = Provider(
+  (ref) => FurnizoriRepository(ref.watch(databaseProvider)),
+);
+final solutiiRepositoryProvider = Provider(
+  (ref) => SolutiiRepository(ref.watch(databaseProvider)),
+);
 final setariRepositoryProvider = Provider(
   (ref) => SetariRepository(ref.watch(databaseProvider)),
 );
 
+// Servicii externe — suprascrise în teste cu variante fără rețea.
 final updateServiceProvider = Provider((ref) => UpdateService());
+final osmServiceProvider = Provider((ref) => OsmService());
+final anafServiceProvider = Provider((ref) => AnafService());
+final contactPickerProvider = Provider((ref) => ContactPickerService());
+final raportPdfProvider = Provider((ref) => RaportPdfService());
 
 final registruProvider = StreamProvider<List<FisaLucrare>>(
   (ref) => ref.watch(lucrariRepositoryProvider).watchRegistru(),
 );
 
-final fisaProvider = StreamProvider.family<FisaLucrare?, String>(
+final fisaProvider = StreamProvider.autoDispose.family<FisaLucrare?, String>(
   (ref, id) => ref.watch(lucrariRepositoryProvider).watchFisa(id),
 );
 
-final istoricStariProvider =
-    StreamProvider.family<List<LucrariStariData>, String>(
+final istoricStariProvider = StreamProvider.autoDispose
+    .family<List<LucrariStariData>, String>(
       (ref, id) => ref.watch(lucrariRepositoryProvider).watchIstoricStari(id),
     );
 
 final clientiProvider = StreamProvider<List<ClientiData>>(
   (ref) => ref.watch(clientiRepositoryProvider).watchToti(),
+);
+
+final solutiiProvider = StreamProvider.autoDispose
+    .family<List<SolutiiData>, String>(
+      (ref, id) => ref.watch(solutiiRepositoryProvider).watchPentruLucrare(id),
+    );
+
+final documenteProvider = StreamProvider.autoDispose
+    .family<List<DocumenteData>, String>(
+      (ref, id) => ref.watch(solutiiRepositoryProvider).watchDocumente(id),
+    );
+
+final furnizoriProvider = StreamProvider<List<FurnizoriData>>(
+  (ref) => ref.watch(furnizoriRepositoryProvider).watchToti(),
 );
 
 final profilFirmaProvider = StreamProvider<ProfilFirma>(
