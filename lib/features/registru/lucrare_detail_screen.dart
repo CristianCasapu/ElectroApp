@@ -13,7 +13,9 @@ import '../../core/db/solutii_repository.dart';
 import '../../core/models/solutie.dart';
 import '../../core/services/raport_pdf_service.dart';
 import '../../core/calc/echipamente.dart';
+import '../../core/calc/masuratori.dart';
 import '../../core/calc/releveu.dart';
+import '../../core/db/masuratori_repository.dart';
 import '../../core/db/releveu_repository.dart';
 import 'solutie_detail_screen.dart';
 
@@ -194,11 +196,7 @@ class _Continut extends ConsumerWidget {
           ),
           const SizedBox(height: 12),
           _SectiuneReleveu(lucrareId: l.id, judet: lc?.judet ?? ''),
-          const SectiunePlanificata(
-            titlu: 'Măsurători instrumentale',
-            icon: Icons.speed_outlined,
-            etapa: 'E2',
-          ),
+          _SectiuneMasuratori(lucrareId: l.id),
           _SectiuneSolutii(lucrareId: l.id),
           const SectiunePlanificata(
             titlu: 'Racordare și avize',
@@ -540,19 +538,19 @@ class _SectiuneDocumente extends ConsumerWidget {
         children: [
           if (docs.isEmpty)
             Text(
-              'Niciun document. Se emit din revizia salvată a soluției tehnice.',
+              'Niciun document. Se emit din revizia salvată a soluției tehnice, '
+              'iar buletinul de verificări din ecranul de măsurători.',
               style: TextStyle(fontSize: 13, color: context.subtitleColor),
             ),
           for (final d in docs)
             ListTile(
               contentPadding: EdgeInsets.zero,
               dense: true,
-              leading: Icon(
-                TipDocument.dinCod(d.tip) == TipDocument.fisaSistem
-                    ? Icons.description_outlined
-                    : Icons.request_quote_outlined,
-                color: context.accentRed,
-              ),
+              leading: Icon(switch (TipDocument.dinCod(d.tip)) {
+                TipDocument.fisaSistem => Icons.description_outlined,
+                TipDocument.buletinPif => Icons.fact_check_outlined,
+                _ => Icons.request_quote_outlined,
+              }, color: context.accentRed),
               title: Text(RaportPdfService.numeAfisat(d)),
               subtitle: Text(
                 '${formatDataOra(d.emisLa)} · ${(d.marimeBytes / 1024).toStringAsFixed(0)} KB',
@@ -637,6 +635,82 @@ class _SectiuneReleveu extends ConsumerWidget {
                           '${SegmentTraseu.dinCod(t.segment).eticheta.split(' ').first} ${formatNumar(t.lungimeM)} m',
                     )
                     .join(' · '),
+              ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _SectiuneMasuratori extends ConsumerWidget {
+  final String lucrareId;
+  const _SectiuneMasuratori({required this.lucrareId});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final toate =
+        ref
+            .watch(masuratoriProvider((lucrareId: lucrareId, faza: null)))
+            .value ??
+        const <MasuratoriData>[];
+    final active = MasuratoriRepository.inVigoare(toate);
+    final poze = ref.watch(pozeProvider(lucrareId)).value ?? const <PozeData>[];
+    final neconforme = active
+        .where(
+          (m) =>
+              VerdictMasuratoare.dinCod(m.verdict) ==
+              VerdictMasuratoare.neconform,
+        )
+        .length;
+    final pif = active
+        .where((m) => FazaMasuratoare.dinCod(m.faza) == FazaMasuratoare.pif)
+        .map((m) => TipMasuratoare.dinCod(m.tip));
+    final lipsuri = EvaluatorMasuratori.lipsuriPif(pif);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: SectiuneCard(
+        titlu: 'Măsurători și fotografii',
+        icon: Icons.speed_outlined,
+        actiune: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              tooltip: 'Fotografii',
+              icon: const Icon(Icons.photo_camera_outlined, size: 20),
+              onPressed: () => context.push('/registru/$lucrareId/poze'),
+            ),
+            TextButton.icon(
+              onPressed: () => context.push('/registru/$lucrareId/masuratori'),
+              icon: const Icon(Icons.add_chart, size: 18),
+              label: Text(active.isEmpty ? 'Măsoară' : 'Deschide'),
+            ),
+          ],
+        ),
+        children: [
+          if (active.isEmpty && poze.isEmpty)
+            Text(
+              'Nicio măsurătoare și nicio fotografie. Valorile de pe teren și '
+              'testele de punere în funcțiune se înregistrează aici.',
+              style: TextStyle(fontSize: 13, color: context.subtitleColor),
+            )
+          else ...[
+            CampInfo(
+              'Măsurători',
+              '${active.length} în vigoare'
+                  '${neconforme > 0 ? ' · $neconforme neconforme' : ''}'
+                  '${toate.length > active.length ? ' · ${toate.length - active.length} corectate' : ''}',
+            ),
+            CampInfo(
+              'Fotografii',
+              poze.isEmpty
+                  ? ''
+                  : '${poze.length} în ${poze.map((p) => p.sectiune).toSet().length} secțiuni',
+            ),
+            if (lipsuri.isNotEmpty)
+              CampInfo(
+                'Lipsesc la PIF',
+                lipsuri.map((t) => t.eticheta).join(', '),
               ),
           ],
         ],

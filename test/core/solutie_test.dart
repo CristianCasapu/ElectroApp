@@ -2,6 +2,7 @@ import 'package:drift/drift.dart' show Value;
 import 'package:drift/native.dart';
 import 'package:electroapp/core/calc/materiale.dart';
 import 'package:electroapp/core/calc/pv_estimare.dart';
+import 'package:electroapp/core/calc/masuratori.dart';
 import 'package:electroapp/core/db/database.dart';
 import 'package:electroapp/core/db/repositories.dart';
 import 'package:electroapp/core/db/solutii_repository.dart';
@@ -246,6 +247,76 @@ void main() {
         expect(String.fromCharCodes(b.take(5)), '%PDF-');
       }
       expect(RaportPdfService.hashPentru([1, 2, 3]).length, 64);
+    });
+
+    test('buletinul de PIF se emite si cand instalatia e neconforma', () async {
+      final pdf = RaportPdfService();
+      MasuratoriData masuratoare(
+        TipMasuratoare tip,
+        double valoare, {
+        String tinta = '',
+      }) => MasuratoriData(
+        id: tip.cod,
+        lucrareId: 'l1',
+        faza: FazaMasuratoare.pif.cod,
+        tip: tip.cod,
+        tinta: tinta,
+        valoare: valoare,
+        unitate: tip.unitate,
+        metoda: '',
+        instrumentId: 'i1',
+        verdict: VerdictMasuratoare.conform.cod,
+        referinta: tip.referinta,
+        observatii: '',
+        operator: 'Ion',
+        la: DateTime(2026, 9, 6),
+      );
+      final randuri = [
+        for (final m in [
+          masuratoare(TipMasuratoare.vocString, 585, tinta: 'S1'),
+          masuratoare(TipMasuratoare.iscString, 13.9, tinta: 'S1'),
+          masuratoare(TipMasuratoare.izolatieDc, 0.4, tinta: 'S1'),
+          masuratoare(TipMasuratoare.rezistentaPriza, 3.1),
+          masuratoare(TipMasuratoare.timpDeclansareDdr, 42),
+        ])
+          (
+            m,
+            EvaluatorMasuratori.evalueaza(
+              MasuratoareIntrare(
+                tip: TipMasuratoare.dinCod(m.tip),
+                valoare: m.valoare,
+                tinta: m.tinta,
+              ),
+              vocAsteptatV: 585,
+              iscAsteptatA: 14,
+            ),
+          ),
+      ];
+      final bytes = await pdf.buletinPif(
+        profil: profil,
+        fisa: fisa,
+        masuratori: randuri,
+        instrumente: [
+          InstrumenteData(
+            id: 'i1',
+            createdAt: DateTime(2026, 1, 1),
+            updatedAt: DateTime(2026, 1, 1),
+            version: 1,
+            denumire: 'MI 3115',
+            producator: 'Metrel',
+            serie: '20123456',
+            etalonareExpira: DateTime(2027, 5, 1),
+            observatii: '',
+          ),
+        ],
+        solutie: _snapshotExemplu(),
+        lipsuri: EvaluatorMasuratori.lipsuriPif(
+          randuri.map((r) => TipMasuratoare.dinCod(r.$1.tip)),
+        ),
+        nrFotografii: 4,
+      );
+      expect(bytes.length, greaterThan(5000));
+      expect(String.fromCharCodes(bytes.take(5)), '%PDF-');
     });
   });
 }

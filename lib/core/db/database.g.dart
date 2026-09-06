@@ -9258,6 +9258,2478 @@ class TraseeCompanion extends UpdateCompanion<TraseeData> {
   }
 }
 
+class $InstrumenteTable extends Instrumente
+    with TableInfo<$InstrumenteTable, InstrumenteData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $InstrumenteTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> deletedAt = GeneratedColumn<DateTime>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _denumireMeta = const VerificationMeta(
+    'denumire',
+  );
+  @override
+  late final GeneratedColumn<String> denumire = GeneratedColumn<String>(
+    'denumire',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _producatorMeta = const VerificationMeta(
+    'producator',
+  );
+  @override
+  late final GeneratedColumn<String> producator = GeneratedColumn<String>(
+    'producator',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _serieMeta = const VerificationMeta('serie');
+  @override
+  late final GeneratedColumn<String> serie = GeneratedColumn<String>(
+    'serie',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _etalonatLaMeta = const VerificationMeta(
+    'etalonatLa',
+  );
+  @override
+  late final GeneratedColumn<DateTime> etalonatLa = GeneratedColumn<DateTime>(
+    'etalonat_la',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _etalonareExpiraMeta = const VerificationMeta(
+    'etalonareExpira',
+  );
+  @override
+  late final GeneratedColumn<DateTime> etalonareExpira =
+      GeneratedColumn<DateTime>(
+        'etalonare_expira',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _observatiiMeta = const VerificationMeta(
+    'observatii',
+  );
+  @override
+  late final GeneratedColumn<String> observatii = GeneratedColumn<String>(
+    'observatii',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+    denumire,
+    producator,
+    serie,
+    etalonatLa,
+    etalonareExpira,
+    observatii,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'instrumente';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<InstrumenteData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    }
+    if (data.containsKey('denumire')) {
+      context.handle(
+        _denumireMeta,
+        denumire.isAcceptableOrUnknown(data['denumire']!, _denumireMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_denumireMeta);
+    }
+    if (data.containsKey('producator')) {
+      context.handle(
+        _producatorMeta,
+        producator.isAcceptableOrUnknown(data['producator']!, _producatorMeta),
+      );
+    }
+    if (data.containsKey('serie')) {
+      context.handle(
+        _serieMeta,
+        serie.isAcceptableOrUnknown(data['serie']!, _serieMeta),
+      );
+    }
+    if (data.containsKey('etalonat_la')) {
+      context.handle(
+        _etalonatLaMeta,
+        etalonatLa.isAcceptableOrUnknown(data['etalonat_la']!, _etalonatLaMeta),
+      );
+    }
+    if (data.containsKey('etalonare_expira')) {
+      context.handle(
+        _etalonareExpiraMeta,
+        etalonareExpira.isAcceptableOrUnknown(
+          data['etalonare_expira']!,
+          _etalonareExpiraMeta,
+        ),
+      );
+    }
+    if (data.containsKey('observatii')) {
+      context.handle(
+        _observatiiMeta,
+        observatii.isAcceptableOrUnknown(data['observatii']!, _observatiiMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  InstrumenteData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return InstrumenteData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}deleted_at'],
+      ),
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+      denumire: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}denumire'],
+      )!,
+      producator: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}producator'],
+      )!,
+      serie: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}serie'],
+      )!,
+      etalonatLa: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}etalonat_la'],
+      ),
+      etalonareExpira: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}etalonare_expira'],
+      ),
+      observatii: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}observatii'],
+      )!,
+    );
+  }
+
+  @override
+  $InstrumenteTable createAlias(String alias) {
+    return $InstrumenteTable(attachedDatabase, alias);
+  }
+}
+
+class InstrumenteData extends DataClass implements Insertable<InstrumenteData> {
+  final String id;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime? deletedAt;
+  final int version;
+  final String denumire;
+  final String producator;
+  final String serie;
+  final DateTime? etalonatLa;
+  final DateTime? etalonareExpira;
+  final String observatii;
+  const InstrumenteData({
+    required this.id,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+    required this.version,
+    required this.denumire,
+    required this.producator,
+    required this.serie,
+    this.etalonatLa,
+    this.etalonareExpira,
+    required this.observatii,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt);
+    }
+    map['version'] = Variable<int>(version);
+    map['denumire'] = Variable<String>(denumire);
+    map['producator'] = Variable<String>(producator);
+    map['serie'] = Variable<String>(serie);
+    if (!nullToAbsent || etalonatLa != null) {
+      map['etalonat_la'] = Variable<DateTime>(etalonatLa);
+    }
+    if (!nullToAbsent || etalonareExpira != null) {
+      map['etalonare_expira'] = Variable<DateTime>(etalonareExpira);
+    }
+    map['observatii'] = Variable<String>(observatii);
+    return map;
+  }
+
+  InstrumenteCompanion toCompanion(bool nullToAbsent) {
+    return InstrumenteCompanion(
+      id: Value(id),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+      version: Value(version),
+      denumire: Value(denumire),
+      producator: Value(producator),
+      serie: Value(serie),
+      etalonatLa: etalonatLa == null && nullToAbsent
+          ? const Value.absent()
+          : Value(etalonatLa),
+      etalonareExpira: etalonareExpira == null && nullToAbsent
+          ? const Value.absent()
+          : Value(etalonareExpira),
+      observatii: Value(observatii),
+    );
+  }
+
+  factory InstrumenteData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return InstrumenteData(
+      id: serializer.fromJson<String>(json['id']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
+      version: serializer.fromJson<int>(json['version']),
+      denumire: serializer.fromJson<String>(json['denumire']),
+      producator: serializer.fromJson<String>(json['producator']),
+      serie: serializer.fromJson<String>(json['serie']),
+      etalonatLa: serializer.fromJson<DateTime?>(json['etalonatLa']),
+      etalonareExpira: serializer.fromJson<DateTime?>(json['etalonareExpira']),
+      observatii: serializer.fromJson<String>(json['observatii']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
+      'version': serializer.toJson<int>(version),
+      'denumire': serializer.toJson<String>(denumire),
+      'producator': serializer.toJson<String>(producator),
+      'serie': serializer.toJson<String>(serie),
+      'etalonatLa': serializer.toJson<DateTime?>(etalonatLa),
+      'etalonareExpira': serializer.toJson<DateTime?>(etalonareExpira),
+      'observatii': serializer.toJson<String>(observatii),
+    };
+  }
+
+  InstrumenteData copyWith({
+    String? id,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    Value<DateTime?> deletedAt = const Value.absent(),
+    int? version,
+    String? denumire,
+    String? producator,
+    String? serie,
+    Value<DateTime?> etalonatLa = const Value.absent(),
+    Value<DateTime?> etalonareExpira = const Value.absent(),
+    String? observatii,
+  }) => InstrumenteData(
+    id: id ?? this.id,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+    version: version ?? this.version,
+    denumire: denumire ?? this.denumire,
+    producator: producator ?? this.producator,
+    serie: serie ?? this.serie,
+    etalonatLa: etalonatLa.present ? etalonatLa.value : this.etalonatLa,
+    etalonareExpira: etalonareExpira.present
+        ? etalonareExpira.value
+        : this.etalonareExpira,
+    observatii: observatii ?? this.observatii,
+  );
+  InstrumenteData copyWithCompanion(InstrumenteCompanion data) {
+    return InstrumenteData(
+      id: data.id.present ? data.id.value : this.id,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+      version: data.version.present ? data.version.value : this.version,
+      denumire: data.denumire.present ? data.denumire.value : this.denumire,
+      producator: data.producator.present
+          ? data.producator.value
+          : this.producator,
+      serie: data.serie.present ? data.serie.value : this.serie,
+      etalonatLa: data.etalonatLa.present
+          ? data.etalonatLa.value
+          : this.etalonatLa,
+      etalonareExpira: data.etalonareExpira.present
+          ? data.etalonareExpira.value
+          : this.etalonareExpira,
+      observatii: data.observatii.present
+          ? data.observatii.value
+          : this.observatii,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('InstrumenteData(')
+          ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('denumire: $denumire, ')
+          ..write('producator: $producator, ')
+          ..write('serie: $serie, ')
+          ..write('etalonatLa: $etalonatLa, ')
+          ..write('etalonareExpira: $etalonareExpira, ')
+          ..write('observatii: $observatii')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+    denumire,
+    producator,
+    serie,
+    etalonatLa,
+    etalonareExpira,
+    observatii,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is InstrumenteData &&
+          other.id == this.id &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt &&
+          other.version == this.version &&
+          other.denumire == this.denumire &&
+          other.producator == this.producator &&
+          other.serie == this.serie &&
+          other.etalonatLa == this.etalonatLa &&
+          other.etalonareExpira == this.etalonareExpira &&
+          other.observatii == this.observatii);
+}
+
+class InstrumenteCompanion extends UpdateCompanion<InstrumenteData> {
+  final Value<String> id;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<DateTime?> deletedAt;
+  final Value<int> version;
+  final Value<String> denumire;
+  final Value<String> producator;
+  final Value<String> serie;
+  final Value<DateTime?> etalonatLa;
+  final Value<DateTime?> etalonareExpira;
+  final Value<String> observatii;
+  final Value<int> rowid;
+  const InstrumenteCompanion({
+    this.id = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.denumire = const Value.absent(),
+    this.producator = const Value.absent(),
+    this.serie = const Value.absent(),
+    this.etalonatLa = const Value.absent(),
+    this.etalonareExpira = const Value.absent(),
+    this.observatii = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  InstrumenteCompanion.insert({
+    required String id,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    required String denumire,
+    this.producator = const Value.absent(),
+    this.serie = const Value.absent(),
+    this.etalonatLa = const Value.absent(),
+    this.etalonareExpira = const Value.absent(),
+    this.observatii = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt),
+       denumire = Value(denumire);
+  static Insertable<InstrumenteData> custom({
+    Expression<String>? id,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<DateTime>? deletedAt,
+    Expression<int>? version,
+    Expression<String>? denumire,
+    Expression<String>? producator,
+    Expression<String>? serie,
+    Expression<DateTime>? etalonatLa,
+    Expression<DateTime>? etalonareExpira,
+    Expression<String>? observatii,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (version != null) 'version': version,
+      if (denumire != null) 'denumire': denumire,
+      if (producator != null) 'producator': producator,
+      if (serie != null) 'serie': serie,
+      if (etalonatLa != null) 'etalonat_la': etalonatLa,
+      if (etalonareExpira != null) 'etalonare_expira': etalonareExpira,
+      if (observatii != null) 'observatii': observatii,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  InstrumenteCompanion copyWith({
+    Value<String>? id,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<DateTime?>? deletedAt,
+    Value<int>? version,
+    Value<String>? denumire,
+    Value<String>? producator,
+    Value<String>? serie,
+    Value<DateTime?>? etalonatLa,
+    Value<DateTime?>? etalonareExpira,
+    Value<String>? observatii,
+    Value<int>? rowid,
+  }) {
+    return InstrumenteCompanion(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      version: version ?? this.version,
+      denumire: denumire ?? this.denumire,
+      producator: producator ?? this.producator,
+      serie: serie ?? this.serie,
+      etalonatLa: etalonatLa ?? this.etalonatLa,
+      etalonareExpira: etalonareExpira ?? this.etalonareExpira,
+      observatii: observatii ?? this.observatii,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (denumire.present) {
+      map['denumire'] = Variable<String>(denumire.value);
+    }
+    if (producator.present) {
+      map['producator'] = Variable<String>(producator.value);
+    }
+    if (serie.present) {
+      map['serie'] = Variable<String>(serie.value);
+    }
+    if (etalonatLa.present) {
+      map['etalonat_la'] = Variable<DateTime>(etalonatLa.value);
+    }
+    if (etalonareExpira.present) {
+      map['etalonare_expira'] = Variable<DateTime>(etalonareExpira.value);
+    }
+    if (observatii.present) {
+      map['observatii'] = Variable<String>(observatii.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('InstrumenteCompanion(')
+          ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('denumire: $denumire, ')
+          ..write('producator: $producator, ')
+          ..write('serie: $serie, ')
+          ..write('etalonatLa: $etalonatLa, ')
+          ..write('etalonareExpira: $etalonareExpira, ')
+          ..write('observatii: $observatii, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $MasuratoriTable extends Masuratori
+    with TableInfo<$MasuratoriTable, MasuratoriData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MasuratoriTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lucrareIdMeta = const VerificationMeta(
+    'lucrareId',
+  );
+  @override
+  late final GeneratedColumn<String> lucrareId = GeneratedColumn<String>(
+    'lucrare_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES lucrari (id)',
+    ),
+  );
+  static const VerificationMeta _fazaMeta = const VerificationMeta('faza');
+  @override
+  late final GeneratedColumn<String> faza = GeneratedColumn<String>(
+    'faza',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _tipMeta = const VerificationMeta('tip');
+  @override
+  late final GeneratedColumn<String> tip = GeneratedColumn<String>(
+    'tip',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _tintaMeta = const VerificationMeta('tinta');
+  @override
+  late final GeneratedColumn<String> tinta = GeneratedColumn<String>(
+    'tinta',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _valoareMeta = const VerificationMeta(
+    'valoare',
+  );
+  @override
+  late final GeneratedColumn<double> valoare = GeneratedColumn<double>(
+    'valoare',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _unitateMeta = const VerificationMeta(
+    'unitate',
+  );
+  @override
+  late final GeneratedColumn<String> unitate = GeneratedColumn<String>(
+    'unitate',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _iradiantaWM2Meta = const VerificationMeta(
+    'iradiantaWM2',
+  );
+  @override
+  late final GeneratedColumn<double> iradiantaWM2 = GeneratedColumn<double>(
+    'iradianta_w_m2',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _temperaturaModulCMeta = const VerificationMeta(
+    'temperaturaModulC',
+  );
+  @override
+  late final GeneratedColumn<double> temperaturaModulC =
+      GeneratedColumn<double>(
+        'temperatura_modul_c',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _tensiuneTestVMeta = const VerificationMeta(
+    'tensiuneTestV',
+  );
+  @override
+  late final GeneratedColumn<double> tensiuneTestV = GeneratedColumn<double>(
+    'tensiune_test_v',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _metodaMeta = const VerificationMeta('metoda');
+  @override
+  late final GeneratedColumn<String> metoda = GeneratedColumn<String>(
+    'metoda',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _instrumentIdMeta = const VerificationMeta(
+    'instrumentId',
+  );
+  @override
+  late final GeneratedColumn<String> instrumentId = GeneratedColumn<String>(
+    'instrument_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _verdictMeta = const VerificationMeta(
+    'verdict',
+  );
+  @override
+  late final GeneratedColumn<String> verdict = GeneratedColumn<String>(
+    'verdict',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _referintaMeta = const VerificationMeta(
+    'referinta',
+  );
+  @override
+  late final GeneratedColumn<String> referinta = GeneratedColumn<String>(
+    'referinta',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _observatiiMeta = const VerificationMeta(
+    'observatii',
+  );
+  @override
+  late final GeneratedColumn<String> observatii = GeneratedColumn<String>(
+    'observatii',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _operatorMeta = const VerificationMeta(
+    'operator',
+  );
+  @override
+  late final GeneratedColumn<String> operator = GeneratedColumn<String>(
+    'operator',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _laMeta = const VerificationMeta('la');
+  @override
+  late final GeneratedColumn<DateTime> la = GeneratedColumn<DateTime>(
+    'la',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _inlocuitaDeMeta = const VerificationMeta(
+    'inlocuitaDe',
+  );
+  @override
+  late final GeneratedColumn<String> inlocuitaDe = GeneratedColumn<String>(
+    'inlocuita_de',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    lucrareId,
+    faza,
+    tip,
+    tinta,
+    valoare,
+    unitate,
+    iradiantaWM2,
+    temperaturaModulC,
+    tensiuneTestV,
+    metoda,
+    instrumentId,
+    verdict,
+    referinta,
+    observatii,
+    operator,
+    la,
+    inlocuitaDe,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'masuratori';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<MasuratoriData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('lucrare_id')) {
+      context.handle(
+        _lucrareIdMeta,
+        lucrareId.isAcceptableOrUnknown(data['lucrare_id']!, _lucrareIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_lucrareIdMeta);
+    }
+    if (data.containsKey('faza')) {
+      context.handle(
+        _fazaMeta,
+        faza.isAcceptableOrUnknown(data['faza']!, _fazaMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_fazaMeta);
+    }
+    if (data.containsKey('tip')) {
+      context.handle(
+        _tipMeta,
+        tip.isAcceptableOrUnknown(data['tip']!, _tipMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_tipMeta);
+    }
+    if (data.containsKey('tinta')) {
+      context.handle(
+        _tintaMeta,
+        tinta.isAcceptableOrUnknown(data['tinta']!, _tintaMeta),
+      );
+    }
+    if (data.containsKey('valoare')) {
+      context.handle(
+        _valoareMeta,
+        valoare.isAcceptableOrUnknown(data['valoare']!, _valoareMeta),
+      );
+    }
+    if (data.containsKey('unitate')) {
+      context.handle(
+        _unitateMeta,
+        unitate.isAcceptableOrUnknown(data['unitate']!, _unitateMeta),
+      );
+    }
+    if (data.containsKey('iradianta_w_m2')) {
+      context.handle(
+        _iradiantaWM2Meta,
+        iradiantaWM2.isAcceptableOrUnknown(
+          data['iradianta_w_m2']!,
+          _iradiantaWM2Meta,
+        ),
+      );
+    }
+    if (data.containsKey('temperatura_modul_c')) {
+      context.handle(
+        _temperaturaModulCMeta,
+        temperaturaModulC.isAcceptableOrUnknown(
+          data['temperatura_modul_c']!,
+          _temperaturaModulCMeta,
+        ),
+      );
+    }
+    if (data.containsKey('tensiune_test_v')) {
+      context.handle(
+        _tensiuneTestVMeta,
+        tensiuneTestV.isAcceptableOrUnknown(
+          data['tensiune_test_v']!,
+          _tensiuneTestVMeta,
+        ),
+      );
+    }
+    if (data.containsKey('metoda')) {
+      context.handle(
+        _metodaMeta,
+        metoda.isAcceptableOrUnknown(data['metoda']!, _metodaMeta),
+      );
+    }
+    if (data.containsKey('instrument_id')) {
+      context.handle(
+        _instrumentIdMeta,
+        instrumentId.isAcceptableOrUnknown(
+          data['instrument_id']!,
+          _instrumentIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('verdict')) {
+      context.handle(
+        _verdictMeta,
+        verdict.isAcceptableOrUnknown(data['verdict']!, _verdictMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_verdictMeta);
+    }
+    if (data.containsKey('referinta')) {
+      context.handle(
+        _referintaMeta,
+        referinta.isAcceptableOrUnknown(data['referinta']!, _referintaMeta),
+      );
+    }
+    if (data.containsKey('observatii')) {
+      context.handle(
+        _observatiiMeta,
+        observatii.isAcceptableOrUnknown(data['observatii']!, _observatiiMeta),
+      );
+    }
+    if (data.containsKey('operator')) {
+      context.handle(
+        _operatorMeta,
+        operator.isAcceptableOrUnknown(data['operator']!, _operatorMeta),
+      );
+    }
+    if (data.containsKey('la')) {
+      context.handle(_laMeta, la.isAcceptableOrUnknown(data['la']!, _laMeta));
+    } else if (isInserting) {
+      context.missing(_laMeta);
+    }
+    if (data.containsKey('inlocuita_de')) {
+      context.handle(
+        _inlocuitaDeMeta,
+        inlocuitaDe.isAcceptableOrUnknown(
+          data['inlocuita_de']!,
+          _inlocuitaDeMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  MasuratoriData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MasuratoriData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      lucrareId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}lucrare_id'],
+      )!,
+      faza: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}faza'],
+      )!,
+      tip: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tip'],
+      )!,
+      tinta: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tinta'],
+      )!,
+      valoare: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}valoare'],
+      ),
+      unitate: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}unitate'],
+      )!,
+      iradiantaWM2: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}iradianta_w_m2'],
+      ),
+      temperaturaModulC: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}temperatura_modul_c'],
+      ),
+      tensiuneTestV: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}tensiune_test_v'],
+      ),
+      metoda: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}metoda'],
+      )!,
+      instrumentId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}instrument_id'],
+      ),
+      verdict: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}verdict'],
+      )!,
+      referinta: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}referinta'],
+      )!,
+      observatii: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}observatii'],
+      )!,
+      operator: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}operator'],
+      )!,
+      la: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}la'],
+      )!,
+      inlocuitaDe: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}inlocuita_de'],
+      ),
+    );
+  }
+
+  @override
+  $MasuratoriTable createAlias(String alias) {
+    return $MasuratoriTable(attachedDatabase, alias);
+  }
+}
+
+class MasuratoriData extends DataClass implements Insertable<MasuratoriData> {
+  final String id;
+  final String lucrareId;
+  final String faza;
+  final String tip;
+
+  /// Ținta măsurătorii: „string 1", „circuit invertor", „priză de pământ".
+  final String tinta;
+  final double? valoare;
+  final String unitate;
+
+  /// Condițiile în care s-a măsurat, pentru corecția la STC și pentru context.
+  final double? iradiantaWM2;
+  final double? temperaturaModulC;
+  final double? tensiuneTestV;
+  final String metoda;
+  final String? instrumentId;
+  final String verdict;
+  final String referinta;
+  final String observatii;
+  final String operator;
+  final DateTime la;
+
+  /// Marchează o măsurătoare înlocuită de una nouă pe aceeași țintă.
+  final String? inlocuitaDe;
+  const MasuratoriData({
+    required this.id,
+    required this.lucrareId,
+    required this.faza,
+    required this.tip,
+    required this.tinta,
+    this.valoare,
+    required this.unitate,
+    this.iradiantaWM2,
+    this.temperaturaModulC,
+    this.tensiuneTestV,
+    required this.metoda,
+    this.instrumentId,
+    required this.verdict,
+    required this.referinta,
+    required this.observatii,
+    required this.operator,
+    required this.la,
+    this.inlocuitaDe,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['lucrare_id'] = Variable<String>(lucrareId);
+    map['faza'] = Variable<String>(faza);
+    map['tip'] = Variable<String>(tip);
+    map['tinta'] = Variable<String>(tinta);
+    if (!nullToAbsent || valoare != null) {
+      map['valoare'] = Variable<double>(valoare);
+    }
+    map['unitate'] = Variable<String>(unitate);
+    if (!nullToAbsent || iradiantaWM2 != null) {
+      map['iradianta_w_m2'] = Variable<double>(iradiantaWM2);
+    }
+    if (!nullToAbsent || temperaturaModulC != null) {
+      map['temperatura_modul_c'] = Variable<double>(temperaturaModulC);
+    }
+    if (!nullToAbsent || tensiuneTestV != null) {
+      map['tensiune_test_v'] = Variable<double>(tensiuneTestV);
+    }
+    map['metoda'] = Variable<String>(metoda);
+    if (!nullToAbsent || instrumentId != null) {
+      map['instrument_id'] = Variable<String>(instrumentId);
+    }
+    map['verdict'] = Variable<String>(verdict);
+    map['referinta'] = Variable<String>(referinta);
+    map['observatii'] = Variable<String>(observatii);
+    map['operator'] = Variable<String>(operator);
+    map['la'] = Variable<DateTime>(la);
+    if (!nullToAbsent || inlocuitaDe != null) {
+      map['inlocuita_de'] = Variable<String>(inlocuitaDe);
+    }
+    return map;
+  }
+
+  MasuratoriCompanion toCompanion(bool nullToAbsent) {
+    return MasuratoriCompanion(
+      id: Value(id),
+      lucrareId: Value(lucrareId),
+      faza: Value(faza),
+      tip: Value(tip),
+      tinta: Value(tinta),
+      valoare: valoare == null && nullToAbsent
+          ? const Value.absent()
+          : Value(valoare),
+      unitate: Value(unitate),
+      iradiantaWM2: iradiantaWM2 == null && nullToAbsent
+          ? const Value.absent()
+          : Value(iradiantaWM2),
+      temperaturaModulC: temperaturaModulC == null && nullToAbsent
+          ? const Value.absent()
+          : Value(temperaturaModulC),
+      tensiuneTestV: tensiuneTestV == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tensiuneTestV),
+      metoda: Value(metoda),
+      instrumentId: instrumentId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(instrumentId),
+      verdict: Value(verdict),
+      referinta: Value(referinta),
+      observatii: Value(observatii),
+      operator: Value(operator),
+      la: Value(la),
+      inlocuitaDe: inlocuitaDe == null && nullToAbsent
+          ? const Value.absent()
+          : Value(inlocuitaDe),
+    );
+  }
+
+  factory MasuratoriData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MasuratoriData(
+      id: serializer.fromJson<String>(json['id']),
+      lucrareId: serializer.fromJson<String>(json['lucrareId']),
+      faza: serializer.fromJson<String>(json['faza']),
+      tip: serializer.fromJson<String>(json['tip']),
+      tinta: serializer.fromJson<String>(json['tinta']),
+      valoare: serializer.fromJson<double?>(json['valoare']),
+      unitate: serializer.fromJson<String>(json['unitate']),
+      iradiantaWM2: serializer.fromJson<double?>(json['iradiantaWM2']),
+      temperaturaModulC: serializer.fromJson<double?>(
+        json['temperaturaModulC'],
+      ),
+      tensiuneTestV: serializer.fromJson<double?>(json['tensiuneTestV']),
+      metoda: serializer.fromJson<String>(json['metoda']),
+      instrumentId: serializer.fromJson<String?>(json['instrumentId']),
+      verdict: serializer.fromJson<String>(json['verdict']),
+      referinta: serializer.fromJson<String>(json['referinta']),
+      observatii: serializer.fromJson<String>(json['observatii']),
+      operator: serializer.fromJson<String>(json['operator']),
+      la: serializer.fromJson<DateTime>(json['la']),
+      inlocuitaDe: serializer.fromJson<String?>(json['inlocuitaDe']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'lucrareId': serializer.toJson<String>(lucrareId),
+      'faza': serializer.toJson<String>(faza),
+      'tip': serializer.toJson<String>(tip),
+      'tinta': serializer.toJson<String>(tinta),
+      'valoare': serializer.toJson<double?>(valoare),
+      'unitate': serializer.toJson<String>(unitate),
+      'iradiantaWM2': serializer.toJson<double?>(iradiantaWM2),
+      'temperaturaModulC': serializer.toJson<double?>(temperaturaModulC),
+      'tensiuneTestV': serializer.toJson<double?>(tensiuneTestV),
+      'metoda': serializer.toJson<String>(metoda),
+      'instrumentId': serializer.toJson<String?>(instrumentId),
+      'verdict': serializer.toJson<String>(verdict),
+      'referinta': serializer.toJson<String>(referinta),
+      'observatii': serializer.toJson<String>(observatii),
+      'operator': serializer.toJson<String>(operator),
+      'la': serializer.toJson<DateTime>(la),
+      'inlocuitaDe': serializer.toJson<String?>(inlocuitaDe),
+    };
+  }
+
+  MasuratoriData copyWith({
+    String? id,
+    String? lucrareId,
+    String? faza,
+    String? tip,
+    String? tinta,
+    Value<double?> valoare = const Value.absent(),
+    String? unitate,
+    Value<double?> iradiantaWM2 = const Value.absent(),
+    Value<double?> temperaturaModulC = const Value.absent(),
+    Value<double?> tensiuneTestV = const Value.absent(),
+    String? metoda,
+    Value<String?> instrumentId = const Value.absent(),
+    String? verdict,
+    String? referinta,
+    String? observatii,
+    String? operator,
+    DateTime? la,
+    Value<String?> inlocuitaDe = const Value.absent(),
+  }) => MasuratoriData(
+    id: id ?? this.id,
+    lucrareId: lucrareId ?? this.lucrareId,
+    faza: faza ?? this.faza,
+    tip: tip ?? this.tip,
+    tinta: tinta ?? this.tinta,
+    valoare: valoare.present ? valoare.value : this.valoare,
+    unitate: unitate ?? this.unitate,
+    iradiantaWM2: iradiantaWM2.present ? iradiantaWM2.value : this.iradiantaWM2,
+    temperaturaModulC: temperaturaModulC.present
+        ? temperaturaModulC.value
+        : this.temperaturaModulC,
+    tensiuneTestV: tensiuneTestV.present
+        ? tensiuneTestV.value
+        : this.tensiuneTestV,
+    metoda: metoda ?? this.metoda,
+    instrumentId: instrumentId.present ? instrumentId.value : this.instrumentId,
+    verdict: verdict ?? this.verdict,
+    referinta: referinta ?? this.referinta,
+    observatii: observatii ?? this.observatii,
+    operator: operator ?? this.operator,
+    la: la ?? this.la,
+    inlocuitaDe: inlocuitaDe.present ? inlocuitaDe.value : this.inlocuitaDe,
+  );
+  MasuratoriData copyWithCompanion(MasuratoriCompanion data) {
+    return MasuratoriData(
+      id: data.id.present ? data.id.value : this.id,
+      lucrareId: data.lucrareId.present ? data.lucrareId.value : this.lucrareId,
+      faza: data.faza.present ? data.faza.value : this.faza,
+      tip: data.tip.present ? data.tip.value : this.tip,
+      tinta: data.tinta.present ? data.tinta.value : this.tinta,
+      valoare: data.valoare.present ? data.valoare.value : this.valoare,
+      unitate: data.unitate.present ? data.unitate.value : this.unitate,
+      iradiantaWM2: data.iradiantaWM2.present
+          ? data.iradiantaWM2.value
+          : this.iradiantaWM2,
+      temperaturaModulC: data.temperaturaModulC.present
+          ? data.temperaturaModulC.value
+          : this.temperaturaModulC,
+      tensiuneTestV: data.tensiuneTestV.present
+          ? data.tensiuneTestV.value
+          : this.tensiuneTestV,
+      metoda: data.metoda.present ? data.metoda.value : this.metoda,
+      instrumentId: data.instrumentId.present
+          ? data.instrumentId.value
+          : this.instrumentId,
+      verdict: data.verdict.present ? data.verdict.value : this.verdict,
+      referinta: data.referinta.present ? data.referinta.value : this.referinta,
+      observatii: data.observatii.present
+          ? data.observatii.value
+          : this.observatii,
+      operator: data.operator.present ? data.operator.value : this.operator,
+      la: data.la.present ? data.la.value : this.la,
+      inlocuitaDe: data.inlocuitaDe.present
+          ? data.inlocuitaDe.value
+          : this.inlocuitaDe,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MasuratoriData(')
+          ..write('id: $id, ')
+          ..write('lucrareId: $lucrareId, ')
+          ..write('faza: $faza, ')
+          ..write('tip: $tip, ')
+          ..write('tinta: $tinta, ')
+          ..write('valoare: $valoare, ')
+          ..write('unitate: $unitate, ')
+          ..write('iradiantaWM2: $iradiantaWM2, ')
+          ..write('temperaturaModulC: $temperaturaModulC, ')
+          ..write('tensiuneTestV: $tensiuneTestV, ')
+          ..write('metoda: $metoda, ')
+          ..write('instrumentId: $instrumentId, ')
+          ..write('verdict: $verdict, ')
+          ..write('referinta: $referinta, ')
+          ..write('observatii: $observatii, ')
+          ..write('operator: $operator, ')
+          ..write('la: $la, ')
+          ..write('inlocuitaDe: $inlocuitaDe')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    lucrareId,
+    faza,
+    tip,
+    tinta,
+    valoare,
+    unitate,
+    iradiantaWM2,
+    temperaturaModulC,
+    tensiuneTestV,
+    metoda,
+    instrumentId,
+    verdict,
+    referinta,
+    observatii,
+    operator,
+    la,
+    inlocuitaDe,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MasuratoriData &&
+          other.id == this.id &&
+          other.lucrareId == this.lucrareId &&
+          other.faza == this.faza &&
+          other.tip == this.tip &&
+          other.tinta == this.tinta &&
+          other.valoare == this.valoare &&
+          other.unitate == this.unitate &&
+          other.iradiantaWM2 == this.iradiantaWM2 &&
+          other.temperaturaModulC == this.temperaturaModulC &&
+          other.tensiuneTestV == this.tensiuneTestV &&
+          other.metoda == this.metoda &&
+          other.instrumentId == this.instrumentId &&
+          other.verdict == this.verdict &&
+          other.referinta == this.referinta &&
+          other.observatii == this.observatii &&
+          other.operator == this.operator &&
+          other.la == this.la &&
+          other.inlocuitaDe == this.inlocuitaDe);
+}
+
+class MasuratoriCompanion extends UpdateCompanion<MasuratoriData> {
+  final Value<String> id;
+  final Value<String> lucrareId;
+  final Value<String> faza;
+  final Value<String> tip;
+  final Value<String> tinta;
+  final Value<double?> valoare;
+  final Value<String> unitate;
+  final Value<double?> iradiantaWM2;
+  final Value<double?> temperaturaModulC;
+  final Value<double?> tensiuneTestV;
+  final Value<String> metoda;
+  final Value<String?> instrumentId;
+  final Value<String> verdict;
+  final Value<String> referinta;
+  final Value<String> observatii;
+  final Value<String> operator;
+  final Value<DateTime> la;
+  final Value<String?> inlocuitaDe;
+  final Value<int> rowid;
+  const MasuratoriCompanion({
+    this.id = const Value.absent(),
+    this.lucrareId = const Value.absent(),
+    this.faza = const Value.absent(),
+    this.tip = const Value.absent(),
+    this.tinta = const Value.absent(),
+    this.valoare = const Value.absent(),
+    this.unitate = const Value.absent(),
+    this.iradiantaWM2 = const Value.absent(),
+    this.temperaturaModulC = const Value.absent(),
+    this.tensiuneTestV = const Value.absent(),
+    this.metoda = const Value.absent(),
+    this.instrumentId = const Value.absent(),
+    this.verdict = const Value.absent(),
+    this.referinta = const Value.absent(),
+    this.observatii = const Value.absent(),
+    this.operator = const Value.absent(),
+    this.la = const Value.absent(),
+    this.inlocuitaDe = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  MasuratoriCompanion.insert({
+    required String id,
+    required String lucrareId,
+    required String faza,
+    required String tip,
+    this.tinta = const Value.absent(),
+    this.valoare = const Value.absent(),
+    this.unitate = const Value.absent(),
+    this.iradiantaWM2 = const Value.absent(),
+    this.temperaturaModulC = const Value.absent(),
+    this.tensiuneTestV = const Value.absent(),
+    this.metoda = const Value.absent(),
+    this.instrumentId = const Value.absent(),
+    required String verdict,
+    this.referinta = const Value.absent(),
+    this.observatii = const Value.absent(),
+    this.operator = const Value.absent(),
+    required DateTime la,
+    this.inlocuitaDe = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       lucrareId = Value(lucrareId),
+       faza = Value(faza),
+       tip = Value(tip),
+       verdict = Value(verdict),
+       la = Value(la);
+  static Insertable<MasuratoriData> custom({
+    Expression<String>? id,
+    Expression<String>? lucrareId,
+    Expression<String>? faza,
+    Expression<String>? tip,
+    Expression<String>? tinta,
+    Expression<double>? valoare,
+    Expression<String>? unitate,
+    Expression<double>? iradiantaWM2,
+    Expression<double>? temperaturaModulC,
+    Expression<double>? tensiuneTestV,
+    Expression<String>? metoda,
+    Expression<String>? instrumentId,
+    Expression<String>? verdict,
+    Expression<String>? referinta,
+    Expression<String>? observatii,
+    Expression<String>? operator,
+    Expression<DateTime>? la,
+    Expression<String>? inlocuitaDe,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (lucrareId != null) 'lucrare_id': lucrareId,
+      if (faza != null) 'faza': faza,
+      if (tip != null) 'tip': tip,
+      if (tinta != null) 'tinta': tinta,
+      if (valoare != null) 'valoare': valoare,
+      if (unitate != null) 'unitate': unitate,
+      if (iradiantaWM2 != null) 'iradianta_w_m2': iradiantaWM2,
+      if (temperaturaModulC != null) 'temperatura_modul_c': temperaturaModulC,
+      if (tensiuneTestV != null) 'tensiune_test_v': tensiuneTestV,
+      if (metoda != null) 'metoda': metoda,
+      if (instrumentId != null) 'instrument_id': instrumentId,
+      if (verdict != null) 'verdict': verdict,
+      if (referinta != null) 'referinta': referinta,
+      if (observatii != null) 'observatii': observatii,
+      if (operator != null) 'operator': operator,
+      if (la != null) 'la': la,
+      if (inlocuitaDe != null) 'inlocuita_de': inlocuitaDe,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  MasuratoriCompanion copyWith({
+    Value<String>? id,
+    Value<String>? lucrareId,
+    Value<String>? faza,
+    Value<String>? tip,
+    Value<String>? tinta,
+    Value<double?>? valoare,
+    Value<String>? unitate,
+    Value<double?>? iradiantaWM2,
+    Value<double?>? temperaturaModulC,
+    Value<double?>? tensiuneTestV,
+    Value<String>? metoda,
+    Value<String?>? instrumentId,
+    Value<String>? verdict,
+    Value<String>? referinta,
+    Value<String>? observatii,
+    Value<String>? operator,
+    Value<DateTime>? la,
+    Value<String?>? inlocuitaDe,
+    Value<int>? rowid,
+  }) {
+    return MasuratoriCompanion(
+      id: id ?? this.id,
+      lucrareId: lucrareId ?? this.lucrareId,
+      faza: faza ?? this.faza,
+      tip: tip ?? this.tip,
+      tinta: tinta ?? this.tinta,
+      valoare: valoare ?? this.valoare,
+      unitate: unitate ?? this.unitate,
+      iradiantaWM2: iradiantaWM2 ?? this.iradiantaWM2,
+      temperaturaModulC: temperaturaModulC ?? this.temperaturaModulC,
+      tensiuneTestV: tensiuneTestV ?? this.tensiuneTestV,
+      metoda: metoda ?? this.metoda,
+      instrumentId: instrumentId ?? this.instrumentId,
+      verdict: verdict ?? this.verdict,
+      referinta: referinta ?? this.referinta,
+      observatii: observatii ?? this.observatii,
+      operator: operator ?? this.operator,
+      la: la ?? this.la,
+      inlocuitaDe: inlocuitaDe ?? this.inlocuitaDe,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (lucrareId.present) {
+      map['lucrare_id'] = Variable<String>(lucrareId.value);
+    }
+    if (faza.present) {
+      map['faza'] = Variable<String>(faza.value);
+    }
+    if (tip.present) {
+      map['tip'] = Variable<String>(tip.value);
+    }
+    if (tinta.present) {
+      map['tinta'] = Variable<String>(tinta.value);
+    }
+    if (valoare.present) {
+      map['valoare'] = Variable<double>(valoare.value);
+    }
+    if (unitate.present) {
+      map['unitate'] = Variable<String>(unitate.value);
+    }
+    if (iradiantaWM2.present) {
+      map['iradianta_w_m2'] = Variable<double>(iradiantaWM2.value);
+    }
+    if (temperaturaModulC.present) {
+      map['temperatura_modul_c'] = Variable<double>(temperaturaModulC.value);
+    }
+    if (tensiuneTestV.present) {
+      map['tensiune_test_v'] = Variable<double>(tensiuneTestV.value);
+    }
+    if (metoda.present) {
+      map['metoda'] = Variable<String>(metoda.value);
+    }
+    if (instrumentId.present) {
+      map['instrument_id'] = Variable<String>(instrumentId.value);
+    }
+    if (verdict.present) {
+      map['verdict'] = Variable<String>(verdict.value);
+    }
+    if (referinta.present) {
+      map['referinta'] = Variable<String>(referinta.value);
+    }
+    if (observatii.present) {
+      map['observatii'] = Variable<String>(observatii.value);
+    }
+    if (operator.present) {
+      map['operator'] = Variable<String>(operator.value);
+    }
+    if (la.present) {
+      map['la'] = Variable<DateTime>(la.value);
+    }
+    if (inlocuitaDe.present) {
+      map['inlocuita_de'] = Variable<String>(inlocuitaDe.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MasuratoriCompanion(')
+          ..write('id: $id, ')
+          ..write('lucrareId: $lucrareId, ')
+          ..write('faza: $faza, ')
+          ..write('tip: $tip, ')
+          ..write('tinta: $tinta, ')
+          ..write('valoare: $valoare, ')
+          ..write('unitate: $unitate, ')
+          ..write('iradiantaWM2: $iradiantaWM2, ')
+          ..write('temperaturaModulC: $temperaturaModulC, ')
+          ..write('tensiuneTestV: $tensiuneTestV, ')
+          ..write('metoda: $metoda, ')
+          ..write('instrumentId: $instrumentId, ')
+          ..write('verdict: $verdict, ')
+          ..write('referinta: $referinta, ')
+          ..write('observatii: $observatii, ')
+          ..write('operator: $operator, ')
+          ..write('la: $la, ')
+          ..write('inlocuitaDe: $inlocuitaDe, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PozeTable extends Poze with TableInfo<$PozeTable, PozeData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PozeTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> deletedAt = GeneratedColumn<DateTime>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _lucrareIdMeta = const VerificationMeta(
+    'lucrareId',
+  );
+  @override
+  late final GeneratedColumn<String> lucrareId = GeneratedColumn<String>(
+    'lucrare_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES lucrari (id)',
+    ),
+  );
+  static const VerificationMeta _sectiuneMeta = const VerificationMeta(
+    'sectiune',
+  );
+  @override
+  late final GeneratedColumn<String> sectiune = GeneratedColumn<String>(
+    'sectiune',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _planIdMeta = const VerificationMeta('planId');
+  @override
+  late final GeneratedColumn<String> planId = GeneratedColumn<String>(
+    'plan_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _caleMeta = const VerificationMeta('cale');
+  @override
+  late final GeneratedColumn<String> cale = GeneratedColumn<String>(
+    'cale',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _descriereMeta = const VerificationMeta(
+    'descriere',
+  );
+  @override
+  late final GeneratedColumn<String> descriere = GeneratedColumn<String>(
+    'descriere',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _latMeta = const VerificationMeta('lat');
+  @override
+  late final GeneratedColumn<double> lat = GeneratedColumn<double>(
+    'lat',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _lonMeta = const VerificationMeta('lon');
+  @override
+  late final GeneratedColumn<double> lon = GeneratedColumn<double>(
+    'lon',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _marimeBytesMeta = const VerificationMeta(
+    'marimeBytes',
+  );
+  @override
+  late final GeneratedColumn<int> marimeBytes = GeneratedColumn<int>(
+    'marime_bytes',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _facutaLaMeta = const VerificationMeta(
+    'facutaLa',
+  );
+  @override
+  late final GeneratedColumn<DateTime> facutaLa = GeneratedColumn<DateTime>(
+    'facuta_la',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+    lucrareId,
+    sectiune,
+    planId,
+    cale,
+    descriere,
+    lat,
+    lon,
+    marimeBytes,
+    facutaLa,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'poze';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PozeData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    }
+    if (data.containsKey('lucrare_id')) {
+      context.handle(
+        _lucrareIdMeta,
+        lucrareId.isAcceptableOrUnknown(data['lucrare_id']!, _lucrareIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_lucrareIdMeta);
+    }
+    if (data.containsKey('sectiune')) {
+      context.handle(
+        _sectiuneMeta,
+        sectiune.isAcceptableOrUnknown(data['sectiune']!, _sectiuneMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_sectiuneMeta);
+    }
+    if (data.containsKey('plan_id')) {
+      context.handle(
+        _planIdMeta,
+        planId.isAcceptableOrUnknown(data['plan_id']!, _planIdMeta),
+      );
+    }
+    if (data.containsKey('cale')) {
+      context.handle(
+        _caleMeta,
+        cale.isAcceptableOrUnknown(data['cale']!, _caleMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_caleMeta);
+    }
+    if (data.containsKey('descriere')) {
+      context.handle(
+        _descriereMeta,
+        descriere.isAcceptableOrUnknown(data['descriere']!, _descriereMeta),
+      );
+    }
+    if (data.containsKey('lat')) {
+      context.handle(
+        _latMeta,
+        lat.isAcceptableOrUnknown(data['lat']!, _latMeta),
+      );
+    }
+    if (data.containsKey('lon')) {
+      context.handle(
+        _lonMeta,
+        lon.isAcceptableOrUnknown(data['lon']!, _lonMeta),
+      );
+    }
+    if (data.containsKey('marime_bytes')) {
+      context.handle(
+        _marimeBytesMeta,
+        marimeBytes.isAcceptableOrUnknown(
+          data['marime_bytes']!,
+          _marimeBytesMeta,
+        ),
+      );
+    }
+    if (data.containsKey('facuta_la')) {
+      context.handle(
+        _facutaLaMeta,
+        facutaLa.isAcceptableOrUnknown(data['facuta_la']!, _facutaLaMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_facutaLaMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PozeData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PozeData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}deleted_at'],
+      ),
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+      lucrareId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}lucrare_id'],
+      )!,
+      sectiune: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sectiune'],
+      )!,
+      planId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}plan_id'],
+      ),
+      cale: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}cale'],
+      )!,
+      descriere: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}descriere'],
+      )!,
+      lat: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}lat'],
+      ),
+      lon: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}lon'],
+      ),
+      marimeBytes: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}marime_bytes'],
+      )!,
+      facutaLa: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}facuta_la'],
+      )!,
+    );
+  }
+
+  @override
+  $PozeTable createAlias(String alias) {
+    return $PozeTable(attachedDatabase, alias);
+  }
+}
+
+class PozeData extends DataClass implements Insertable<PozeData> {
+  final String id;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime? deletedAt;
+  final int version;
+  final String lucrareId;
+  final String sectiune;
+  final String? planId;
+  final String cale;
+  final String descriere;
+  final double? lat;
+  final double? lon;
+  final int marimeBytes;
+  final DateTime facutaLa;
+  const PozeData({
+    required this.id,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+    required this.version,
+    required this.lucrareId,
+    required this.sectiune,
+    this.planId,
+    required this.cale,
+    required this.descriere,
+    this.lat,
+    this.lon,
+    required this.marimeBytes,
+    required this.facutaLa,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt);
+    }
+    map['version'] = Variable<int>(version);
+    map['lucrare_id'] = Variable<String>(lucrareId);
+    map['sectiune'] = Variable<String>(sectiune);
+    if (!nullToAbsent || planId != null) {
+      map['plan_id'] = Variable<String>(planId);
+    }
+    map['cale'] = Variable<String>(cale);
+    map['descriere'] = Variable<String>(descriere);
+    if (!nullToAbsent || lat != null) {
+      map['lat'] = Variable<double>(lat);
+    }
+    if (!nullToAbsent || lon != null) {
+      map['lon'] = Variable<double>(lon);
+    }
+    map['marime_bytes'] = Variable<int>(marimeBytes);
+    map['facuta_la'] = Variable<DateTime>(facutaLa);
+    return map;
+  }
+
+  PozeCompanion toCompanion(bool nullToAbsent) {
+    return PozeCompanion(
+      id: Value(id),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+      version: Value(version),
+      lucrareId: Value(lucrareId),
+      sectiune: Value(sectiune),
+      planId: planId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(planId),
+      cale: Value(cale),
+      descriere: Value(descriere),
+      lat: lat == null && nullToAbsent ? const Value.absent() : Value(lat),
+      lon: lon == null && nullToAbsent ? const Value.absent() : Value(lon),
+      marimeBytes: Value(marimeBytes),
+      facutaLa: Value(facutaLa),
+    );
+  }
+
+  factory PozeData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PozeData(
+      id: serializer.fromJson<String>(json['id']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
+      version: serializer.fromJson<int>(json['version']),
+      lucrareId: serializer.fromJson<String>(json['lucrareId']),
+      sectiune: serializer.fromJson<String>(json['sectiune']),
+      planId: serializer.fromJson<String?>(json['planId']),
+      cale: serializer.fromJson<String>(json['cale']),
+      descriere: serializer.fromJson<String>(json['descriere']),
+      lat: serializer.fromJson<double?>(json['lat']),
+      lon: serializer.fromJson<double?>(json['lon']),
+      marimeBytes: serializer.fromJson<int>(json['marimeBytes']),
+      facutaLa: serializer.fromJson<DateTime>(json['facutaLa']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
+      'version': serializer.toJson<int>(version),
+      'lucrareId': serializer.toJson<String>(lucrareId),
+      'sectiune': serializer.toJson<String>(sectiune),
+      'planId': serializer.toJson<String?>(planId),
+      'cale': serializer.toJson<String>(cale),
+      'descriere': serializer.toJson<String>(descriere),
+      'lat': serializer.toJson<double?>(lat),
+      'lon': serializer.toJson<double?>(lon),
+      'marimeBytes': serializer.toJson<int>(marimeBytes),
+      'facutaLa': serializer.toJson<DateTime>(facutaLa),
+    };
+  }
+
+  PozeData copyWith({
+    String? id,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    Value<DateTime?> deletedAt = const Value.absent(),
+    int? version,
+    String? lucrareId,
+    String? sectiune,
+    Value<String?> planId = const Value.absent(),
+    String? cale,
+    String? descriere,
+    Value<double?> lat = const Value.absent(),
+    Value<double?> lon = const Value.absent(),
+    int? marimeBytes,
+    DateTime? facutaLa,
+  }) => PozeData(
+    id: id ?? this.id,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+    version: version ?? this.version,
+    lucrareId: lucrareId ?? this.lucrareId,
+    sectiune: sectiune ?? this.sectiune,
+    planId: planId.present ? planId.value : this.planId,
+    cale: cale ?? this.cale,
+    descriere: descriere ?? this.descriere,
+    lat: lat.present ? lat.value : this.lat,
+    lon: lon.present ? lon.value : this.lon,
+    marimeBytes: marimeBytes ?? this.marimeBytes,
+    facutaLa: facutaLa ?? this.facutaLa,
+  );
+  PozeData copyWithCompanion(PozeCompanion data) {
+    return PozeData(
+      id: data.id.present ? data.id.value : this.id,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+      version: data.version.present ? data.version.value : this.version,
+      lucrareId: data.lucrareId.present ? data.lucrareId.value : this.lucrareId,
+      sectiune: data.sectiune.present ? data.sectiune.value : this.sectiune,
+      planId: data.planId.present ? data.planId.value : this.planId,
+      cale: data.cale.present ? data.cale.value : this.cale,
+      descriere: data.descriere.present ? data.descriere.value : this.descriere,
+      lat: data.lat.present ? data.lat.value : this.lat,
+      lon: data.lon.present ? data.lon.value : this.lon,
+      marimeBytes: data.marimeBytes.present
+          ? data.marimeBytes.value
+          : this.marimeBytes,
+      facutaLa: data.facutaLa.present ? data.facutaLa.value : this.facutaLa,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PozeData(')
+          ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('lucrareId: $lucrareId, ')
+          ..write('sectiune: $sectiune, ')
+          ..write('planId: $planId, ')
+          ..write('cale: $cale, ')
+          ..write('descriere: $descriere, ')
+          ..write('lat: $lat, ')
+          ..write('lon: $lon, ')
+          ..write('marimeBytes: $marimeBytes, ')
+          ..write('facutaLa: $facutaLa')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+    lucrareId,
+    sectiune,
+    planId,
+    cale,
+    descriere,
+    lat,
+    lon,
+    marimeBytes,
+    facutaLa,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PozeData &&
+          other.id == this.id &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt &&
+          other.version == this.version &&
+          other.lucrareId == this.lucrareId &&
+          other.sectiune == this.sectiune &&
+          other.planId == this.planId &&
+          other.cale == this.cale &&
+          other.descriere == this.descriere &&
+          other.lat == this.lat &&
+          other.lon == this.lon &&
+          other.marimeBytes == this.marimeBytes &&
+          other.facutaLa == this.facutaLa);
+}
+
+class PozeCompanion extends UpdateCompanion<PozeData> {
+  final Value<String> id;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<DateTime?> deletedAt;
+  final Value<int> version;
+  final Value<String> lucrareId;
+  final Value<String> sectiune;
+  final Value<String?> planId;
+  final Value<String> cale;
+  final Value<String> descriere;
+  final Value<double?> lat;
+  final Value<double?> lon;
+  final Value<int> marimeBytes;
+  final Value<DateTime> facutaLa;
+  final Value<int> rowid;
+  const PozeCompanion({
+    this.id = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.lucrareId = const Value.absent(),
+    this.sectiune = const Value.absent(),
+    this.planId = const Value.absent(),
+    this.cale = const Value.absent(),
+    this.descriere = const Value.absent(),
+    this.lat = const Value.absent(),
+    this.lon = const Value.absent(),
+    this.marimeBytes = const Value.absent(),
+    this.facutaLa = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PozeCompanion.insert({
+    required String id,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    required String lucrareId,
+    required String sectiune,
+    this.planId = const Value.absent(),
+    required String cale,
+    this.descriere = const Value.absent(),
+    this.lat = const Value.absent(),
+    this.lon = const Value.absent(),
+    this.marimeBytes = const Value.absent(),
+    required DateTime facutaLa,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt),
+       lucrareId = Value(lucrareId),
+       sectiune = Value(sectiune),
+       cale = Value(cale),
+       facutaLa = Value(facutaLa);
+  static Insertable<PozeData> custom({
+    Expression<String>? id,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<DateTime>? deletedAt,
+    Expression<int>? version,
+    Expression<String>? lucrareId,
+    Expression<String>? sectiune,
+    Expression<String>? planId,
+    Expression<String>? cale,
+    Expression<String>? descriere,
+    Expression<double>? lat,
+    Expression<double>? lon,
+    Expression<int>? marimeBytes,
+    Expression<DateTime>? facutaLa,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (version != null) 'version': version,
+      if (lucrareId != null) 'lucrare_id': lucrareId,
+      if (sectiune != null) 'sectiune': sectiune,
+      if (planId != null) 'plan_id': planId,
+      if (cale != null) 'cale': cale,
+      if (descriere != null) 'descriere': descriere,
+      if (lat != null) 'lat': lat,
+      if (lon != null) 'lon': lon,
+      if (marimeBytes != null) 'marime_bytes': marimeBytes,
+      if (facutaLa != null) 'facuta_la': facutaLa,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PozeCompanion copyWith({
+    Value<String>? id,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<DateTime?>? deletedAt,
+    Value<int>? version,
+    Value<String>? lucrareId,
+    Value<String>? sectiune,
+    Value<String?>? planId,
+    Value<String>? cale,
+    Value<String>? descriere,
+    Value<double?>? lat,
+    Value<double?>? lon,
+    Value<int>? marimeBytes,
+    Value<DateTime>? facutaLa,
+    Value<int>? rowid,
+  }) {
+    return PozeCompanion(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      version: version ?? this.version,
+      lucrareId: lucrareId ?? this.lucrareId,
+      sectiune: sectiune ?? this.sectiune,
+      planId: planId ?? this.planId,
+      cale: cale ?? this.cale,
+      descriere: descriere ?? this.descriere,
+      lat: lat ?? this.lat,
+      lon: lon ?? this.lon,
+      marimeBytes: marimeBytes ?? this.marimeBytes,
+      facutaLa: facutaLa ?? this.facutaLa,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (lucrareId.present) {
+      map['lucrare_id'] = Variable<String>(lucrareId.value);
+    }
+    if (sectiune.present) {
+      map['sectiune'] = Variable<String>(sectiune.value);
+    }
+    if (planId.present) {
+      map['plan_id'] = Variable<String>(planId.value);
+    }
+    if (cale.present) {
+      map['cale'] = Variable<String>(cale.value);
+    }
+    if (descriere.present) {
+      map['descriere'] = Variable<String>(descriere.value);
+    }
+    if (lat.present) {
+      map['lat'] = Variable<double>(lat.value);
+    }
+    if (lon.present) {
+      map['lon'] = Variable<double>(lon.value);
+    }
+    if (marimeBytes.present) {
+      map['marime_bytes'] = Variable<int>(marimeBytes.value);
+    }
+    if (facutaLa.present) {
+      map['facuta_la'] = Variable<DateTime>(facutaLa.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PozeCompanion(')
+          ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('lucrareId: $lucrareId, ')
+          ..write('sectiune: $sectiune, ')
+          ..write('planId: $planId, ')
+          ..write('cale: $cale, ')
+          ..write('descriere: $descriere, ')
+          ..write('lat: $lat, ')
+          ..write('lon: $lon, ')
+          ..write('marimeBytes: $marimeBytes, ')
+          ..write('facutaLa: $facutaLa, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $SetariTable extends Setari with TableInfo<$SetariTable, SetariData> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -9483,6 +11955,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $TablouriExistenteTable tablouriExistente =
       $TablouriExistenteTable(this);
   late final $TraseeTable trasee = $TraseeTable(this);
+  late final $InstrumenteTable instrumente = $InstrumenteTable(this);
+  late final $MasuratoriTable masuratori = $MasuratoriTable(this);
+  late final $PozeTable poze = $PozeTable(this);
   late final $SetariTable setari = $SetariTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
@@ -9501,6 +11976,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     obstacole,
     tablouriExistente,
     trasee,
+    instrumente,
+    masuratori,
+    poze,
     setari,
   ];
   @override
@@ -10188,6 +12666,43 @@ final class $$LucrariTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$MasuratoriTable, List<MasuratoriData>>
+  _masuratoriRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.masuratori,
+    aliasName: 'lucrari__id__masuratori__lucrare_id',
+  );
+
+  $$MasuratoriTableProcessedTableManager get masuratoriRefs {
+    final manager = $$MasuratoriTableTableManager(
+      $_db,
+      $_db.masuratori,
+    ).filter((f) => f.lucrareId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_masuratoriRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$PozeTable, List<PozeData>> _pozeRefsTable(
+    _$AppDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.poze,
+    aliasName: 'lucrari__id__poze__lucrare_id',
+  );
+
+  $$PozeTableProcessedTableManager get pozeRefs {
+    final manager = $$PozeTableTableManager(
+      $_db,
+      $_db.poze,
+    ).filter((f) => f.lucrareId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_pozeRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$LucrariTableFilterComposer
@@ -10398,6 +12913,56 @@ class $$LucrariTableFilterComposer
           }) => $$ReleveeTableFilterComposer(
             $db: $db,
             $table: $db.relevee,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> masuratoriRefs(
+    Expression<bool> Function($$MasuratoriTableFilterComposer f) f,
+  ) {
+    final $$MasuratoriTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.masuratori,
+      getReferencedColumn: (t) => t.lucrareId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MasuratoriTableFilterComposer(
+            $db: $db,
+            $table: $db.masuratori,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> pozeRefs(
+    Expression<bool> Function($$PozeTableFilterComposer f) f,
+  ) {
+    final $$PozeTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.poze,
+      getReferencedColumn: (t) => t.lucrareId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PozeTableFilterComposer(
+            $db: $db,
+            $table: $db.poze,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -10701,6 +13266,56 @@ class $$LucrariTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> masuratoriRefs<T extends Object>(
+    Expression<T> Function($$MasuratoriTableAnnotationComposer a) f,
+  ) {
+    final $$MasuratoriTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.masuratori,
+      getReferencedColumn: (t) => t.lucrareId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MasuratoriTableAnnotationComposer(
+            $db: $db,
+            $table: $db.masuratori,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> pozeRefs<T extends Object>(
+    Expression<T> Function($$PozeTableAnnotationComposer a) f,
+  ) {
+    final $$PozeTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.poze,
+      getReferencedColumn: (t) => t.lucrareId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PozeTableAnnotationComposer(
+            $db: $db,
+            $table: $db.poze,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$LucrariTableTableManager
@@ -10723,6 +13338,8 @@ class $$LucrariTableTableManager
             bool solutiiRefs,
             bool documenteRefs,
             bool releveeRefs,
+            bool masuratoriRefs,
+            bool pozeRefs,
           })
         > {
   $$LucrariTableTableManager(_$AppDatabase db, $LucrariTable table)
@@ -10816,6 +13433,8 @@ class $$LucrariTableTableManager
                 solutiiRefs = false,
                 documenteRefs = false,
                 releveeRefs = false,
+                masuratoriRefs = false,
+                pozeRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -10825,6 +13444,8 @@ class $$LucrariTableTableManager
                     if (solutiiRefs) db.solutii,
                     if (documenteRefs) db.documente,
                     if (releveeRefs) db.relevee,
+                    if (masuratoriRefs) db.masuratori,
+                    if (pozeRefs) db.poze,
                   ],
                   addJoins:
                       <
@@ -10965,6 +13586,44 @@ class $$LucrariTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (masuratoriRefs)
+                        await $_getPrefetchedData<
+                          LucrariData,
+                          $LucrariTable,
+                          MasuratoriData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$LucrariTableReferences
+                              ._masuratoriRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$LucrariTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).masuratoriRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.lucrareId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (pozeRefs)
+                        await $_getPrefetchedData<
+                          LucrariData,
+                          $LucrariTable,
+                          PozeData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$LucrariTableReferences
+                              ._pozeRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$LucrariTableReferences(db, table, p0).pozeRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.lucrareId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -10992,6 +13651,8 @@ typedef $$LucrariTableProcessedTableManager =
         bool solutiiRefs,
         bool documenteRefs,
         bool releveeRefs,
+        bool masuratoriRefs,
+        bool pozeRefs,
       })
     >;
 typedef $$LucrariStariTableCreateCompanionBuilder =
@@ -16000,6 +18661,1390 @@ typedef $$TraseeTableProcessedTableManager =
       TraseeData,
       PrefetchHooks Function({bool releveuId})
     >;
+typedef $$InstrumenteTableCreateCompanionBuilder =
+    InstrumenteCompanion Function({
+      required String id,
+      required DateTime createdAt,
+      required DateTime updatedAt,
+      Value<DateTime?> deletedAt,
+      Value<int> version,
+      required String denumire,
+      Value<String> producator,
+      Value<String> serie,
+      Value<DateTime?> etalonatLa,
+      Value<DateTime?> etalonareExpira,
+      Value<String> observatii,
+      Value<int> rowid,
+    });
+typedef $$InstrumenteTableUpdateCompanionBuilder =
+    InstrumenteCompanion Function({
+      Value<String> id,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<DateTime?> deletedAt,
+      Value<int> version,
+      Value<String> denumire,
+      Value<String> producator,
+      Value<String> serie,
+      Value<DateTime?> etalonatLa,
+      Value<DateTime?> etalonareExpira,
+      Value<String> observatii,
+      Value<int> rowid,
+    });
+
+class $$InstrumenteTableFilterComposer
+    extends Composer<_$AppDatabase, $InstrumenteTable> {
+  $$InstrumenteTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get denumire => $composableBuilder(
+    column: $table.denumire,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get producator => $composableBuilder(
+    column: $table.producator,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get serie => $composableBuilder(
+    column: $table.serie,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get etalonatLa => $composableBuilder(
+    column: $table.etalonatLa,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get etalonareExpira => $composableBuilder(
+    column: $table.etalonareExpira,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$InstrumenteTableOrderingComposer
+    extends Composer<_$AppDatabase, $InstrumenteTable> {
+  $$InstrumenteTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get denumire => $composableBuilder(
+    column: $table.denumire,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get producator => $composableBuilder(
+    column: $table.producator,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get serie => $composableBuilder(
+    column: $table.serie,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get etalonatLa => $composableBuilder(
+    column: $table.etalonatLa,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get etalonareExpira => $composableBuilder(
+    column: $table.etalonareExpira,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$InstrumenteTableAnnotationComposer
+    extends Composer<_$AppDatabase, $InstrumenteTable> {
+  $$InstrumenteTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumn<String> get denumire =>
+      $composableBuilder(column: $table.denumire, builder: (column) => column);
+
+  GeneratedColumn<String> get producator => $composableBuilder(
+    column: $table.producator,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get serie =>
+      $composableBuilder(column: $table.serie, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get etalonatLa => $composableBuilder(
+    column: $table.etalonatLa,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get etalonareExpira => $composableBuilder(
+    column: $table.etalonareExpira,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => column,
+  );
+}
+
+class $$InstrumenteTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $InstrumenteTable,
+          InstrumenteData,
+          $$InstrumenteTableFilterComposer,
+          $$InstrumenteTableOrderingComposer,
+          $$InstrumenteTableAnnotationComposer,
+          $$InstrumenteTableCreateCompanionBuilder,
+          $$InstrumenteTableUpdateCompanionBuilder,
+          (
+            InstrumenteData,
+            BaseReferences<_$AppDatabase, $InstrumenteTable, InstrumenteData>,
+          ),
+          InstrumenteData,
+          PrefetchHooks Function()
+        > {
+  $$InstrumenteTableTableManager(_$AppDatabase db, $InstrumenteTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$InstrumenteTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$InstrumenteTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$InstrumenteTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<String> denumire = const Value.absent(),
+                Value<String> producator = const Value.absent(),
+                Value<String> serie = const Value.absent(),
+                Value<DateTime?> etalonatLa = const Value.absent(),
+                Value<DateTime?> etalonareExpira = const Value.absent(),
+                Value<String> observatii = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => InstrumenteCompanion(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                denumire: denumire,
+                producator: producator,
+                serie: serie,
+                etalonatLa: etalonatLa,
+                etalonareExpira: etalonareExpira,
+                observatii: observatii,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required DateTime createdAt,
+                required DateTime updatedAt,
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                required String denumire,
+                Value<String> producator = const Value.absent(),
+                Value<String> serie = const Value.absent(),
+                Value<DateTime?> etalonatLa = const Value.absent(),
+                Value<DateTime?> etalonareExpira = const Value.absent(),
+                Value<String> observatii = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => InstrumenteCompanion.insert(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                denumire: denumire,
+                producator: producator,
+                serie: serie,
+                etalonatLa: etalonatLa,
+                etalonareExpira: etalonareExpira,
+                observatii: observatii,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$InstrumenteTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $InstrumenteTable,
+      InstrumenteData,
+      $$InstrumenteTableFilterComposer,
+      $$InstrumenteTableOrderingComposer,
+      $$InstrumenteTableAnnotationComposer,
+      $$InstrumenteTableCreateCompanionBuilder,
+      $$InstrumenteTableUpdateCompanionBuilder,
+      (
+        InstrumenteData,
+        BaseReferences<_$AppDatabase, $InstrumenteTable, InstrumenteData>,
+      ),
+      InstrumenteData,
+      PrefetchHooks Function()
+    >;
+typedef $$MasuratoriTableCreateCompanionBuilder =
+    MasuratoriCompanion Function({
+      required String id,
+      required String lucrareId,
+      required String faza,
+      required String tip,
+      Value<String> tinta,
+      Value<double?> valoare,
+      Value<String> unitate,
+      Value<double?> iradiantaWM2,
+      Value<double?> temperaturaModulC,
+      Value<double?> tensiuneTestV,
+      Value<String> metoda,
+      Value<String?> instrumentId,
+      required String verdict,
+      Value<String> referinta,
+      Value<String> observatii,
+      Value<String> operator,
+      required DateTime la,
+      Value<String?> inlocuitaDe,
+      Value<int> rowid,
+    });
+typedef $$MasuratoriTableUpdateCompanionBuilder =
+    MasuratoriCompanion Function({
+      Value<String> id,
+      Value<String> lucrareId,
+      Value<String> faza,
+      Value<String> tip,
+      Value<String> tinta,
+      Value<double?> valoare,
+      Value<String> unitate,
+      Value<double?> iradiantaWM2,
+      Value<double?> temperaturaModulC,
+      Value<double?> tensiuneTestV,
+      Value<String> metoda,
+      Value<String?> instrumentId,
+      Value<String> verdict,
+      Value<String> referinta,
+      Value<String> observatii,
+      Value<String> operator,
+      Value<DateTime> la,
+      Value<String?> inlocuitaDe,
+      Value<int> rowid,
+    });
+
+final class $$MasuratoriTableReferences
+    extends BaseReferences<_$AppDatabase, $MasuratoriTable, MasuratoriData> {
+  $$MasuratoriTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $LucrariTable _lucrareIdTable(_$AppDatabase db) =>
+      db.lucrari.createAlias('masuratori__lucrare_id__lucrari__id');
+
+  $$LucrariTableProcessedTableManager get lucrareId {
+    final $_column = $_itemColumn<String>('lucrare_id')!;
+
+    final manager = $$LucrariTableTableManager(
+      $_db,
+      $_db.lucrari,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_lucrareIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$MasuratoriTableFilterComposer
+    extends Composer<_$AppDatabase, $MasuratoriTable> {
+  $$MasuratoriTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get faza => $composableBuilder(
+    column: $table.faza,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get tip => $composableBuilder(
+    column: $table.tip,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get tinta => $composableBuilder(
+    column: $table.tinta,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get valoare => $composableBuilder(
+    column: $table.valoare,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get unitate => $composableBuilder(
+    column: $table.unitate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get iradiantaWM2 => $composableBuilder(
+    column: $table.iradiantaWM2,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get temperaturaModulC => $composableBuilder(
+    column: $table.temperaturaModulC,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get tensiuneTestV => $composableBuilder(
+    column: $table.tensiuneTestV,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get metoda => $composableBuilder(
+    column: $table.metoda,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get instrumentId => $composableBuilder(
+    column: $table.instrumentId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get verdict => $composableBuilder(
+    column: $table.verdict,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get referinta => $composableBuilder(
+    column: $table.referinta,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get operator => $composableBuilder(
+    column: $table.operator,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get la => $composableBuilder(
+    column: $table.la,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get inlocuitaDe => $composableBuilder(
+    column: $table.inlocuitaDe,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$LucrariTableFilterComposer get lucrareId {
+    final $$LucrariTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.lucrareId,
+      referencedTable: $db.lucrari,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LucrariTableFilterComposer(
+            $db: $db,
+            $table: $db.lucrari,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MasuratoriTableOrderingComposer
+    extends Composer<_$AppDatabase, $MasuratoriTable> {
+  $$MasuratoriTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get faza => $composableBuilder(
+    column: $table.faza,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get tip => $composableBuilder(
+    column: $table.tip,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get tinta => $composableBuilder(
+    column: $table.tinta,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get valoare => $composableBuilder(
+    column: $table.valoare,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get unitate => $composableBuilder(
+    column: $table.unitate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get iradiantaWM2 => $composableBuilder(
+    column: $table.iradiantaWM2,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get temperaturaModulC => $composableBuilder(
+    column: $table.temperaturaModulC,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get tensiuneTestV => $composableBuilder(
+    column: $table.tensiuneTestV,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get metoda => $composableBuilder(
+    column: $table.metoda,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get instrumentId => $composableBuilder(
+    column: $table.instrumentId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get verdict => $composableBuilder(
+    column: $table.verdict,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get referinta => $composableBuilder(
+    column: $table.referinta,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get operator => $composableBuilder(
+    column: $table.operator,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get la => $composableBuilder(
+    column: $table.la,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get inlocuitaDe => $composableBuilder(
+    column: $table.inlocuitaDe,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$LucrariTableOrderingComposer get lucrareId {
+    final $$LucrariTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.lucrareId,
+      referencedTable: $db.lucrari,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LucrariTableOrderingComposer(
+            $db: $db,
+            $table: $db.lucrari,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MasuratoriTableAnnotationComposer
+    extends Composer<_$AppDatabase, $MasuratoriTable> {
+  $$MasuratoriTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get faza =>
+      $composableBuilder(column: $table.faza, builder: (column) => column);
+
+  GeneratedColumn<String> get tip =>
+      $composableBuilder(column: $table.tip, builder: (column) => column);
+
+  GeneratedColumn<String> get tinta =>
+      $composableBuilder(column: $table.tinta, builder: (column) => column);
+
+  GeneratedColumn<double> get valoare =>
+      $composableBuilder(column: $table.valoare, builder: (column) => column);
+
+  GeneratedColumn<String> get unitate =>
+      $composableBuilder(column: $table.unitate, builder: (column) => column);
+
+  GeneratedColumn<double> get iradiantaWM2 => $composableBuilder(
+    column: $table.iradiantaWM2,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get temperaturaModulC => $composableBuilder(
+    column: $table.temperaturaModulC,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get tensiuneTestV => $composableBuilder(
+    column: $table.tensiuneTestV,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get metoda =>
+      $composableBuilder(column: $table.metoda, builder: (column) => column);
+
+  GeneratedColumn<String> get instrumentId => $composableBuilder(
+    column: $table.instrumentId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get verdict =>
+      $composableBuilder(column: $table.verdict, builder: (column) => column);
+
+  GeneratedColumn<String> get referinta =>
+      $composableBuilder(column: $table.referinta, builder: (column) => column);
+
+  GeneratedColumn<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get operator =>
+      $composableBuilder(column: $table.operator, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get la =>
+      $composableBuilder(column: $table.la, builder: (column) => column);
+
+  GeneratedColumn<String> get inlocuitaDe => $composableBuilder(
+    column: $table.inlocuitaDe,
+    builder: (column) => column,
+  );
+
+  $$LucrariTableAnnotationComposer get lucrareId {
+    final $$LucrariTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.lucrareId,
+      referencedTable: $db.lucrari,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LucrariTableAnnotationComposer(
+            $db: $db,
+            $table: $db.lucrari,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MasuratoriTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $MasuratoriTable,
+          MasuratoriData,
+          $$MasuratoriTableFilterComposer,
+          $$MasuratoriTableOrderingComposer,
+          $$MasuratoriTableAnnotationComposer,
+          $$MasuratoriTableCreateCompanionBuilder,
+          $$MasuratoriTableUpdateCompanionBuilder,
+          (MasuratoriData, $$MasuratoriTableReferences),
+          MasuratoriData,
+          PrefetchHooks Function({bool lucrareId})
+        > {
+  $$MasuratoriTableTableManager(_$AppDatabase db, $MasuratoriTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$MasuratoriTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$MasuratoriTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$MasuratoriTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> lucrareId = const Value.absent(),
+                Value<String> faza = const Value.absent(),
+                Value<String> tip = const Value.absent(),
+                Value<String> tinta = const Value.absent(),
+                Value<double?> valoare = const Value.absent(),
+                Value<String> unitate = const Value.absent(),
+                Value<double?> iradiantaWM2 = const Value.absent(),
+                Value<double?> temperaturaModulC = const Value.absent(),
+                Value<double?> tensiuneTestV = const Value.absent(),
+                Value<String> metoda = const Value.absent(),
+                Value<String?> instrumentId = const Value.absent(),
+                Value<String> verdict = const Value.absent(),
+                Value<String> referinta = const Value.absent(),
+                Value<String> observatii = const Value.absent(),
+                Value<String> operator = const Value.absent(),
+                Value<DateTime> la = const Value.absent(),
+                Value<String?> inlocuitaDe = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => MasuratoriCompanion(
+                id: id,
+                lucrareId: lucrareId,
+                faza: faza,
+                tip: tip,
+                tinta: tinta,
+                valoare: valoare,
+                unitate: unitate,
+                iradiantaWM2: iradiantaWM2,
+                temperaturaModulC: temperaturaModulC,
+                tensiuneTestV: tensiuneTestV,
+                metoda: metoda,
+                instrumentId: instrumentId,
+                verdict: verdict,
+                referinta: referinta,
+                observatii: observatii,
+                operator: operator,
+                la: la,
+                inlocuitaDe: inlocuitaDe,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String lucrareId,
+                required String faza,
+                required String tip,
+                Value<String> tinta = const Value.absent(),
+                Value<double?> valoare = const Value.absent(),
+                Value<String> unitate = const Value.absent(),
+                Value<double?> iradiantaWM2 = const Value.absent(),
+                Value<double?> temperaturaModulC = const Value.absent(),
+                Value<double?> tensiuneTestV = const Value.absent(),
+                Value<String> metoda = const Value.absent(),
+                Value<String?> instrumentId = const Value.absent(),
+                required String verdict,
+                Value<String> referinta = const Value.absent(),
+                Value<String> observatii = const Value.absent(),
+                Value<String> operator = const Value.absent(),
+                required DateTime la,
+                Value<String?> inlocuitaDe = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => MasuratoriCompanion.insert(
+                id: id,
+                lucrareId: lucrareId,
+                faza: faza,
+                tip: tip,
+                tinta: tinta,
+                valoare: valoare,
+                unitate: unitate,
+                iradiantaWM2: iradiantaWM2,
+                temperaturaModulC: temperaturaModulC,
+                tensiuneTestV: tensiuneTestV,
+                metoda: metoda,
+                instrumentId: instrumentId,
+                verdict: verdict,
+                referinta: referinta,
+                observatii: observatii,
+                operator: operator,
+                la: la,
+                inlocuitaDe: inlocuitaDe,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$MasuratoriTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({lucrareId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (lucrareId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.lucrareId,
+                                referencedTable: $$MasuratoriTableReferences
+                                    ._lucrareIdTable(db),
+                                referencedColumn: $$MasuratoriTableReferences
+                                    ._lucrareIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$MasuratoriTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $MasuratoriTable,
+      MasuratoriData,
+      $$MasuratoriTableFilterComposer,
+      $$MasuratoriTableOrderingComposer,
+      $$MasuratoriTableAnnotationComposer,
+      $$MasuratoriTableCreateCompanionBuilder,
+      $$MasuratoriTableUpdateCompanionBuilder,
+      (MasuratoriData, $$MasuratoriTableReferences),
+      MasuratoriData,
+      PrefetchHooks Function({bool lucrareId})
+    >;
+typedef $$PozeTableCreateCompanionBuilder =
+    PozeCompanion Function({
+      required String id,
+      required DateTime createdAt,
+      required DateTime updatedAt,
+      Value<DateTime?> deletedAt,
+      Value<int> version,
+      required String lucrareId,
+      required String sectiune,
+      Value<String?> planId,
+      required String cale,
+      Value<String> descriere,
+      Value<double?> lat,
+      Value<double?> lon,
+      Value<int> marimeBytes,
+      required DateTime facutaLa,
+      Value<int> rowid,
+    });
+typedef $$PozeTableUpdateCompanionBuilder =
+    PozeCompanion Function({
+      Value<String> id,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<DateTime?> deletedAt,
+      Value<int> version,
+      Value<String> lucrareId,
+      Value<String> sectiune,
+      Value<String?> planId,
+      Value<String> cale,
+      Value<String> descriere,
+      Value<double?> lat,
+      Value<double?> lon,
+      Value<int> marimeBytes,
+      Value<DateTime> facutaLa,
+      Value<int> rowid,
+    });
+
+final class $$PozeTableReferences
+    extends BaseReferences<_$AppDatabase, $PozeTable, PozeData> {
+  $$PozeTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $LucrariTable _lucrareIdTable(_$AppDatabase db) =>
+      db.lucrari.createAlias('poze__lucrare_id__lucrari__id');
+
+  $$LucrariTableProcessedTableManager get lucrareId {
+    final $_column = $_itemColumn<String>('lucrare_id')!;
+
+    final manager = $$LucrariTableTableManager(
+      $_db,
+      $_db.lucrari,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_lucrareIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$PozeTableFilterComposer extends Composer<_$AppDatabase, $PozeTable> {
+  $$PozeTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get sectiune => $composableBuilder(
+    column: $table.sectiune,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get planId => $composableBuilder(
+    column: $table.planId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get cale => $composableBuilder(
+    column: $table.cale,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get descriere => $composableBuilder(
+    column: $table.descriere,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get lat => $composableBuilder(
+    column: $table.lat,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get lon => $composableBuilder(
+    column: $table.lon,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get marimeBytes => $composableBuilder(
+    column: $table.marimeBytes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get facutaLa => $composableBuilder(
+    column: $table.facutaLa,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$LucrariTableFilterComposer get lucrareId {
+    final $$LucrariTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.lucrareId,
+      referencedTable: $db.lucrari,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LucrariTableFilterComposer(
+            $db: $db,
+            $table: $db.lucrari,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PozeTableOrderingComposer extends Composer<_$AppDatabase, $PozeTable> {
+  $$PozeTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get sectiune => $composableBuilder(
+    column: $table.sectiune,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get planId => $composableBuilder(
+    column: $table.planId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get cale => $composableBuilder(
+    column: $table.cale,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get descriere => $composableBuilder(
+    column: $table.descriere,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get lat => $composableBuilder(
+    column: $table.lat,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get lon => $composableBuilder(
+    column: $table.lon,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get marimeBytes => $composableBuilder(
+    column: $table.marimeBytes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get facutaLa => $composableBuilder(
+    column: $table.facutaLa,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$LucrariTableOrderingComposer get lucrareId {
+    final $$LucrariTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.lucrareId,
+      referencedTable: $db.lucrari,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LucrariTableOrderingComposer(
+            $db: $db,
+            $table: $db.lucrari,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PozeTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PozeTable> {
+  $$PozeTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumn<String> get sectiune =>
+      $composableBuilder(column: $table.sectiune, builder: (column) => column);
+
+  GeneratedColumn<String> get planId =>
+      $composableBuilder(column: $table.planId, builder: (column) => column);
+
+  GeneratedColumn<String> get cale =>
+      $composableBuilder(column: $table.cale, builder: (column) => column);
+
+  GeneratedColumn<String> get descriere =>
+      $composableBuilder(column: $table.descriere, builder: (column) => column);
+
+  GeneratedColumn<double> get lat =>
+      $composableBuilder(column: $table.lat, builder: (column) => column);
+
+  GeneratedColumn<double> get lon =>
+      $composableBuilder(column: $table.lon, builder: (column) => column);
+
+  GeneratedColumn<int> get marimeBytes => $composableBuilder(
+    column: $table.marimeBytes,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get facutaLa =>
+      $composableBuilder(column: $table.facutaLa, builder: (column) => column);
+
+  $$LucrariTableAnnotationComposer get lucrareId {
+    final $$LucrariTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.lucrareId,
+      referencedTable: $db.lucrari,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LucrariTableAnnotationComposer(
+            $db: $db,
+            $table: $db.lucrari,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PozeTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $PozeTable,
+          PozeData,
+          $$PozeTableFilterComposer,
+          $$PozeTableOrderingComposer,
+          $$PozeTableAnnotationComposer,
+          $$PozeTableCreateCompanionBuilder,
+          $$PozeTableUpdateCompanionBuilder,
+          (PozeData, $$PozeTableReferences),
+          PozeData,
+          PrefetchHooks Function({bool lucrareId})
+        > {
+  $$PozeTableTableManager(_$AppDatabase db, $PozeTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PozeTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PozeTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PozeTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<String> lucrareId = const Value.absent(),
+                Value<String> sectiune = const Value.absent(),
+                Value<String?> planId = const Value.absent(),
+                Value<String> cale = const Value.absent(),
+                Value<String> descriere = const Value.absent(),
+                Value<double?> lat = const Value.absent(),
+                Value<double?> lon = const Value.absent(),
+                Value<int> marimeBytes = const Value.absent(),
+                Value<DateTime> facutaLa = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PozeCompanion(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                lucrareId: lucrareId,
+                sectiune: sectiune,
+                planId: planId,
+                cale: cale,
+                descriere: descriere,
+                lat: lat,
+                lon: lon,
+                marimeBytes: marimeBytes,
+                facutaLa: facutaLa,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required DateTime createdAt,
+                required DateTime updatedAt,
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                required String lucrareId,
+                required String sectiune,
+                Value<String?> planId = const Value.absent(),
+                required String cale,
+                Value<String> descriere = const Value.absent(),
+                Value<double?> lat = const Value.absent(),
+                Value<double?> lon = const Value.absent(),
+                Value<int> marimeBytes = const Value.absent(),
+                required DateTime facutaLa,
+                Value<int> rowid = const Value.absent(),
+              }) => PozeCompanion.insert(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                lucrareId: lucrareId,
+                sectiune: sectiune,
+                planId: planId,
+                cale: cale,
+                descriere: descriere,
+                lat: lat,
+                lon: lon,
+                marimeBytes: marimeBytes,
+                facutaLa: facutaLa,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) =>
+                    (e.readTable(table), $$PozeTableReferences(db, table, e)),
+              )
+              .toList(),
+          prefetchHooksCallback: ({lucrareId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (lucrareId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.lucrareId,
+                                referencedTable: $$PozeTableReferences
+                                    ._lucrareIdTable(db),
+                                referencedColumn: $$PozeTableReferences
+                                    ._lucrareIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$PozeTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $PozeTable,
+      PozeData,
+      $$PozeTableFilterComposer,
+      $$PozeTableOrderingComposer,
+      $$PozeTableAnnotationComposer,
+      $$PozeTableCreateCompanionBuilder,
+      $$PozeTableUpdateCompanionBuilder,
+      (PozeData, $$PozeTableReferences),
+      PozeData,
+      PrefetchHooks Function({bool lucrareId})
+    >;
 typedef $$SetariTableCreateCompanionBuilder =
     SetariCompanion Function({
       required String cheie,
@@ -16162,6 +20207,11 @@ class $AppDatabaseManager {
       $$TablouriExistenteTableTableManager(_db, _db.tablouriExistente);
   $$TraseeTableTableManager get trasee =>
       $$TraseeTableTableManager(_db, _db.trasee);
+  $$InstrumenteTableTableManager get instrumente =>
+      $$InstrumenteTableTableManager(_db, _db.instrumente);
+  $$MasuratoriTableTableManager get masuratori =>
+      $$MasuratoriTableTableManager(_db, _db.masuratori);
+  $$PozeTableTableManager get poze => $$PozeTableTableManager(_db, _db.poze);
   $$SetariTableTableManager get setari =>
       $$SetariTableTableManager(_db, _db.setari);
 }

@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/db/database.dart';
+import '../core/db/masuratori_repository.dart';
 import '../core/db/releveu_repository.dart';
 import '../core/db/repositories.dart';
 import '../core/db/solutii_repository.dart';
 import '../core/models/profil_firma.dart';
+import '../core/calc/masuratori.dart';
 import '../core/services/anaf_service.dart';
 import '../core/services/contact_picker_service.dart';
 import '../core/services/osm_service.dart';
@@ -28,6 +30,9 @@ final lucrariRepositoryProvider = Provider(
 );
 final furnizoriRepositoryProvider = Provider(
   (ref) => FurnizoriRepository(ref.watch(databaseProvider)),
+);
+final masuratoriRepositoryProvider = Provider(
+  (ref) => MasuratoriRepository(ref.watch(databaseProvider)),
 );
 final releveuRepositoryProvider = Provider(
   (ref) => ReleveuRepository(ref.watch(databaseProvider)),
@@ -72,6 +77,21 @@ final releveuProvider = StreamProvider.autoDispose
     .family<ReleveuComplet?, String>(
       (ref, id) => ref.watch(releveuRepositoryProvider).watchPentruLucrare(id),
     );
+
+final masuratoriProvider = StreamProvider.autoDispose
+    .family<List<MasuratoriData>, ({String lucrareId, FazaMasuratoare? faza})>(
+      (ref, a) => ref
+          .watch(masuratoriRepositoryProvider)
+          .watchPentruLucrare(a.lucrareId, faza: a.faza),
+    );
+
+final instrumenteProvider = StreamProvider<List<InstrumenteData>>(
+  (ref) => ref.watch(masuratoriRepositoryProvider).watchInstrumente(),
+);
+
+final pozeProvider = StreamProvider.autoDispose.family<List<PozeData>, String>(
+  (ref, id) => ref.watch(masuratoriRepositoryProvider).watchPoze(id),
+);
 
 final solutiiProvider = StreamProvider.autoDispose
     .family<List<SolutiiData>, String>(

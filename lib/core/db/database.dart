@@ -21,6 +21,9 @@ part 'database.g.dart';
     Obstacole,
     TablouriExistente,
     Trasee,
+    Instrumente,
+    Masuratori,
+    Poze,
     Setari,
   ],
 )
@@ -31,7 +34,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.inMemory(super.executor);
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -61,6 +64,12 @@ class AppDatabase extends _$AppDatabase {
         await m.createTable(obstacole);
         await m.createTable(tablouriExistente);
         await m.createTable(trasee);
+      }
+      if (from < 5) {
+        // E2: măsurători instrumentale, instrumente și fotografii
+        await m.createTable(instrumente);
+        await m.createTable(masuratori);
+        await m.createTable(poze);
       }
     },
     beforeOpen: (details) async {

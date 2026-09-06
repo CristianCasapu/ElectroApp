@@ -163,10 +163,7 @@ void main() {
         CalculReleveu.incarcareZapada(skKnM2: 2.0, inclinareGrade: 45),
         closeTo(0.8, 0.001),
       );
-      expect(
-        CalculReleveu.incarcareZapada(skKnM2: 2.0, inclinareGrade: 65),
-        0,
-      );
+      expect(CalculReleveu.incarcareZapada(skKnM2: 2.0, inclinareGrade: 65), 0);
     });
 
     test('forța de vânt crește cu presiunea de referință', () {

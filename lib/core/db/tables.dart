@@ -223,6 +223,62 @@ class Trasee extends Table with EntitateComuna {
   TextColumn get observatii => text().withDefault(const Constant(''))();
 }
 
+/// Aparatele de măsură ale electricianului, cu etalonarea lor — apar în
+/// buletinele de verificare (§6.2 E).
+class Instrumente extends Table with EntitateComuna {
+  TextColumn get denumire => text()();
+  TextColumn get producator => text().withDefault(const Constant(''))();
+  TextColumn get serie => text().withDefault(const Constant(''))();
+  DateTimeColumn get etalonatLa => dateTime().nullable()();
+  DateTimeColumn get etalonareExpira => dateTime().nullable()();
+  TextColumn get observatii => text().withDefault(const Constant(''))();
+}
+
+/// Măsurătorile instrumentale: la releveu, la punerea în funcțiune (IEC 62446-1)
+/// și la service. **Append-only**: o valoare greșită se corectează printr-o
+/// măsurătoare nouă, nu prin editare (docs/CERCETARE.md §6.2 E).
+class Masuratori extends Table {
+  TextColumn get id => text()();
+  TextColumn get lucrareId => text().references(Lucrari, #id)();
+  TextColumn get faza => text()(); // FazaMasuratoare.cod
+  TextColumn get tip => text()(); // TipMasuratoare.cod
+  /// Ținta măsurătorii: „string 1", „circuit invertor", „priză de pământ".
+  TextColumn get tinta => text().withDefault(const Constant(''))();
+  RealColumn get valoare => real().nullable()();
+  TextColumn get unitate => text().withDefault(const Constant(''))();
+
+  /// Condițiile în care s-a măsurat, pentru corecția la STC și pentru context.
+  RealColumn get iradiantaWM2 => real().nullable()();
+  RealColumn get temperaturaModulC => real().nullable()();
+  RealColumn get tensiuneTestV => real().nullable()();
+  TextColumn get metoda => text().withDefault(const Constant(''))();
+  TextColumn get instrumentId => text().nullable()();
+  TextColumn get verdict => text()(); // VerdictMasuratoare.cod
+  TextColumn get referinta => text().withDefault(const Constant(''))();
+  TextColumn get observatii => text().withDefault(const Constant(''))();
+  TextColumn get operator => text().withDefault(const Constant(''))();
+  DateTimeColumn get la => dateTime()();
+
+  /// Marchează o măsurătoare înlocuită de una nouă pe aceeași țintă.
+  TextColumn get inlocuitaDe => text().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+/// Fotografiile de șantier, legate de fișă și, opțional, de un plan de montaj.
+class Poze extends Table with EntitateComuna {
+  TextColumn get lucrareId => text().references(Lucrari, #id)();
+  TextColumn get sectiune => text()(); // SectiunePoza.cod
+  TextColumn get planId => text().nullable()();
+  TextColumn get cale => text()();
+  TextColumn get descriere => text().withDefault(const Constant(''))();
+  RealColumn get lat => real().nullable()();
+  RealColumn get lon => real().nullable()();
+  IntColumn get marimeBytes => integer().withDefault(const Constant(0))();
+  DateTimeColumn get facutaLa => dateTime()();
+}
+
 /// Setări cheie-valoare (profil firmă, preferințe), ca în ElectroCalc.
 class Setari extends Table {
   TextColumn get cheie => text()();

@@ -29,20 +29,29 @@ Disponibil acum:
   senzorii telefonului, capacitatea fiecărui plan după retragerile P118-1/2025,
   obstacole și umbrire, tabloul existent, traseele de cablu și zonele climatice;
   datele intră automat în estimare.
+- **Măsurători instrumentale (E2)** — valorile de pe teren, la releveu, la punerea în
+  funcțiune și la service, fiecare cu verdict automat și referință normativă: verificările
+  de categoria 1 din IEC 62446-1 (continuitate, polaritate, Voc și Isc pe string corectate
+  la STC, izolație DC, pornire invertor, anti-islanding, limitare export), plus priza de
+  pământ, bucla de defect, DDR și dezechilibrul între faze. Nimic nu se suprascrie: o
+  corectură înlocuiește valoarea veche și o păstrează în istoric.
+- **Fotografii de șantier (E2)** — pe secțiuni (plan, tablou, contor, traseu, amplasare,
+  PIF), cu descriere și coordonate, păstrate pe telefon.
 - **Soluția tehnică (E1)** — estimarea sistemului din consum și amplasament: kWp, module,
   string-uri verificate (IEC 62548), invertor, stocare, producție pe județ, autoconsum,
   economie, regim prosumator; necesar de materiale și manoperă cu prețuri orientative;
   revizii salvate în fișă.
-- **Documente PDF** — fișa sistemului fotovoltaic, ofertă materiale / manoperă / completă,
-  cu datele firmei, electricianului și beneficiarului; versiuni și hash per document.
+- **Documente PDF** — fișa sistemului fotovoltaic, ofertă materiale / manoperă / completă
+  și buletinul de verificări la punerea în funcțiune (IEC 62446-1), cu datele firmei,
+  electricianului și beneficiarului; versiuni și hash per document.
 
 Urmează (vezi [docs/CERCETARE.md](docs/CERCETARE.md) §4.4):
 
 | Etapă | Conținut |
 |---|---|
 | E1 ✅ | Motor de calcul: string-uri, circuit AC (I7-2011), cablu DC și protecții, stocare, randament pe județ (model offline); PVGIS cu coordonate urmează în E2 |
-| E2 ◐ | Releveu tehnic livrat (plane, umbrire, tablou, trasee); urmează pozele și măsurătorile instrumentale / PIF IEC 62446-1 |
-| E3 | Rapoarte PDF: PV recepție, raport verificări, buletin PRAM, listă DIU (oferta și fișa sistemului sunt livrate) |
+| E2 ✅ | Releveu tehnic, măsurători instrumentale cu verdicte IEC 62446-1, fotografii de șantier, buletin de verificări la PIF |
+| E3 | Rapoarte PDF rămase: proces-verbal de recepție, buletin PRAM, listă DIU |
 | E4 | Catalog echipamente, urmărire racordare/avize (ATR, DIU, certificat), export/backup |
 | E5 | Sincronizare cu electroprep.ro, hartă, QR serii, MT |
 

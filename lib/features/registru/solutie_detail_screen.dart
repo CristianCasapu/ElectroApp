@@ -213,7 +213,7 @@ class _SolutieDetailScreenState extends ConsumerState<SolutieDetailScreen> {
                       spacing: 8,
                       runSpacing: 8,
                       children: [
-                        for (final t in TipDocument.values)
+                        for (final t in TipDocument.dinSolutie)
                           FilledButton.tonalIcon(
                             onPressed: _genereaza ? null : () => _emite(t),
                             icon: Icon(

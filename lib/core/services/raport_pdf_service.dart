@@ -8,6 +8,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../calc/masuratori.dart';
+import '../calc/verdict.dart';
 import '../db/database.dart';
 import '../db/repositories.dart';
 import '../models/enums.dart';
@@ -365,7 +367,7 @@ class RaportPdfService {
       ),
       (
         'Autoconsum estimat',
-        '${(r.fractieAutoconsum * 100).toStringAsFixed(0)} % → ${formatNumar(r.energieAutoconsumataKwh, zecimale: 0)} kWh consumați direct, ${formatNumar(r.energieInjectataKwh, zecimale: 0)} kWh injectați',
+        '${(r.fractieAutoconsum * 100).toStringAsFixed(0)} %, adică ${formatNumar(r.energieAutoconsumataKwh, zecimale: 0)} kWh consumați direct, ${formatNumar(r.energieInjectataKwh, zecimale: 0)} kWh injectați',
       ),
       (
         'Economie anuală estimată',
@@ -671,6 +673,241 @@ class RaportPdfService {
 
   /// Scrie PDF-ul în directorul aplicației (`documente/<nr fișă>/`) și
   /// întoarce calea, hash-ul și mărimea — imutabil, ca în §6.2 H.
+  /// Buletinul de verificări la punerea în funcțiune (IEC 62446-1 categoria 1,
+  /// plus măsurătorile de joasă tensiune cerute de I7-2011). Măsurătorile vin
+  /// deja evaluate — documentul nu recalculează nimic, doar consemnează.
+  Future<Uint8List> buletinPif({
+    required ProfilFirma profil,
+    required FisaLucrare fisa,
+    required List<(MasuratoriData, Verdict)> masuratori,
+    required List<InstrumenteData> instrumente,
+    SolutieSnapshot? solutie,
+    List<TipMasuratoare> lipsuri = const [],
+    int nrFotografii = 0,
+    String observatii = '',
+  }) async {
+    final neconforme = masuratori
+        .where((r) => r.$2.nivel == NivelVerdict.neconform)
+        .toList();
+    final acum = DateTime.now();
+
+    List<pw.Widget> grup(String titlu, bool Function(TipMasuratoare) filtru) {
+      final randuri = masuratori
+          .where((r) => filtru(TipMasuratoare.dinCod(r.$1.tip)))
+          .toList();
+      if (randuri.isEmpty) return const [];
+      return [
+        _sectiune(titlu),
+        _tabel(
+          const ['Verificare', 'Țintă', 'Valoare', 'Rezultat', 'Referință'],
+          [
+            for (final r in randuri)
+              [
+                TipMasuratoare.dinCod(r.$1.tip).eticheta,
+                r.$1.tinta,
+                r.$1.valoare == null
+                    ? '—'
+                    : '${formatNumar(r.$1.valoare!)} ${r.$1.unitate}'.trim(),
+                _etichetaNivel(r.$2.nivel.name),
+                TipMasuratoare.dinCod(r.$1.tip).referinta,
+              ],
+          ],
+          dreapta: const [2],
+          latimi: const [
+            pw.FlexColumnWidth(3),
+            pw.FixedColumnWidth(45),
+            pw.FixedColumnWidth(70),
+            pw.FixedColumnWidth(60),
+            pw.FlexColumnWidth(2.2),
+          ],
+        ),
+      ];
+    }
+
+    final doc = await _document(
+      profil: profil,
+      fisa: fisa,
+      titlu: 'Buletin de verificări la punerea în funcțiune',
+      subtitlu: solutie == null
+          ? 'Instalație fotovoltaică — IEC 62446-1 categoria 1'
+          : 'Sistem ${solutie.rezultat.kWp.toStringAsFixed(2)} kWp — IEC 62446-1 categoria 1',
+      continut: [
+        ..._beneficiarSiLoc(fisa),
+        if (solutie != null) ...[
+          _sectiune('Instalația verificată'),
+          _perechi([
+            ('Putere instalată', '${formatNumar(solutie.rezultat.kWp)} kWp'),
+            ('Module', solutie.rezultat.modul),
+            ('Invertor', solutie.rezultat.invertor),
+            (
+              'Configurație string',
+              '${solutie.rezultat.nrStringuri} × ${solutie.rezultat.ns} module',
+            ),
+          ]),
+        ],
+        ...grup(
+          'Verificări pe partea de curent continuu',
+          (t) =>
+              t == TipMasuratoare.continuitateEchipotential ||
+              t == TipMasuratoare.polaritate ||
+              t == TipMasuratoare.vocString ||
+              t == TipMasuratoare.iscString ||
+              t == TipMasuratoare.curentFunctionareString ||
+              t == TipMasuratoare.izolatieDc,
+        ),
+        ...grup(
+          'Verificări pe partea de curent alternativ',
+          (t) =>
+              t == TipMasuratoare.rezistentaPriza ||
+              t == TipMasuratoare.impedantaBucla ||
+              t == TipMasuratoare.continuitatePe ||
+              t == TipMasuratoare.izolatieInstalatie ||
+              t == TipMasuratoare.timpDeclansareDdr ||
+              t == TipMasuratoare.curentDeclansareDdr ||
+              t == TipMasuratoare.tensiuneFazaNul ||
+              t == TipMasuratoare.tensiuneFazaFaza ||
+              t == TipMasuratoare.dezechilibruFaze,
+        ),
+        ...grup(
+          'Verificări funcționale',
+          (t) =>
+              t == TipMasuratoare.pornireInvertor ||
+              t == TipMasuratoare.antiInsularizare ||
+              t == TipMasuratoare.limitareExport ||
+              t == TipMasuratoare.decuplarePompieri,
+        ),
+        if (instrumente.isNotEmpty) ...[
+          _sectiune('Aparatura de măsură folosită'),
+          _tabel(
+            const ['Aparat', 'Serie', 'Etalonare valabilă până la'],
+            [
+              for (final i in instrumente)
+                [
+                  [
+                    i.producator,
+                    i.denumire,
+                  ].where((x) => x.isNotEmpty).join(' '),
+                  i.serie,
+                  i.etalonareExpira == null
+                      ? '—'
+                      : formatData(i.etalonareExpira!),
+                ],
+            ],
+            latimi: const [
+              pw.FlexColumnWidth(3),
+              pw.FlexColumnWidth(2),
+              pw.FixedColumnWidth(120),
+            ],
+          ),
+        ],
+        _sectiune('Concluzie'),
+        pw.Container(
+          padding: const pw.EdgeInsets.all(8),
+          decoration: pw.BoxDecoration(
+            color: _griDeschis,
+            border: pw.Border.all(color: PdfColors.grey400, width: 0.5),
+          ),
+          child: pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Text(
+                neconforme.isEmpty && lipsuri.isEmpty
+                    ? 'Instalația a trecut toate verificările consemnate mai sus și poate fi pusă sub tensiune.'
+                    : 'Instalația NU poate fi declarată conformă până la remedierea aspectelor de mai jos.',
+                style: pw.TextStyle(
+                  fontWeight: pw.FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+              for (final n in neconforme)
+                pw.Bullet(
+                  text: '${n.$2.titlu}: ${n.$2.detaliu}',
+                  style: const pw.TextStyle(fontSize: 8.5),
+                ),
+              if (lipsuri.isNotEmpty)
+                pw.Bullet(
+                  text:
+                      'Verificări obligatorii nemăsurate: ${lipsuri.map((t) => t.eticheta).join(', ')}.',
+                  style: const pw.TextStyle(fontSize: 8.5),
+                ),
+            ],
+          ),
+        ),
+        if (observatii.isNotEmpty) ...[
+          _sectiune('Observații'),
+          pw.Text(observatii, style: const pw.TextStyle(fontSize: 9)),
+        ],
+        _sectiune('Mențiuni'),
+        pw.Bullet(
+          text:
+              'Verificările corespund categoriei 1 din IEC 62446-1; curba I-V și termografia (categoria 2) nu fac obiectul acestui buletin.',
+          style: const pw.TextStyle(fontSize: 8.5),
+        ),
+        pw.Bullet(
+          text:
+              'Rezistența de izolație se măsoară cu tensiunea de test corespunzătoare tensiunii sistemului, cu limita de 1 MΩ peste 120 V.',
+          style: const pw.TextStyle(fontSize: 8.5),
+        ),
+        pw.Bullet(
+          text:
+              'Bateriile de acumulatori se verifică după procedura producătorului, în afara domeniului IEC 62446-1.',
+          style: const pw.TextStyle(fontSize: 8.5),
+        ),
+        if (nrFotografii > 0)
+          pw.Bullet(
+            text:
+                'La dosarul lucrării sunt atașate $nrFotografii fotografii de șantier.',
+            style: const pw.TextStyle(fontSize: 8.5),
+          ),
+        pw.SizedBox(height: 24),
+        pw.Row(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            pw.Expanded(
+              child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Text(
+                    'Electrician autorizat ANRE',
+                    style: const pw.TextStyle(fontSize: 8.5, color: _gri),
+                  ),
+                  pw.SizedBox(height: 18),
+                  pw.Text(
+                    profil.electricianNume.isEmpty
+                        ? '............................................'
+                        : profil.electricianNume,
+                  ),
+                  pw.Text(
+                    'Data ${formatData(acum)}',
+                    style: const pw.TextStyle(fontSize: 8.5, color: _gri),
+                  ),
+                ],
+              ),
+            ),
+            pw.Expanded(
+              child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Text(
+                    'Beneficiar',
+                    style: const pw.TextStyle(fontSize: 8.5, color: _gri),
+                  ),
+                  pw.SizedBox(height: 18),
+                  pw.Text(fisa.client?.denumire ?? ""),
+                  pw.Text(
+                    'Semnătura ............................',
+                    style: const pw.TextStyle(fontSize: 8.5, color: _gri),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+    return doc.save();
+  }
+
   Future<({String cale, String sha256, int marime})> salveaza({
     required Uint8List bytes,
     required String nrInregistrare,

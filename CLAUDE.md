@@ -21,8 +21,9 @@ Flutter 3.44 / Dart 3.12, Material 3 (temă preluată din ElectroCalc), Riverpod
 targetSdk/compileSdk 36, `applicationId ro.ccii.electroapp`.
 
 ## Etape (docs/CERCETARE.md §4.4)
-E0 schelet + registru ✅ · E1 motor de calcul + estimare + oferte PDF ✅ · E2 releveu ✅
-(urmează pozele și măsurătorile PIF) · E3 restul rapoartelor PDF · E4 catalog editabil, racordare, export · E5 sync
+E0 schelet + registru ✅ · E1 motor de calcul + estimare + oferte PDF ✅ · E2 releveu,
+măsurători instrumentale, fotografii, buletin PIF ✅ · E3 restul rapoartelor PDF (PV recepție,
+buletin PRAM, listă DIU) · E4 catalog editabil, racordare, export · E5 sync
 electroprep.ro, hartă, MT.
 
 ## Structura

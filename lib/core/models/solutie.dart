@@ -449,7 +449,8 @@ enum TipDocument {
   fisaSistem('fisa_sistem', 'Fișa sistemului fotovoltaic'),
   ofertaMateriale('oferta_materiale', 'Ofertă materiale'),
   ofertaManopera('oferta_manopera', 'Ofertă manoperă'),
-  ofertaCompleta('oferta_completa', 'Ofertă completă (materiale + manoperă)');
+  ofertaCompleta('oferta_completa', 'Ofertă completă (materiale + manoperă)'),
+  buletinPif('buletin_pif', 'Buletin de verificări la PIF');
 
   const TipDocument(this.cod, this.eticheta);
   final String cod;
@@ -457,4 +458,12 @@ enum TipDocument {
 
   static TipDocument dinCod(String? cod) =>
       values.firstWhere((t) => t.cod == cod, orElse: () => fisaSistem);
+
+  /// Documentele emise din soluția tehnică (restul au altă sursă de date).
+  static const dinSolutie = [
+    fisaSistem,
+    ofertaMateriale,
+    ofertaManopera,
+    ofertaCompleta,
+  ];
 }

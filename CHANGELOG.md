@@ -2,6 +2,46 @@
 
 ## [Nelansat]
 
+## [v0.1.6] — 2026-09-06
+
+### Added
+- **E2 — Măsurători instrumentale**, deschise din fișa de lucrare, pe trei faze:
+  la releveu, la punerea în funcțiune și la service.
+  - **Verificările de categoria 1 din IEC 62446-1**: continuitatea
+    echipotențializării, polaritatea, Voc și Isc pe fiecare string, curentul de
+    funcționare, rezistența de izolație DC, pornirea invertorului, testul
+    anti-islanding, limitarea puterii evacuate și decuplarea pentru pompieri.
+  - **Verdict automat pentru fiecare valoare**, cu limita și referința
+    normativă: izolația se compară cu 1 MΩ (0,5 MΩ sub 120 V) la tensiunea de
+    test corespunzătoare tensiunii sistemului, continuitatea cu 1 Ω, priza de
+    pământ cu 4 Ω, timpul de declanșare al DDR cu 300 ms, iar dezechilibrul
+    între faze cu 16 A conform Ord. ANRE 228/2018 art. 12(3).
+  - **Corecția la condiții standard**: Voc măsurat pe module calde și Isc
+    măsurat pe cer acoperit sunt raportate la STC din iradianță, temperatura
+    modulului și coeficienții de temperatură, apoi comparate cu valorile
+    soluției tehnice salvate.
+  - **Măsurători append-only**: o corectură nu suprascrie nimic, ci înlocuiește
+    valoarea veche și o păstrează vizibilă în istoric.
+  - **Aparatura de măsură** cu serie și termen de etalonare; instrumentele cu
+    etalonarea expirată sunt semnalate.
+  - Ecranul arată permanent ce verificări obligatorii lipsesc din dosarul de
+    punere în funcțiune.
+- **Buletin de verificări la punerea în funcțiune (PDF)**, emis din ecranul de
+  măsurători: instalația verificată, valorile pe partea de curent continuu, pe
+  cea de curent alternativ și cele funcționale, aparatura folosită, concluzia
+  cu neconformitățile și verificările nemăsurate, rubricile de semnătură.
+- **Fotografii de șantier** organizate pe secțiuni (plan, obstacol, tablou,
+  contor, traseu, amplasare, punere în funcțiune), făcute cu camera sau alese
+  din galerie, cu descriere și coordonate; rămân în directorul aplicației și se
+  pot trimite sau șterge. Lipsa fotografiilor de plan, tablou și contor este
+  semnalată.
+
+### Changed
+- Documentele emise din soluția tehnică rămân fișa sistemului și cele trei
+  oferte; buletinul de verificări se emite separat, din măsurători.
+- Textele care ajung în PDF nu mai folosesc săgeata „→", pentru care fontul
+  inclus în aplicație nu are glifă.
+
 ### Changed
 - APK-ul publicat se numește `ElectroApp.apk`, fără versiune în nume, ca adresa
   `releases/latest/download/ElectroApp.apk` să rămână stabilă; aplicația preferă

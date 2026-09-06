@@ -9,6 +9,8 @@ import '../features/registru/lucrare_form_screen.dart';
 import '../features/registru/registru_screen.dart';
 import '../features/registru/estimare_screen.dart';
 import '../features/registru/solutie_detail_screen.dart';
+import '../features/masuratori/masuratori_screen.dart';
+import '../features/masuratori/poze_screen.dart';
 import '../features/releveu/plan_form_screen.dart';
 import '../features/releveu/releveu_screen.dart';
 import '../core/models/solutie.dart';
@@ -97,6 +99,19 @@ final appRouter = GoRouter(
                           },
                         ),
                       ],
+                    ),
+                    GoRoute(
+                      path: 'masuratori',
+                      parentNavigatorKey: _rootKey,
+                      builder: (context, state) => MasuratoriScreen(
+                        lucrareId: state.pathParameters['id']!,
+                      ),
+                    ),
+                    GoRoute(
+                      path: 'poze',
+                      parentNavigatorKey: _rootKey,
+                      builder: (context, state) =>
+                          PozeScreen(lucrareId: state.pathParameters['id']!),
                     ),
                     GoRoute(
                       path: 'solutie/:sid',

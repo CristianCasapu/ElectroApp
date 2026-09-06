@@ -7,6 +7,8 @@
     <!-- Adresa automată din poziția telefonului (OpenStreetMap Nominatim) -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- Fotografii de șantier (image_picker deschide camera sistemului) -->
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <application
         android:label="ElectroApp"

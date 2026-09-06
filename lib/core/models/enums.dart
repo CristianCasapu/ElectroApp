@@ -274,3 +274,25 @@ enum SegmentTraseu {
   static SegmentTraseu dinCod(String? cod) =>
       values.firstWhere((e) => e.cod == cod, orElse: () => dc);
 }
+
+/// Secțiunile în care se organizează fotografiile de șantier (§6.2 D).
+enum SectiunePoza {
+  plan('plan', 'Plan de montaj'),
+  obstacol('obstacol', 'Obstacol / umbrire'),
+  tablou('tablou', 'Tablou electric'),
+  contor('contor', 'Contor și branșament'),
+  traseu('traseu', 'Traseu de cablu'),
+  amplasare('amplasare', 'Amplasare invertor / baterie'),
+  pif('pif', 'Punere în funcțiune'),
+  altele('altele', 'Altele');
+
+  const SectiunePoza(this.cod, this.eticheta);
+  final String cod;
+  final String eticheta;
+
+  static SectiunePoza dinCod(String? cod) =>
+      values.firstWhere((s) => s.cod == cod, orElse: () => altele);
+
+  /// Fotografiile fără de care un dosar de releveu e incomplet.
+  static const obligatoriiReleveu = [plan, tablou, contor];
+}
