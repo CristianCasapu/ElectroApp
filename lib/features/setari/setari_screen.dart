@@ -9,6 +9,7 @@ import '../../core/models/profil_firma.dart';
 import '../../core/services/log_service.dart';
 import '../../core/services/update_service.dart';
 import '../../widgets/calc_widgets.dart';
+import 'instrumente_screen.dart';
 import 'jurnal_screen.dart';
 import 'update_dialog.dart';
 
@@ -56,6 +57,23 @@ class SetariScreen extends ConsumerWidget {
                 },
                 onChanged: (m) =>
                     ref.read(themeModeProvider.notifier).seteaza(m),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Card(
+            child: ListTile(
+              leading: Icon(
+                Icons.straighten_outlined,
+                color: context.accentTeal,
+              ),
+              title: const Text('Aparatura de măsură'),
+              subtitle: const Text(
+                'Serii și termene de etalonare, folosite în buletinul de verificări',
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.of(context, rootNavigator: true).push(
+                MaterialPageRoute(builder: (_) => const InstrumenteScreen()),
               ),
             ),
           ),

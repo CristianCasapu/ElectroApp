@@ -630,6 +630,15 @@ class _MasuratoareSheetState extends State<_MasuratoareSheet> {
             ],
             onChanged: (v) => setState(() => _instrumentId = v),
           ),
+          if (widget.instrumente.isEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                'Aparatele se adaugă în Setări, la „Aparatura de măsură"; seria '
+                'și etalonarea lor intră în buletinul de verificări.',
+                style: TextStyle(fontSize: 11, color: context.subtitleColor),
+              ),
+            ),
           const SizedBox(height: 12),
           TextField(
             controller: _observatii,

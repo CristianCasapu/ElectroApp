@@ -2,6 +2,11 @@
 
 ## [Nelansat]
 
+### Added
+- **Registrul aparaturii de măsură**, în Setări: denumire, producător, serie și
+  termenul de etalonare. Aparatele cu etalonarea expirată apar marcate, iar
+  seria și termenul intră în buletinul de verificări la punerea în funcțiune.
+
 ## [v0.1.6] — 2026-09-06
 
 ### Added
