@@ -168,3 +168,109 @@ enum DestinatieCladire {
   static DestinatieCladire dinCod(String? cod) =>
       values.firstWhere((e) => e.cod == cod, orElse: () => rezidential);
 }
+
+enum TipPlanMontaj {
+  acoperisInclinat('acoperis_inclinat', 'Acoperiș înclinat'),
+  terasa('terasa', 'Terasă'),
+  sol('sol', 'La sol'),
+  fatada('fatada', 'Fațadă'),
+  carport('carport', 'Carport / umbrar');
+
+  const TipPlanMontaj(this.cod, this.eticheta);
+  final String cod;
+  final String eticheta;
+
+  static TipPlanMontaj dinCod(String? cod) =>
+      values.firstWhere((e) => e.cod == cod, orElse: () => acoperisInclinat);
+
+  bool get esteOrizontal => this == terasa || this == sol;
+}
+
+enum TipInvelitoare {
+  tiglaCeramica('tigla_ceramica', 'Țiglă ceramică'),
+  tiglaBeton('tigla_beton', 'Țiglă din beton'),
+  tiglaMetalica('tigla_metalica', 'Țiglă metalică'),
+  tablaFaltuita('tabla_faltuita', 'Tablă fălțuită'),
+  tablaCutata('tabla_cutata', 'Tablă cutată / trapez'),
+  panouSandwich('panou_sandwich', 'Panou sandwich'),
+  membrana('membrana', 'Membrană (bituminoasă / PVC)'),
+  betonSauSol('beton_sol', 'Beton / sol'),
+  altele('altele', 'Altele');
+
+  const TipInvelitoare(this.cod, this.eticheta);
+  final String cod;
+  final String eticheta;
+
+  static TipInvelitoare dinCod(String? cod) =>
+      values.firstWhere((e) => e.cod == cod, orElse: () => tiglaCeramica);
+
+  /// Sistemul de prindere pe care îl cere învelitoarea.
+  bool get cereSuportTabla =>
+      this == tablaCutata || this == panouSandwich || this == tablaFaltuita;
+  bool get cereBalast => this == membrana || this == betonSauSol;
+}
+
+enum StarePlan {
+  buna('buna', 'Bună'),
+  acceptabila('acceptabila', 'Acceptabilă'),
+  necesitaReparatii('reparatii', 'Necesită reparații'),
+  neconforma('neconforma', 'Neconformă pentru montaj');
+
+  const StarePlan(this.cod, this.eticheta);
+  final String cod;
+  final String eticheta;
+
+  static StarePlan dinCod(String? cod) =>
+      values.firstWhere((e) => e.cod == cod, orElse: () => buna);
+
+  /// Un plan care nu poate primi module — semnalat ca „show-stopper".
+  bool get blocheazaMontajul => this == neconforma;
+}
+
+enum TipObstacol {
+  cos('cos', 'Coș de fum'),
+  aerisire('aerisire', 'Aerisire / tubulatură'),
+  luminator('luminator', 'Luminator / lucarnă'),
+  antena('antena', 'Antenă'),
+  copac('copac', 'Copac'),
+  cladire('cladire', 'Clădire vecină'),
+  altul('altul', 'Alt obstacol');
+
+  const TipObstacol(this.cod, this.eticheta);
+  final String cod;
+  final String eticheta;
+
+  static TipObstacol dinCod(String? cod) =>
+      values.firstWhere((e) => e.cod == cod, orElse: () => altul);
+}
+
+enum TipDdr {
+  niciunul('niciunul', 'Fără DDR'),
+  tipAc('ac', 'Tip AC'),
+  tipA('a', 'Tip A'),
+  tipF('f', 'Tip F'),
+  tipB('b', 'Tip B'),
+  necunoscut('necunoscut', 'Necunoscut');
+
+  const TipDdr(this.cod, this.eticheta);
+  final String cod;
+  final String eticheta;
+
+  static TipDdr dinCod(String? cod) =>
+      values.firstWhere((e) => e.cod == cod, orElse: () => necunoscut);
+}
+
+enum SegmentTraseu {
+  dc('dc', 'Panouri → invertor (DC)'),
+  ac('ac', 'Invertor → tablou (AC)'),
+  contor('contor', 'Tablou → contor'),
+  baterie('baterie', 'Invertor → baterie'),
+  pamant('pamant', 'Legare la pământ');
+
+  const SegmentTraseu(this.cod, this.eticheta);
+  final String cod;
+  final String eticheta;
+
+  static SegmentTraseu dinCod(String? cod) =>
+      values.firstWhere((e) => e.cod == cod, orElse: () => dc);
+}

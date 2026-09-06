@@ -153,6 +153,76 @@ class Documente extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+/// Releveul tehnic de șantier (§6.2 D): o fișă are cel mult un releveu, cu
+/// planele de montaj, obstacolele, tabloul existent și traseele lui.
+class Relevee extends Table with EntitateComuna {
+  TextColumn get lucrareId => text().references(Lucrari, #id).unique()();
+  DateTimeColumn get data => dateTime()();
+  TextColumn get operator => text().withDefault(const Constant(''))();
+  RealColumn get temperaturaAmbientaC => real().nullable()();
+  // zonele climatice din CR 1-1-3 (zăpadă, kN/m²) și CR 1-1-4 (vânt, kPa)
+  RealColumn get zapadaSkKnM2 => real().nullable()();
+  RealColumn get vantQbKpa => real().nullable()();
+  TextColumn get observatii => text().withDefault(const Constant(''))();
+}
+
+/// Un plan de montaj: acoperiș înclinat, terasă, fațadă, sol sau carport.
+class PlaneMontaj extends Table with EntitateComuna {
+  TextColumn get releveuId => text().references(Relevee, #id)();
+  TextColumn get denumire => text()();
+  TextColumn get tip => text()(); // TipPlanMontaj.cod
+  TextColumn get invelitoare => text()(); // TipInvelitoare.cod
+  RealColumn get inclinareGrade => real().withDefault(const Constant(30))();
+  RealColumn get azimutGrade => real().withDefault(const Constant(0))();
+  RealColumn get lungimeM => real().withDefault(const Constant(0))();
+  RealColumn get latimeM => real().withDefault(const Constant(0))();
+  RealColumn get inaltimeStreasinaM => real().nullable()();
+  // structura de rezistență: secțiunea căpriorilor și distanța dintre ei
+  TextColumn get capriorSectiune => text().withDefault(const Constant(''))();
+  RealColumn get capriorInteraxCm => real().nullable()();
+  TextColumn get stare => text()(); // StarePlan.cod
+  RealColumn get factorUmbrire => real().withDefault(const Constant(1))();
+  TextColumn get observatii => text().withDefault(const Constant(''))();
+  IntColumn get ordine => integer().withDefault(const Constant(0))();
+}
+
+/// Obstacol pe un plan (coș, aerisire, luminator) sau umbrire din exterior.
+class Obstacole extends Table with EntitateComuna {
+  TextColumn get planId => text().references(PlaneMontaj, #id)();
+  TextColumn get tip => text()(); // TipObstacol.cod
+  RealColumn get inaltimeM => real().withDefault(const Constant(0))();
+  RealColumn get distantaM => real().withDefault(const Constant(0))();
+  RealColumn get azimutGrade => real().nullable()();
+  RealColumn get latimeM => real().nullable()();
+  TextColumn get observatii => text().withDefault(const Constant(''))();
+}
+
+/// Tabloul electric general găsit pe teren (§6.2 D).
+class TablouriExistente extends Table with EntitateComuna {
+  TextColumn get releveuId => text().references(Relevee, #id).unique()();
+  IntColumn get pozitiiLibere => integer().nullable()();
+  IntColumn get disjunctorGeneralA => integer().nullable()();
+  TextColumn get disjunctorCurba => text().withDefault(const Constant(''))();
+  RealColumn get icuKa => real().nullable()();
+  TextColumn get ddrExistent => text()(); // TipDdr.cod
+  IntColumn get ddrIdnMa => integer().nullable()();
+  BoolColumn get spdExistent => boolean().withDefault(const Constant(false))();
+  BoolColumn get baraPeSeparata =>
+      boolean().withDefault(const Constant(false))();
+  RealColumn get sectiuneColoanaMm2 => real().nullable()();
+  TextColumn get observatii => text().withDefault(const Constant(''))();
+}
+
+/// Traseele de cablu măsurate pe teren (DC, AC, până la contor).
+class Trasee extends Table with EntitateComuna {
+  TextColumn get releveuId => text().references(Relevee, #id)();
+  TextColumn get segment => text()(); // SegmentTraseu.cod
+  RealColumn get lungimeM => real().withDefault(const Constant(0))();
+  TextColumn get modPozare => text().withDefault(const Constant('B1'))();
+  RealColumn get temperaturaMaximaC => real().nullable()();
+  TextColumn get observatii => text().withDefault(const Constant(''))();
+}
+
 /// Setări cheie-valoare (profil firmă, preferințe), ca în ElectroCalc.
 class Setari extends Table {
   TextColumn get cheie => text()();

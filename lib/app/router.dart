@@ -9,6 +9,8 @@ import '../features/registru/lucrare_form_screen.dart';
 import '../features/registru/registru_screen.dart';
 import '../features/registru/estimare_screen.dart';
 import '../features/registru/solutie_detail_screen.dart';
+import '../features/releveu/plan_form_screen.dart';
+import '../features/releveu/releveu_screen.dart';
 import '../core/models/solutie.dart';
 import '../features/setari/setari_screen.dart';
 import '../core/services/log_service.dart';
@@ -73,6 +75,28 @@ final appRouter = GoRouter(
                         lucrareId: state.pathParameters['id']!,
                         deLa: state.extra as IntrariSolutie?,
                       ),
+                    ),
+                    GoRoute(
+                      path: 'releveu',
+                      parentNavigatorKey: _rootKey,
+                      builder: (context, state) =>
+                          ReleveuScreen(lucrareId: state.pathParameters['id']!),
+                      routes: [
+                        GoRoute(
+                          path: 'plan',
+                          parentNavigatorKey: _rootKey,
+                          builder: (context, state) {
+                            final extra =
+                                (state.extra as Map<String, dynamic>?) ?? {};
+                            return PlanFormScreen(
+                              lucrareId: state.pathParameters['id']!,
+                              releveuId: extra['releveuId'] as String? ?? '',
+                              judet: extra['judet'] as String? ?? '',
+                              planId: extra['planId'] as String?,
+                            );
+                          },
+                        ),
+                      ],
                     ),
                     GoRoute(
                       path: 'solutie/:sid',

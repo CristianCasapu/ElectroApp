@@ -2,7 +2,7 @@ name: electroapp
 description: "ElectroApp — fișe de lucrare, măsurători și dimensionări pentru sisteme fotovoltaice."
 publish_to: 'none'
 # MAJOR.MINOR.PATCH+BUILD — tag-ul GitHub este vMAJOR.MINOR.BUILD (vezi CLAUDE.md).
-version: 0.1.0+4
+version: 0.1.0+5
 
 environment:
   sdk: ^3.12.0
@@ -35,6 +35,9 @@ dependencies:
 
   # Locație pentru adresa automată (OpenStreetMap Nominatim)
   geolocator: ^14.0.0
+
+  # Busolă și inclinometru pentru azimutul și înclinarea acoperișului
+  sensors_plus: ^7.0.0
 
   # Rapoarte și oferte PDF (fonturi Roboto incluse pentru diacritice, offline)
   pdf: ^3.11.0

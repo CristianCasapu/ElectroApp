@@ -7,6 +7,8 @@ import '../../app/providers.dart';
 import '../../core/calc/echipamente.dart';
 import '../../core/calc/materiale.dart';
 import '../../core/calc/pv_estimare.dart';
+import '../../core/calc/releveu.dart';
+import '../../core/db/releveu_repository.dart';
 import '../../core/data/localitati_romania.dart';
 import '../../core/db/repositories.dart';
 import '../../core/models/enums.dart';
@@ -59,9 +61,72 @@ class _EstimareScreenState extends ConsumerState<EstimareScreen> {
   final _pretCumparare = TextEditingController(text: '1,30');
   final _pretInjectare = TextEditingController(text: '0,65');
   final _tMin = TextEditingController(text: '-25');
+  double _umbrire = 1.0;
+  bool _releveuPreluat = false;
   final _observatii = TextEditingController();
 
   SolutieSnapshot? _rezultat;
+  String? _sursaReleveu;
+
+  /// Preia din releveu ce s-a măsurat pe teren: suprafața utilă, orientarea
+  /// planului principal, umbrirea și lungimile traseelor.
+  void _preiaDinReleveu(ReleveuComplet r, String judet) {
+    final plane = r.plane.where(
+      (p) => !StarePlan.dinCod(p.plan.stare).blocheazaMontajul,
+    );
+    if (plane.isEmpty) return;
+    var suprafata = 0.0;
+    var umbrirePonderata = 0.0;
+    PlanCuObstacole? principal;
+    var maxKwp = -1.0;
+    for (final p in plane) {
+      final cap = CalculReleveu.capacitate(
+        tip: TipPlanMontaj.dinCod(p.plan.tip),
+        lungimeM: p.plan.lungimeM,
+        latimeM: p.plan.latimeM,
+        inclinareGrade: p.plan.inclinareGrade,
+        modul: _modul,
+        latitudine: CalculReleveu.latitudineJudet(judet),
+        stare: StarePlan.dinCod(p.plan.stare),
+        obstacole: [
+          for (final o in p.obstacole)
+            (inaltimeM: o.inaltimeM, distantaM: o.distantaM),
+        ],
+      );
+      // suprafața pe care chiar încap module, nu cea brută
+      final utila = cap.nrModule * _modul.suprafataM2 * 1.15;
+      suprafata += utila;
+      umbrirePonderata += cap.factorUmbrire * utila;
+      if (cap.kWp > maxKwp) {
+        maxKwp = cap.kWp;
+        principal = p;
+      }
+    }
+    if (suprafata <= 0 || principal == null) return;
+    _suprafata.text = formatNumar(suprafata, zecimale: 0);
+    _azimut.text = formatNumar(principal.plan.azimutGrade, zecimale: 0);
+    _inclinare.text = formatNumar(principal.plan.inclinareGrade, zecimale: 0);
+    final umbrire = umbrirePonderata / suprafata;
+    _umbrire = umbrire;
+    for (final t in r.trasee) {
+      final ctrl = switch (SegmentTraseu.dinCod(t.segment)) {
+        SegmentTraseu.dc => _lungimeDc,
+        SegmentTraseu.ac => _lungimeAc,
+        SegmentTraseu.contor => _lungimeContor,
+        _ => null,
+      };
+      if (ctrl != null && t.lungimeM > 0) {
+        ctrl.text = formatNumar(t.lungimeM, zecimale: 0);
+      }
+    }
+    final invelitoare = TipInvelitoare.dinCod(principal.plan.invelitoare);
+    _acoperis = TipPlanMontaj.dinCod(principal.plan.tip).esteOrizontal
+        ? _Acoperis.terasa
+        : (invelitoare.cereSuportTabla ? _Acoperis.tabla : _Acoperis.tigla);
+    _sursaReleveu =
+        '${r.plane.length} plane măsurate · ${principal.plan.denumire} ca plan principal'
+        '${umbrire < 0.99 ? ' · umbrire ${((1 - umbrire) * 100).toStringAsFixed(0)} %' : ''}';
+  }
 
   void _initializeaza(FisaLucrare fisa) {
     if (_initializat) return;
@@ -173,7 +238,27 @@ class _EstimareScreenState extends ConsumerState<EstimareScreen> {
       return;
     }
     final i = _intrari();
-    final e = EstimatorPV.estimeaza(i.laEstimare());
+    final e = EstimatorPV.estimeaza(
+      IntrariEstimare(
+        consumAnualKwh: i.consumAnualKwh,
+        profil: i.profilEnum,
+        faze: i.faze,
+        putereAprobataKva: i.putereAprobataKva,
+        judet: i.judet,
+        azimutGrade: i.azimutGrade,
+        inclinareGrade: i.inclinareGrade,
+        suprafataUtilaM2: i.suprafataUtilaM2,
+        factorUmbrire: _umbrire,
+        acoperire: i.acoperire,
+        stocare: i.stocareEnum,
+        autonomieBackupOre: i.autonomieBackupOre,
+        pAcMaxDoritaKw: i.pAcMaxDoritaKw,
+        modul: i.modul,
+        tMinC: i.tMinC,
+        pretCumparareKwh: i.pretCumparareKwh,
+        pretInjectareKwh: i.pretInjectareKwh,
+      ),
+    );
     final n = NecesarMateriale.din(
       e,
       lungimeDcM: i.lungimeDcM,
@@ -236,6 +321,13 @@ class _EstimareScreenState extends ConsumerState<EstimareScreen> {
       );
     }
     _initializeaza(fisa);
+    if (!_releveuPreluat && widget.deLa == null) {
+      final r = ref.watch(releveuProvider(widget.lucrareId)).value;
+      if (r != null && r.plane.isNotEmpty) {
+        _releveuPreluat = true;
+        _preiaDinReleveu(r, fisa.locConsum?.judet ?? '');
+      }
+    }
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(title: Text('Estimare · ${fisa.lucrare.nrInregistrare}')),
@@ -244,6 +336,35 @@ class _EstimareScreenState extends ConsumerState<EstimareScreen> {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 40),
           children: [
+            if (_sursaReleveu != null)
+              Container(
+                margin: const EdgeInsets.only(bottom: 12),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: context.successSurface,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: context.successBorder),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.straighten,
+                      size: 18,
+                      color: context.successText,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'Date preluate din releveu: $_sursaReleveu',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: context.successText,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             const CalcSectionTitle(
               'Consum',
               icon: Icons.electric_meter_outlined,

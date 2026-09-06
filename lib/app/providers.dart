@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/db/database.dart';
+import '../core/db/releveu_repository.dart';
 import '../core/db/repositories.dart';
 import '../core/db/solutii_repository.dart';
 import '../core/models/profil_firma.dart';
@@ -10,6 +11,7 @@ import '../core/services/anaf_service.dart';
 import '../core/services/contact_picker_service.dart';
 import '../core/services/osm_service.dart';
 import '../core/services/raport_pdf_service.dart';
+import '../core/services/senzori_service.dart';
 import '../core/services/update_service.dart';
 
 final databaseProvider = Provider<AppDatabase>((ref) {
@@ -27,6 +29,9 @@ final lucrariRepositoryProvider = Provider(
 final furnizoriRepositoryProvider = Provider(
   (ref) => FurnizoriRepository(ref.watch(databaseProvider)),
 );
+final releveuRepositoryProvider = Provider(
+  (ref) => ReleveuRepository(ref.watch(databaseProvider)),
+);
 final solutiiRepositoryProvider = Provider(
   (ref) => SolutiiRepository(ref.watch(databaseProvider)),
 );
@@ -40,6 +45,11 @@ final osmServiceProvider = Provider((ref) => OsmService());
 final anafServiceProvider = Provider((ref) => AnafService());
 final contactPickerProvider = Provider((ref) => ContactPickerService());
 final raportPdfProvider = Provider((ref) => RaportPdfService());
+final senzoriProvider = Provider<SenzoriService>((ref) {
+  final s = SenzoriService();
+  ref.onDispose(s.inchide);
+  return s;
+});
 
 final registruProvider = StreamProvider<List<FisaLucrare>>(
   (ref) => ref.watch(lucrariRepositoryProvider).watchRegistru(),
@@ -57,6 +67,11 @@ final istoricStariProvider = StreamProvider.autoDispose
 final clientiProvider = StreamProvider<List<ClientiData>>(
   (ref) => ref.watch(clientiRepositoryProvider).watchToti(),
 );
+
+final releveuProvider = StreamProvider.autoDispose
+    .family<ReleveuComplet?, String>(
+      (ref, id) => ref.watch(releveuRepositoryProvider).watchPentruLucrare(id),
+    );
 
 final solutiiProvider = StreamProvider.autoDispose
     .family<List<SolutiiData>, String>(

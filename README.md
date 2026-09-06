@@ -25,6 +25,10 @@ Disponibil acum:
 - **Jurnal de depanare** — fiecare operație și fiecare crash se înregistrează pe telefon,
   cu niveluri configurabile; „Trimite logurile" atașează fișierul cu antet de diagnostic
   la un raport de problemă.
+- **Releveu de șantier (E2)** — plane de montaj cu azimut și înclinare citite din
+  senzorii telefonului, capacitatea fiecărui plan după retragerile P118-1/2025,
+  obstacole și umbrire, tabloul existent, traseele de cablu și zonele climatice;
+  datele intră automat în estimare.
 - **Soluția tehnică (E1)** — estimarea sistemului din consum și amplasament: kWp, module,
   string-uri verificate (IEC 62548), invertor, stocare, producție pe județ, autoconsum,
   economie, regim prosumator; necesar de materiale și manoperă cu prețuri orientative;
@@ -37,7 +41,7 @@ Urmează (vezi [docs/CERCETARE.md](docs/CERCETARE.md) §4.4):
 | Etapă | Conținut |
 |---|---|
 | E1 ✅ | Motor de calcul: string-uri, circuit AC (I7-2011), cablu DC și protecții, stocare, randament pe județ (model offline); PVGIS cu coordonate urmează în E2 |
-| E2 | Releveu tehnic (plane de acoperiș, umbrire, tablou, trasee, poze), măsurători instrumentale și teste PIF IEC 62446-1 |
+| E2 ◐ | Releveu tehnic livrat (plane, umbrire, tablou, trasee); urmează pozele și măsurătorile instrumentale / PIF IEC 62446-1 |
 | E3 | Rapoarte PDF: PV recepție, raport verificări, buletin PRAM, listă DIU (oferta și fișa sistemului sunt livrate) |
 | E4 | Catalog echipamente, urmărire racordare/avize (ATR, DIU, certificat), export/backup |
 | E5 | Sincronizare cu electroprep.ro, hartă, QR serii, MT |
@@ -71,4 +75,4 @@ Build-ul de release cere `android/key.properties` cu keystore-ul propriu (nu est
 Cod sursă publicat pentru transparență. Toate drepturile rezervate — Cristian Casapu.
 
 ---
-v0.1.4
+v0.1.5

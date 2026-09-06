@@ -1,5 +1,30 @@
 # Changelog
 
+## [v0.1.5] — 2026-09-06
+
+### Added
+- **E2 — Releveu tehnic de șantier**, deschis din fișa de lucrare:
+  - **Plane de montaj** (acoperiș înclinat, terasă, sol, fațadă, carport) cu
+    învelitoare, dimensiuni utile, secțiunea căpriorilor și interaxul, starea
+    structurii; un plan marcat neconform este semnalat ca oprire în ofertă.
+  - **Azimut și înclinare din senzorii telefonului**: inclinometru din
+    accelerometru și busolă compensată de înclinare, cu declinația magnetică
+    a României; valorile se preiau cu un tap, iar telefoanele fără magnetometru
+    păstrează inclinometrul.
+  - **Capacitatea fiecărui plan**: retrageri de siguranță după P118-1/2025
+    (1 m perimetral, 0,5 m la lucarne, câmpuri de maximum 40×40 m), numărul de
+    module care încap, kWp și distanța între rânduri pe suprafețele orizontale,
+    calculată din unghiul solar de iarnă al latitudinii județului.
+  - **Obstacole și umbrire** (coșuri, aerisiri, luminatoare, copaci, clădiri):
+    factor de umbrire estimat din înălțime și distanță.
+  - **Tabloul electric existent**: poziții libere, disjunctor general, Icu, DDR
+    și IΔn, SPD, bară PE separată, secțiunea coloanei.
+  - **Traseele de cablu** măsurate pe segmente (DC, AC, contor, baterie, pământ).
+  - **Încărcări climatice**: zăpadă CR 1-1-3 și vânt CR 1-1-4, cu valorile uzuale.
+- **Estimarea preia automat releveul**: suprafața pe care încap module, orientarea
+  planului principal, umbrirea ponderată, tipul de acoperiș și lungimile traseelor.
+- 20 de teste noi (geometrie, umbrire, capacitate, încărcări, senzori, repository).
+
 ## [v0.1.4] — 2026-09-04
 
 ### Added

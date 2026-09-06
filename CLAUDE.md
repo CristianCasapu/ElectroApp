@@ -21,8 +21,8 @@ Flutter 3.44 / Dart 3.12, Material 3 (temă preluată din ElectroCalc), Riverpod
 targetSdk/compileSdk 36, `applicationId ro.ccii.electroapp`.
 
 ## Etape (docs/CERCETARE.md §4.4)
-E0 schelet + registru ✅ · E1 motor de calcul + estimare + oferte PDF ✅ · E2 releveu +
-măsurători · E3 restul rapoartelor PDF · E4 catalog editabil, racordare, export · E5 sync
+E0 schelet + registru ✅ · E1 motor de calcul + estimare + oferte PDF ✅ · E2 releveu ✅
+(urmează pozele și măsurătorile PIF) · E3 restul rapoartelor PDF · E4 catalog editabil, racordare, export · E5 sync
 electroprep.ro, hartă, MT.
 
 ## Structura
@@ -41,7 +41,8 @@ lib/
     calc/                   motor de calcul pur Dart, cu teste — NICIO formulă în ecrane:
                             echipamente (catalog implicit), pv_string (IEC 62548), pv_randament
                             (județ × orientare), pv_estimare (sistem din consum), materiale (BOM +
-                            prețuri), cablu_ac (I7-2011, din ElectroCalc), verdict
+                            prețuri), cablu_ac (I7-2011, din ElectroCalc), releveu (P118, umbrire,
+                            capacitate plane), verdict
     models/solutie.dart     snapshot serializabil al estimării (revizii + documente)
     services/raport_pdf_service.dart  fișa sistemului + oferte (pdf, fonturi Roboto din assets)
     services/log_service.dart  jurnalul de depanare — `log.info('zona', 'mesaj', 'detaliu')`;

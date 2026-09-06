@@ -5107,6 +5107,4157 @@ class DocumenteCompanion extends UpdateCompanion<DocumenteData> {
   }
 }
 
+class $ReleveeTable extends Relevee with TableInfo<$ReleveeTable, ReleveeData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ReleveeTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> deletedAt = GeneratedColumn<DateTime>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _lucrareIdMeta = const VerificationMeta(
+    'lucrareId',
+  );
+  @override
+  late final GeneratedColumn<String> lucrareId = GeneratedColumn<String>(
+    'lucrare_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'UNIQUE REFERENCES lucrari (id)',
+    ),
+  );
+  static const VerificationMeta _dataMeta = const VerificationMeta('data');
+  @override
+  late final GeneratedColumn<DateTime> data = GeneratedColumn<DateTime>(
+    'data',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _operatorMeta = const VerificationMeta(
+    'operator',
+  );
+  @override
+  late final GeneratedColumn<String> operator = GeneratedColumn<String>(
+    'operator',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _temperaturaAmbientaCMeta =
+      const VerificationMeta('temperaturaAmbientaC');
+  @override
+  late final GeneratedColumn<double> temperaturaAmbientaC =
+      GeneratedColumn<double>(
+        'temperatura_ambienta_c',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _zapadaSkKnM2Meta = const VerificationMeta(
+    'zapadaSkKnM2',
+  );
+  @override
+  late final GeneratedColumn<double> zapadaSkKnM2 = GeneratedColumn<double>(
+    'zapada_sk_kn_m2',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _vantQbKpaMeta = const VerificationMeta(
+    'vantQbKpa',
+  );
+  @override
+  late final GeneratedColumn<double> vantQbKpa = GeneratedColumn<double>(
+    'vant_qb_kpa',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _observatiiMeta = const VerificationMeta(
+    'observatii',
+  );
+  @override
+  late final GeneratedColumn<String> observatii = GeneratedColumn<String>(
+    'observatii',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+    lucrareId,
+    data,
+    operator,
+    temperaturaAmbientaC,
+    zapadaSkKnM2,
+    vantQbKpa,
+    observatii,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'relevee';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ReleveeData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    }
+    if (data.containsKey('lucrare_id')) {
+      context.handle(
+        _lucrareIdMeta,
+        lucrareId.isAcceptableOrUnknown(data['lucrare_id']!, _lucrareIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_lucrareIdMeta);
+    }
+    if (data.containsKey('data')) {
+      context.handle(
+        _dataMeta,
+        this.data.isAcceptableOrUnknown(data['data']!, _dataMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_dataMeta);
+    }
+    if (data.containsKey('operator')) {
+      context.handle(
+        _operatorMeta,
+        operator.isAcceptableOrUnknown(data['operator']!, _operatorMeta),
+      );
+    }
+    if (data.containsKey('temperatura_ambienta_c')) {
+      context.handle(
+        _temperaturaAmbientaCMeta,
+        temperaturaAmbientaC.isAcceptableOrUnknown(
+          data['temperatura_ambienta_c']!,
+          _temperaturaAmbientaCMeta,
+        ),
+      );
+    }
+    if (data.containsKey('zapada_sk_kn_m2')) {
+      context.handle(
+        _zapadaSkKnM2Meta,
+        zapadaSkKnM2.isAcceptableOrUnknown(
+          data['zapada_sk_kn_m2']!,
+          _zapadaSkKnM2Meta,
+        ),
+      );
+    }
+    if (data.containsKey('vant_qb_kpa')) {
+      context.handle(
+        _vantQbKpaMeta,
+        vantQbKpa.isAcceptableOrUnknown(data['vant_qb_kpa']!, _vantQbKpaMeta),
+      );
+    }
+    if (data.containsKey('observatii')) {
+      context.handle(
+        _observatiiMeta,
+        observatii.isAcceptableOrUnknown(data['observatii']!, _observatiiMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ReleveeData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ReleveeData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}deleted_at'],
+      ),
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+      lucrareId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}lucrare_id'],
+      )!,
+      data: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}data'],
+      )!,
+      operator: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}operator'],
+      )!,
+      temperaturaAmbientaC: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}temperatura_ambienta_c'],
+      ),
+      zapadaSkKnM2: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}zapada_sk_kn_m2'],
+      ),
+      vantQbKpa: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}vant_qb_kpa'],
+      ),
+      observatii: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}observatii'],
+      )!,
+    );
+  }
+
+  @override
+  $ReleveeTable createAlias(String alias) {
+    return $ReleveeTable(attachedDatabase, alias);
+  }
+}
+
+class ReleveeData extends DataClass implements Insertable<ReleveeData> {
+  final String id;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime? deletedAt;
+  final int version;
+  final String lucrareId;
+  final DateTime data;
+  final String operator;
+  final double? temperaturaAmbientaC;
+  final double? zapadaSkKnM2;
+  final double? vantQbKpa;
+  final String observatii;
+  const ReleveeData({
+    required this.id,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+    required this.version,
+    required this.lucrareId,
+    required this.data,
+    required this.operator,
+    this.temperaturaAmbientaC,
+    this.zapadaSkKnM2,
+    this.vantQbKpa,
+    required this.observatii,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt);
+    }
+    map['version'] = Variable<int>(version);
+    map['lucrare_id'] = Variable<String>(lucrareId);
+    map['data'] = Variable<DateTime>(data);
+    map['operator'] = Variable<String>(operator);
+    if (!nullToAbsent || temperaturaAmbientaC != null) {
+      map['temperatura_ambienta_c'] = Variable<double>(temperaturaAmbientaC);
+    }
+    if (!nullToAbsent || zapadaSkKnM2 != null) {
+      map['zapada_sk_kn_m2'] = Variable<double>(zapadaSkKnM2);
+    }
+    if (!nullToAbsent || vantQbKpa != null) {
+      map['vant_qb_kpa'] = Variable<double>(vantQbKpa);
+    }
+    map['observatii'] = Variable<String>(observatii);
+    return map;
+  }
+
+  ReleveeCompanion toCompanion(bool nullToAbsent) {
+    return ReleveeCompanion(
+      id: Value(id),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+      version: Value(version),
+      lucrareId: Value(lucrareId),
+      data: Value(data),
+      operator: Value(operator),
+      temperaturaAmbientaC: temperaturaAmbientaC == null && nullToAbsent
+          ? const Value.absent()
+          : Value(temperaturaAmbientaC),
+      zapadaSkKnM2: zapadaSkKnM2 == null && nullToAbsent
+          ? const Value.absent()
+          : Value(zapadaSkKnM2),
+      vantQbKpa: vantQbKpa == null && nullToAbsent
+          ? const Value.absent()
+          : Value(vantQbKpa),
+      observatii: Value(observatii),
+    );
+  }
+
+  factory ReleveeData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ReleveeData(
+      id: serializer.fromJson<String>(json['id']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
+      version: serializer.fromJson<int>(json['version']),
+      lucrareId: serializer.fromJson<String>(json['lucrareId']),
+      data: serializer.fromJson<DateTime>(json['data']),
+      operator: serializer.fromJson<String>(json['operator']),
+      temperaturaAmbientaC: serializer.fromJson<double?>(
+        json['temperaturaAmbientaC'],
+      ),
+      zapadaSkKnM2: serializer.fromJson<double?>(json['zapadaSkKnM2']),
+      vantQbKpa: serializer.fromJson<double?>(json['vantQbKpa']),
+      observatii: serializer.fromJson<String>(json['observatii']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
+      'version': serializer.toJson<int>(version),
+      'lucrareId': serializer.toJson<String>(lucrareId),
+      'data': serializer.toJson<DateTime>(data),
+      'operator': serializer.toJson<String>(operator),
+      'temperaturaAmbientaC': serializer.toJson<double?>(temperaturaAmbientaC),
+      'zapadaSkKnM2': serializer.toJson<double?>(zapadaSkKnM2),
+      'vantQbKpa': serializer.toJson<double?>(vantQbKpa),
+      'observatii': serializer.toJson<String>(observatii),
+    };
+  }
+
+  ReleveeData copyWith({
+    String? id,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    Value<DateTime?> deletedAt = const Value.absent(),
+    int? version,
+    String? lucrareId,
+    DateTime? data,
+    String? operator,
+    Value<double?> temperaturaAmbientaC = const Value.absent(),
+    Value<double?> zapadaSkKnM2 = const Value.absent(),
+    Value<double?> vantQbKpa = const Value.absent(),
+    String? observatii,
+  }) => ReleveeData(
+    id: id ?? this.id,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+    version: version ?? this.version,
+    lucrareId: lucrareId ?? this.lucrareId,
+    data: data ?? this.data,
+    operator: operator ?? this.operator,
+    temperaturaAmbientaC: temperaturaAmbientaC.present
+        ? temperaturaAmbientaC.value
+        : this.temperaturaAmbientaC,
+    zapadaSkKnM2: zapadaSkKnM2.present ? zapadaSkKnM2.value : this.zapadaSkKnM2,
+    vantQbKpa: vantQbKpa.present ? vantQbKpa.value : this.vantQbKpa,
+    observatii: observatii ?? this.observatii,
+  );
+  ReleveeData copyWithCompanion(ReleveeCompanion data) {
+    return ReleveeData(
+      id: data.id.present ? data.id.value : this.id,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+      version: data.version.present ? data.version.value : this.version,
+      lucrareId: data.lucrareId.present ? data.lucrareId.value : this.lucrareId,
+      data: data.data.present ? data.data.value : this.data,
+      operator: data.operator.present ? data.operator.value : this.operator,
+      temperaturaAmbientaC: data.temperaturaAmbientaC.present
+          ? data.temperaturaAmbientaC.value
+          : this.temperaturaAmbientaC,
+      zapadaSkKnM2: data.zapadaSkKnM2.present
+          ? data.zapadaSkKnM2.value
+          : this.zapadaSkKnM2,
+      vantQbKpa: data.vantQbKpa.present ? data.vantQbKpa.value : this.vantQbKpa,
+      observatii: data.observatii.present
+          ? data.observatii.value
+          : this.observatii,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReleveeData(')
+          ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('lucrareId: $lucrareId, ')
+          ..write('data: $data, ')
+          ..write('operator: $operator, ')
+          ..write('temperaturaAmbientaC: $temperaturaAmbientaC, ')
+          ..write('zapadaSkKnM2: $zapadaSkKnM2, ')
+          ..write('vantQbKpa: $vantQbKpa, ')
+          ..write('observatii: $observatii')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+    lucrareId,
+    data,
+    operator,
+    temperaturaAmbientaC,
+    zapadaSkKnM2,
+    vantQbKpa,
+    observatii,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ReleveeData &&
+          other.id == this.id &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt &&
+          other.version == this.version &&
+          other.lucrareId == this.lucrareId &&
+          other.data == this.data &&
+          other.operator == this.operator &&
+          other.temperaturaAmbientaC == this.temperaturaAmbientaC &&
+          other.zapadaSkKnM2 == this.zapadaSkKnM2 &&
+          other.vantQbKpa == this.vantQbKpa &&
+          other.observatii == this.observatii);
+}
+
+class ReleveeCompanion extends UpdateCompanion<ReleveeData> {
+  final Value<String> id;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<DateTime?> deletedAt;
+  final Value<int> version;
+  final Value<String> lucrareId;
+  final Value<DateTime> data;
+  final Value<String> operator;
+  final Value<double?> temperaturaAmbientaC;
+  final Value<double?> zapadaSkKnM2;
+  final Value<double?> vantQbKpa;
+  final Value<String> observatii;
+  final Value<int> rowid;
+  const ReleveeCompanion({
+    this.id = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.lucrareId = const Value.absent(),
+    this.data = const Value.absent(),
+    this.operator = const Value.absent(),
+    this.temperaturaAmbientaC = const Value.absent(),
+    this.zapadaSkKnM2 = const Value.absent(),
+    this.vantQbKpa = const Value.absent(),
+    this.observatii = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ReleveeCompanion.insert({
+    required String id,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    required String lucrareId,
+    required DateTime data,
+    this.operator = const Value.absent(),
+    this.temperaturaAmbientaC = const Value.absent(),
+    this.zapadaSkKnM2 = const Value.absent(),
+    this.vantQbKpa = const Value.absent(),
+    this.observatii = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt),
+       lucrareId = Value(lucrareId),
+       data = Value(data);
+  static Insertable<ReleveeData> custom({
+    Expression<String>? id,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<DateTime>? deletedAt,
+    Expression<int>? version,
+    Expression<String>? lucrareId,
+    Expression<DateTime>? data,
+    Expression<String>? operator,
+    Expression<double>? temperaturaAmbientaC,
+    Expression<double>? zapadaSkKnM2,
+    Expression<double>? vantQbKpa,
+    Expression<String>? observatii,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (version != null) 'version': version,
+      if (lucrareId != null) 'lucrare_id': lucrareId,
+      if (data != null) 'data': data,
+      if (operator != null) 'operator': operator,
+      if (temperaturaAmbientaC != null)
+        'temperatura_ambienta_c': temperaturaAmbientaC,
+      if (zapadaSkKnM2 != null) 'zapada_sk_kn_m2': zapadaSkKnM2,
+      if (vantQbKpa != null) 'vant_qb_kpa': vantQbKpa,
+      if (observatii != null) 'observatii': observatii,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ReleveeCompanion copyWith({
+    Value<String>? id,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<DateTime?>? deletedAt,
+    Value<int>? version,
+    Value<String>? lucrareId,
+    Value<DateTime>? data,
+    Value<String>? operator,
+    Value<double?>? temperaturaAmbientaC,
+    Value<double?>? zapadaSkKnM2,
+    Value<double?>? vantQbKpa,
+    Value<String>? observatii,
+    Value<int>? rowid,
+  }) {
+    return ReleveeCompanion(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      version: version ?? this.version,
+      lucrareId: lucrareId ?? this.lucrareId,
+      data: data ?? this.data,
+      operator: operator ?? this.operator,
+      temperaturaAmbientaC: temperaturaAmbientaC ?? this.temperaturaAmbientaC,
+      zapadaSkKnM2: zapadaSkKnM2 ?? this.zapadaSkKnM2,
+      vantQbKpa: vantQbKpa ?? this.vantQbKpa,
+      observatii: observatii ?? this.observatii,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (lucrareId.present) {
+      map['lucrare_id'] = Variable<String>(lucrareId.value);
+    }
+    if (data.present) {
+      map['data'] = Variable<DateTime>(data.value);
+    }
+    if (operator.present) {
+      map['operator'] = Variable<String>(operator.value);
+    }
+    if (temperaturaAmbientaC.present) {
+      map['temperatura_ambienta_c'] = Variable<double>(
+        temperaturaAmbientaC.value,
+      );
+    }
+    if (zapadaSkKnM2.present) {
+      map['zapada_sk_kn_m2'] = Variable<double>(zapadaSkKnM2.value);
+    }
+    if (vantQbKpa.present) {
+      map['vant_qb_kpa'] = Variable<double>(vantQbKpa.value);
+    }
+    if (observatii.present) {
+      map['observatii'] = Variable<String>(observatii.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReleveeCompanion(')
+          ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('lucrareId: $lucrareId, ')
+          ..write('data: $data, ')
+          ..write('operator: $operator, ')
+          ..write('temperaturaAmbientaC: $temperaturaAmbientaC, ')
+          ..write('zapadaSkKnM2: $zapadaSkKnM2, ')
+          ..write('vantQbKpa: $vantQbKpa, ')
+          ..write('observatii: $observatii, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PlaneMontajTable extends PlaneMontaj
+    with TableInfo<$PlaneMontajTable, PlaneMontajData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PlaneMontajTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> deletedAt = GeneratedColumn<DateTime>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _releveuIdMeta = const VerificationMeta(
+    'releveuId',
+  );
+  @override
+  late final GeneratedColumn<String> releveuId = GeneratedColumn<String>(
+    'releveu_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES relevee (id)',
+    ),
+  );
+  static const VerificationMeta _denumireMeta = const VerificationMeta(
+    'denumire',
+  );
+  @override
+  late final GeneratedColumn<String> denumire = GeneratedColumn<String>(
+    'denumire',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _tipMeta = const VerificationMeta('tip');
+  @override
+  late final GeneratedColumn<String> tip = GeneratedColumn<String>(
+    'tip',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _invelitoareMeta = const VerificationMeta(
+    'invelitoare',
+  );
+  @override
+  late final GeneratedColumn<String> invelitoare = GeneratedColumn<String>(
+    'invelitoare',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _inclinareGradeMeta = const VerificationMeta(
+    'inclinareGrade',
+  );
+  @override
+  late final GeneratedColumn<double> inclinareGrade = GeneratedColumn<double>(
+    'inclinare_grade',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(30),
+  );
+  static const VerificationMeta _azimutGradeMeta = const VerificationMeta(
+    'azimutGrade',
+  );
+  @override
+  late final GeneratedColumn<double> azimutGrade = GeneratedColumn<double>(
+    'azimut_grade',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _lungimeMMeta = const VerificationMeta(
+    'lungimeM',
+  );
+  @override
+  late final GeneratedColumn<double> lungimeM = GeneratedColumn<double>(
+    'lungime_m',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _latimeMMeta = const VerificationMeta(
+    'latimeM',
+  );
+  @override
+  late final GeneratedColumn<double> latimeM = GeneratedColumn<double>(
+    'latime_m',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _inaltimeStreasinaMMeta =
+      const VerificationMeta('inaltimeStreasinaM');
+  @override
+  late final GeneratedColumn<double> inaltimeStreasinaM =
+      GeneratedColumn<double>(
+        'inaltime_streasina_m',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _capriorSectiuneMeta = const VerificationMeta(
+    'capriorSectiune',
+  );
+  @override
+  late final GeneratedColumn<String> capriorSectiune = GeneratedColumn<String>(
+    'caprior_sectiune',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _capriorInteraxCmMeta = const VerificationMeta(
+    'capriorInteraxCm',
+  );
+  @override
+  late final GeneratedColumn<double> capriorInteraxCm = GeneratedColumn<double>(
+    'caprior_interax_cm',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _stareMeta = const VerificationMeta('stare');
+  @override
+  late final GeneratedColumn<String> stare = GeneratedColumn<String>(
+    'stare',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _factorUmbrireMeta = const VerificationMeta(
+    'factorUmbrire',
+  );
+  @override
+  late final GeneratedColumn<double> factorUmbrire = GeneratedColumn<double>(
+    'factor_umbrire',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _observatiiMeta = const VerificationMeta(
+    'observatii',
+  );
+  @override
+  late final GeneratedColumn<String> observatii = GeneratedColumn<String>(
+    'observatii',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _ordineMeta = const VerificationMeta('ordine');
+  @override
+  late final GeneratedColumn<int> ordine = GeneratedColumn<int>(
+    'ordine',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+    releveuId,
+    denumire,
+    tip,
+    invelitoare,
+    inclinareGrade,
+    azimutGrade,
+    lungimeM,
+    latimeM,
+    inaltimeStreasinaM,
+    capriorSectiune,
+    capriorInteraxCm,
+    stare,
+    factorUmbrire,
+    observatii,
+    ordine,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'plane_montaj';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PlaneMontajData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    }
+    if (data.containsKey('releveu_id')) {
+      context.handle(
+        _releveuIdMeta,
+        releveuId.isAcceptableOrUnknown(data['releveu_id']!, _releveuIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_releveuIdMeta);
+    }
+    if (data.containsKey('denumire')) {
+      context.handle(
+        _denumireMeta,
+        denumire.isAcceptableOrUnknown(data['denumire']!, _denumireMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_denumireMeta);
+    }
+    if (data.containsKey('tip')) {
+      context.handle(
+        _tipMeta,
+        tip.isAcceptableOrUnknown(data['tip']!, _tipMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_tipMeta);
+    }
+    if (data.containsKey('invelitoare')) {
+      context.handle(
+        _invelitoareMeta,
+        invelitoare.isAcceptableOrUnknown(
+          data['invelitoare']!,
+          _invelitoareMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_invelitoareMeta);
+    }
+    if (data.containsKey('inclinare_grade')) {
+      context.handle(
+        _inclinareGradeMeta,
+        inclinareGrade.isAcceptableOrUnknown(
+          data['inclinare_grade']!,
+          _inclinareGradeMeta,
+        ),
+      );
+    }
+    if (data.containsKey('azimut_grade')) {
+      context.handle(
+        _azimutGradeMeta,
+        azimutGrade.isAcceptableOrUnknown(
+          data['azimut_grade']!,
+          _azimutGradeMeta,
+        ),
+      );
+    }
+    if (data.containsKey('lungime_m')) {
+      context.handle(
+        _lungimeMMeta,
+        lungimeM.isAcceptableOrUnknown(data['lungime_m']!, _lungimeMMeta),
+      );
+    }
+    if (data.containsKey('latime_m')) {
+      context.handle(
+        _latimeMMeta,
+        latimeM.isAcceptableOrUnknown(data['latime_m']!, _latimeMMeta),
+      );
+    }
+    if (data.containsKey('inaltime_streasina_m')) {
+      context.handle(
+        _inaltimeStreasinaMMeta,
+        inaltimeStreasinaM.isAcceptableOrUnknown(
+          data['inaltime_streasina_m']!,
+          _inaltimeStreasinaMMeta,
+        ),
+      );
+    }
+    if (data.containsKey('caprior_sectiune')) {
+      context.handle(
+        _capriorSectiuneMeta,
+        capriorSectiune.isAcceptableOrUnknown(
+          data['caprior_sectiune']!,
+          _capriorSectiuneMeta,
+        ),
+      );
+    }
+    if (data.containsKey('caprior_interax_cm')) {
+      context.handle(
+        _capriorInteraxCmMeta,
+        capriorInteraxCm.isAcceptableOrUnknown(
+          data['caprior_interax_cm']!,
+          _capriorInteraxCmMeta,
+        ),
+      );
+    }
+    if (data.containsKey('stare')) {
+      context.handle(
+        _stareMeta,
+        stare.isAcceptableOrUnknown(data['stare']!, _stareMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_stareMeta);
+    }
+    if (data.containsKey('factor_umbrire')) {
+      context.handle(
+        _factorUmbrireMeta,
+        factorUmbrire.isAcceptableOrUnknown(
+          data['factor_umbrire']!,
+          _factorUmbrireMeta,
+        ),
+      );
+    }
+    if (data.containsKey('observatii')) {
+      context.handle(
+        _observatiiMeta,
+        observatii.isAcceptableOrUnknown(data['observatii']!, _observatiiMeta),
+      );
+    }
+    if (data.containsKey('ordine')) {
+      context.handle(
+        _ordineMeta,
+        ordine.isAcceptableOrUnknown(data['ordine']!, _ordineMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PlaneMontajData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PlaneMontajData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}deleted_at'],
+      ),
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+      releveuId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}releveu_id'],
+      )!,
+      denumire: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}denumire'],
+      )!,
+      tip: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tip'],
+      )!,
+      invelitoare: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}invelitoare'],
+      )!,
+      inclinareGrade: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}inclinare_grade'],
+      )!,
+      azimutGrade: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}azimut_grade'],
+      )!,
+      lungimeM: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}lungime_m'],
+      )!,
+      latimeM: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}latime_m'],
+      )!,
+      inaltimeStreasinaM: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}inaltime_streasina_m'],
+      ),
+      capriorSectiune: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}caprior_sectiune'],
+      )!,
+      capriorInteraxCm: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}caprior_interax_cm'],
+      ),
+      stare: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}stare'],
+      )!,
+      factorUmbrire: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}factor_umbrire'],
+      )!,
+      observatii: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}observatii'],
+      )!,
+      ordine: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}ordine'],
+      )!,
+    );
+  }
+
+  @override
+  $PlaneMontajTable createAlias(String alias) {
+    return $PlaneMontajTable(attachedDatabase, alias);
+  }
+}
+
+class PlaneMontajData extends DataClass implements Insertable<PlaneMontajData> {
+  final String id;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime? deletedAt;
+  final int version;
+  final String releveuId;
+  final String denumire;
+  final String tip;
+  final String invelitoare;
+  final double inclinareGrade;
+  final double azimutGrade;
+  final double lungimeM;
+  final double latimeM;
+  final double? inaltimeStreasinaM;
+  final String capriorSectiune;
+  final double? capriorInteraxCm;
+  final String stare;
+  final double factorUmbrire;
+  final String observatii;
+  final int ordine;
+  const PlaneMontajData({
+    required this.id,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+    required this.version,
+    required this.releveuId,
+    required this.denumire,
+    required this.tip,
+    required this.invelitoare,
+    required this.inclinareGrade,
+    required this.azimutGrade,
+    required this.lungimeM,
+    required this.latimeM,
+    this.inaltimeStreasinaM,
+    required this.capriorSectiune,
+    this.capriorInteraxCm,
+    required this.stare,
+    required this.factorUmbrire,
+    required this.observatii,
+    required this.ordine,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt);
+    }
+    map['version'] = Variable<int>(version);
+    map['releveu_id'] = Variable<String>(releveuId);
+    map['denumire'] = Variable<String>(denumire);
+    map['tip'] = Variable<String>(tip);
+    map['invelitoare'] = Variable<String>(invelitoare);
+    map['inclinare_grade'] = Variable<double>(inclinareGrade);
+    map['azimut_grade'] = Variable<double>(azimutGrade);
+    map['lungime_m'] = Variable<double>(lungimeM);
+    map['latime_m'] = Variable<double>(latimeM);
+    if (!nullToAbsent || inaltimeStreasinaM != null) {
+      map['inaltime_streasina_m'] = Variable<double>(inaltimeStreasinaM);
+    }
+    map['caprior_sectiune'] = Variable<String>(capriorSectiune);
+    if (!nullToAbsent || capriorInteraxCm != null) {
+      map['caprior_interax_cm'] = Variable<double>(capriorInteraxCm);
+    }
+    map['stare'] = Variable<String>(stare);
+    map['factor_umbrire'] = Variable<double>(factorUmbrire);
+    map['observatii'] = Variable<String>(observatii);
+    map['ordine'] = Variable<int>(ordine);
+    return map;
+  }
+
+  PlaneMontajCompanion toCompanion(bool nullToAbsent) {
+    return PlaneMontajCompanion(
+      id: Value(id),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+      version: Value(version),
+      releveuId: Value(releveuId),
+      denumire: Value(denumire),
+      tip: Value(tip),
+      invelitoare: Value(invelitoare),
+      inclinareGrade: Value(inclinareGrade),
+      azimutGrade: Value(azimutGrade),
+      lungimeM: Value(lungimeM),
+      latimeM: Value(latimeM),
+      inaltimeStreasinaM: inaltimeStreasinaM == null && nullToAbsent
+          ? const Value.absent()
+          : Value(inaltimeStreasinaM),
+      capriorSectiune: Value(capriorSectiune),
+      capriorInteraxCm: capriorInteraxCm == null && nullToAbsent
+          ? const Value.absent()
+          : Value(capriorInteraxCm),
+      stare: Value(stare),
+      factorUmbrire: Value(factorUmbrire),
+      observatii: Value(observatii),
+      ordine: Value(ordine),
+    );
+  }
+
+  factory PlaneMontajData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PlaneMontajData(
+      id: serializer.fromJson<String>(json['id']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
+      version: serializer.fromJson<int>(json['version']),
+      releveuId: serializer.fromJson<String>(json['releveuId']),
+      denumire: serializer.fromJson<String>(json['denumire']),
+      tip: serializer.fromJson<String>(json['tip']),
+      invelitoare: serializer.fromJson<String>(json['invelitoare']),
+      inclinareGrade: serializer.fromJson<double>(json['inclinareGrade']),
+      azimutGrade: serializer.fromJson<double>(json['azimutGrade']),
+      lungimeM: serializer.fromJson<double>(json['lungimeM']),
+      latimeM: serializer.fromJson<double>(json['latimeM']),
+      inaltimeStreasinaM: serializer.fromJson<double?>(
+        json['inaltimeStreasinaM'],
+      ),
+      capriorSectiune: serializer.fromJson<String>(json['capriorSectiune']),
+      capriorInteraxCm: serializer.fromJson<double?>(json['capriorInteraxCm']),
+      stare: serializer.fromJson<String>(json['stare']),
+      factorUmbrire: serializer.fromJson<double>(json['factorUmbrire']),
+      observatii: serializer.fromJson<String>(json['observatii']),
+      ordine: serializer.fromJson<int>(json['ordine']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
+      'version': serializer.toJson<int>(version),
+      'releveuId': serializer.toJson<String>(releveuId),
+      'denumire': serializer.toJson<String>(denumire),
+      'tip': serializer.toJson<String>(tip),
+      'invelitoare': serializer.toJson<String>(invelitoare),
+      'inclinareGrade': serializer.toJson<double>(inclinareGrade),
+      'azimutGrade': serializer.toJson<double>(azimutGrade),
+      'lungimeM': serializer.toJson<double>(lungimeM),
+      'latimeM': serializer.toJson<double>(latimeM),
+      'inaltimeStreasinaM': serializer.toJson<double?>(inaltimeStreasinaM),
+      'capriorSectiune': serializer.toJson<String>(capriorSectiune),
+      'capriorInteraxCm': serializer.toJson<double?>(capriorInteraxCm),
+      'stare': serializer.toJson<String>(stare),
+      'factorUmbrire': serializer.toJson<double>(factorUmbrire),
+      'observatii': serializer.toJson<String>(observatii),
+      'ordine': serializer.toJson<int>(ordine),
+    };
+  }
+
+  PlaneMontajData copyWith({
+    String? id,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    Value<DateTime?> deletedAt = const Value.absent(),
+    int? version,
+    String? releveuId,
+    String? denumire,
+    String? tip,
+    String? invelitoare,
+    double? inclinareGrade,
+    double? azimutGrade,
+    double? lungimeM,
+    double? latimeM,
+    Value<double?> inaltimeStreasinaM = const Value.absent(),
+    String? capriorSectiune,
+    Value<double?> capriorInteraxCm = const Value.absent(),
+    String? stare,
+    double? factorUmbrire,
+    String? observatii,
+    int? ordine,
+  }) => PlaneMontajData(
+    id: id ?? this.id,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+    version: version ?? this.version,
+    releveuId: releveuId ?? this.releveuId,
+    denumire: denumire ?? this.denumire,
+    tip: tip ?? this.tip,
+    invelitoare: invelitoare ?? this.invelitoare,
+    inclinareGrade: inclinareGrade ?? this.inclinareGrade,
+    azimutGrade: azimutGrade ?? this.azimutGrade,
+    lungimeM: lungimeM ?? this.lungimeM,
+    latimeM: latimeM ?? this.latimeM,
+    inaltimeStreasinaM: inaltimeStreasinaM.present
+        ? inaltimeStreasinaM.value
+        : this.inaltimeStreasinaM,
+    capriorSectiune: capriorSectiune ?? this.capriorSectiune,
+    capriorInteraxCm: capriorInteraxCm.present
+        ? capriorInteraxCm.value
+        : this.capriorInteraxCm,
+    stare: stare ?? this.stare,
+    factorUmbrire: factorUmbrire ?? this.factorUmbrire,
+    observatii: observatii ?? this.observatii,
+    ordine: ordine ?? this.ordine,
+  );
+  PlaneMontajData copyWithCompanion(PlaneMontajCompanion data) {
+    return PlaneMontajData(
+      id: data.id.present ? data.id.value : this.id,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+      version: data.version.present ? data.version.value : this.version,
+      releveuId: data.releveuId.present ? data.releveuId.value : this.releveuId,
+      denumire: data.denumire.present ? data.denumire.value : this.denumire,
+      tip: data.tip.present ? data.tip.value : this.tip,
+      invelitoare: data.invelitoare.present
+          ? data.invelitoare.value
+          : this.invelitoare,
+      inclinareGrade: data.inclinareGrade.present
+          ? data.inclinareGrade.value
+          : this.inclinareGrade,
+      azimutGrade: data.azimutGrade.present
+          ? data.azimutGrade.value
+          : this.azimutGrade,
+      lungimeM: data.lungimeM.present ? data.lungimeM.value : this.lungimeM,
+      latimeM: data.latimeM.present ? data.latimeM.value : this.latimeM,
+      inaltimeStreasinaM: data.inaltimeStreasinaM.present
+          ? data.inaltimeStreasinaM.value
+          : this.inaltimeStreasinaM,
+      capriorSectiune: data.capriorSectiune.present
+          ? data.capriorSectiune.value
+          : this.capriorSectiune,
+      capriorInteraxCm: data.capriorInteraxCm.present
+          ? data.capriorInteraxCm.value
+          : this.capriorInteraxCm,
+      stare: data.stare.present ? data.stare.value : this.stare,
+      factorUmbrire: data.factorUmbrire.present
+          ? data.factorUmbrire.value
+          : this.factorUmbrire,
+      observatii: data.observatii.present
+          ? data.observatii.value
+          : this.observatii,
+      ordine: data.ordine.present ? data.ordine.value : this.ordine,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PlaneMontajData(')
+          ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('releveuId: $releveuId, ')
+          ..write('denumire: $denumire, ')
+          ..write('tip: $tip, ')
+          ..write('invelitoare: $invelitoare, ')
+          ..write('inclinareGrade: $inclinareGrade, ')
+          ..write('azimutGrade: $azimutGrade, ')
+          ..write('lungimeM: $lungimeM, ')
+          ..write('latimeM: $latimeM, ')
+          ..write('inaltimeStreasinaM: $inaltimeStreasinaM, ')
+          ..write('capriorSectiune: $capriorSectiune, ')
+          ..write('capriorInteraxCm: $capriorInteraxCm, ')
+          ..write('stare: $stare, ')
+          ..write('factorUmbrire: $factorUmbrire, ')
+          ..write('observatii: $observatii, ')
+          ..write('ordine: $ordine')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+    releveuId,
+    denumire,
+    tip,
+    invelitoare,
+    inclinareGrade,
+    azimutGrade,
+    lungimeM,
+    latimeM,
+    inaltimeStreasinaM,
+    capriorSectiune,
+    capriorInteraxCm,
+    stare,
+    factorUmbrire,
+    observatii,
+    ordine,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PlaneMontajData &&
+          other.id == this.id &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt &&
+          other.version == this.version &&
+          other.releveuId == this.releveuId &&
+          other.denumire == this.denumire &&
+          other.tip == this.tip &&
+          other.invelitoare == this.invelitoare &&
+          other.inclinareGrade == this.inclinareGrade &&
+          other.azimutGrade == this.azimutGrade &&
+          other.lungimeM == this.lungimeM &&
+          other.latimeM == this.latimeM &&
+          other.inaltimeStreasinaM == this.inaltimeStreasinaM &&
+          other.capriorSectiune == this.capriorSectiune &&
+          other.capriorInteraxCm == this.capriorInteraxCm &&
+          other.stare == this.stare &&
+          other.factorUmbrire == this.factorUmbrire &&
+          other.observatii == this.observatii &&
+          other.ordine == this.ordine);
+}
+
+class PlaneMontajCompanion extends UpdateCompanion<PlaneMontajData> {
+  final Value<String> id;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<DateTime?> deletedAt;
+  final Value<int> version;
+  final Value<String> releveuId;
+  final Value<String> denumire;
+  final Value<String> tip;
+  final Value<String> invelitoare;
+  final Value<double> inclinareGrade;
+  final Value<double> azimutGrade;
+  final Value<double> lungimeM;
+  final Value<double> latimeM;
+  final Value<double?> inaltimeStreasinaM;
+  final Value<String> capriorSectiune;
+  final Value<double?> capriorInteraxCm;
+  final Value<String> stare;
+  final Value<double> factorUmbrire;
+  final Value<String> observatii;
+  final Value<int> ordine;
+  final Value<int> rowid;
+  const PlaneMontajCompanion({
+    this.id = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.releveuId = const Value.absent(),
+    this.denumire = const Value.absent(),
+    this.tip = const Value.absent(),
+    this.invelitoare = const Value.absent(),
+    this.inclinareGrade = const Value.absent(),
+    this.azimutGrade = const Value.absent(),
+    this.lungimeM = const Value.absent(),
+    this.latimeM = const Value.absent(),
+    this.inaltimeStreasinaM = const Value.absent(),
+    this.capriorSectiune = const Value.absent(),
+    this.capriorInteraxCm = const Value.absent(),
+    this.stare = const Value.absent(),
+    this.factorUmbrire = const Value.absent(),
+    this.observatii = const Value.absent(),
+    this.ordine = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PlaneMontajCompanion.insert({
+    required String id,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    required String releveuId,
+    required String denumire,
+    required String tip,
+    required String invelitoare,
+    this.inclinareGrade = const Value.absent(),
+    this.azimutGrade = const Value.absent(),
+    this.lungimeM = const Value.absent(),
+    this.latimeM = const Value.absent(),
+    this.inaltimeStreasinaM = const Value.absent(),
+    this.capriorSectiune = const Value.absent(),
+    this.capriorInteraxCm = const Value.absent(),
+    required String stare,
+    this.factorUmbrire = const Value.absent(),
+    this.observatii = const Value.absent(),
+    this.ordine = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt),
+       releveuId = Value(releveuId),
+       denumire = Value(denumire),
+       tip = Value(tip),
+       invelitoare = Value(invelitoare),
+       stare = Value(stare);
+  static Insertable<PlaneMontajData> custom({
+    Expression<String>? id,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<DateTime>? deletedAt,
+    Expression<int>? version,
+    Expression<String>? releveuId,
+    Expression<String>? denumire,
+    Expression<String>? tip,
+    Expression<String>? invelitoare,
+    Expression<double>? inclinareGrade,
+    Expression<double>? azimutGrade,
+    Expression<double>? lungimeM,
+    Expression<double>? latimeM,
+    Expression<double>? inaltimeStreasinaM,
+    Expression<String>? capriorSectiune,
+    Expression<double>? capriorInteraxCm,
+    Expression<String>? stare,
+    Expression<double>? factorUmbrire,
+    Expression<String>? observatii,
+    Expression<int>? ordine,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (version != null) 'version': version,
+      if (releveuId != null) 'releveu_id': releveuId,
+      if (denumire != null) 'denumire': denumire,
+      if (tip != null) 'tip': tip,
+      if (invelitoare != null) 'invelitoare': invelitoare,
+      if (inclinareGrade != null) 'inclinare_grade': inclinareGrade,
+      if (azimutGrade != null) 'azimut_grade': azimutGrade,
+      if (lungimeM != null) 'lungime_m': lungimeM,
+      if (latimeM != null) 'latime_m': latimeM,
+      if (inaltimeStreasinaM != null)
+        'inaltime_streasina_m': inaltimeStreasinaM,
+      if (capriorSectiune != null) 'caprior_sectiune': capriorSectiune,
+      if (capriorInteraxCm != null) 'caprior_interax_cm': capriorInteraxCm,
+      if (stare != null) 'stare': stare,
+      if (factorUmbrire != null) 'factor_umbrire': factorUmbrire,
+      if (observatii != null) 'observatii': observatii,
+      if (ordine != null) 'ordine': ordine,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PlaneMontajCompanion copyWith({
+    Value<String>? id,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<DateTime?>? deletedAt,
+    Value<int>? version,
+    Value<String>? releveuId,
+    Value<String>? denumire,
+    Value<String>? tip,
+    Value<String>? invelitoare,
+    Value<double>? inclinareGrade,
+    Value<double>? azimutGrade,
+    Value<double>? lungimeM,
+    Value<double>? latimeM,
+    Value<double?>? inaltimeStreasinaM,
+    Value<String>? capriorSectiune,
+    Value<double?>? capriorInteraxCm,
+    Value<String>? stare,
+    Value<double>? factorUmbrire,
+    Value<String>? observatii,
+    Value<int>? ordine,
+    Value<int>? rowid,
+  }) {
+    return PlaneMontajCompanion(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      version: version ?? this.version,
+      releveuId: releveuId ?? this.releveuId,
+      denumire: denumire ?? this.denumire,
+      tip: tip ?? this.tip,
+      invelitoare: invelitoare ?? this.invelitoare,
+      inclinareGrade: inclinareGrade ?? this.inclinareGrade,
+      azimutGrade: azimutGrade ?? this.azimutGrade,
+      lungimeM: lungimeM ?? this.lungimeM,
+      latimeM: latimeM ?? this.latimeM,
+      inaltimeStreasinaM: inaltimeStreasinaM ?? this.inaltimeStreasinaM,
+      capriorSectiune: capriorSectiune ?? this.capriorSectiune,
+      capriorInteraxCm: capriorInteraxCm ?? this.capriorInteraxCm,
+      stare: stare ?? this.stare,
+      factorUmbrire: factorUmbrire ?? this.factorUmbrire,
+      observatii: observatii ?? this.observatii,
+      ordine: ordine ?? this.ordine,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (releveuId.present) {
+      map['releveu_id'] = Variable<String>(releveuId.value);
+    }
+    if (denumire.present) {
+      map['denumire'] = Variable<String>(denumire.value);
+    }
+    if (tip.present) {
+      map['tip'] = Variable<String>(tip.value);
+    }
+    if (invelitoare.present) {
+      map['invelitoare'] = Variable<String>(invelitoare.value);
+    }
+    if (inclinareGrade.present) {
+      map['inclinare_grade'] = Variable<double>(inclinareGrade.value);
+    }
+    if (azimutGrade.present) {
+      map['azimut_grade'] = Variable<double>(azimutGrade.value);
+    }
+    if (lungimeM.present) {
+      map['lungime_m'] = Variable<double>(lungimeM.value);
+    }
+    if (latimeM.present) {
+      map['latime_m'] = Variable<double>(latimeM.value);
+    }
+    if (inaltimeStreasinaM.present) {
+      map['inaltime_streasina_m'] = Variable<double>(inaltimeStreasinaM.value);
+    }
+    if (capriorSectiune.present) {
+      map['caprior_sectiune'] = Variable<String>(capriorSectiune.value);
+    }
+    if (capriorInteraxCm.present) {
+      map['caprior_interax_cm'] = Variable<double>(capriorInteraxCm.value);
+    }
+    if (stare.present) {
+      map['stare'] = Variable<String>(stare.value);
+    }
+    if (factorUmbrire.present) {
+      map['factor_umbrire'] = Variable<double>(factorUmbrire.value);
+    }
+    if (observatii.present) {
+      map['observatii'] = Variable<String>(observatii.value);
+    }
+    if (ordine.present) {
+      map['ordine'] = Variable<int>(ordine.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PlaneMontajCompanion(')
+          ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('releveuId: $releveuId, ')
+          ..write('denumire: $denumire, ')
+          ..write('tip: $tip, ')
+          ..write('invelitoare: $invelitoare, ')
+          ..write('inclinareGrade: $inclinareGrade, ')
+          ..write('azimutGrade: $azimutGrade, ')
+          ..write('lungimeM: $lungimeM, ')
+          ..write('latimeM: $latimeM, ')
+          ..write('inaltimeStreasinaM: $inaltimeStreasinaM, ')
+          ..write('capriorSectiune: $capriorSectiune, ')
+          ..write('capriorInteraxCm: $capriorInteraxCm, ')
+          ..write('stare: $stare, ')
+          ..write('factorUmbrire: $factorUmbrire, ')
+          ..write('observatii: $observatii, ')
+          ..write('ordine: $ordine, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ObstacoleTable extends Obstacole
+    with TableInfo<$ObstacoleTable, ObstacoleData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ObstacoleTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> deletedAt = GeneratedColumn<DateTime>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _planIdMeta = const VerificationMeta('planId');
+  @override
+  late final GeneratedColumn<String> planId = GeneratedColumn<String>(
+    'plan_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES plane_montaj (id)',
+    ),
+  );
+  static const VerificationMeta _tipMeta = const VerificationMeta('tip');
+  @override
+  late final GeneratedColumn<String> tip = GeneratedColumn<String>(
+    'tip',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _inaltimeMMeta = const VerificationMeta(
+    'inaltimeM',
+  );
+  @override
+  late final GeneratedColumn<double> inaltimeM = GeneratedColumn<double>(
+    'inaltime_m',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _distantaMMeta = const VerificationMeta(
+    'distantaM',
+  );
+  @override
+  late final GeneratedColumn<double> distantaM = GeneratedColumn<double>(
+    'distanta_m',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _azimutGradeMeta = const VerificationMeta(
+    'azimutGrade',
+  );
+  @override
+  late final GeneratedColumn<double> azimutGrade = GeneratedColumn<double>(
+    'azimut_grade',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _latimeMMeta = const VerificationMeta(
+    'latimeM',
+  );
+  @override
+  late final GeneratedColumn<double> latimeM = GeneratedColumn<double>(
+    'latime_m',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _observatiiMeta = const VerificationMeta(
+    'observatii',
+  );
+  @override
+  late final GeneratedColumn<String> observatii = GeneratedColumn<String>(
+    'observatii',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+    planId,
+    tip,
+    inaltimeM,
+    distantaM,
+    azimutGrade,
+    latimeM,
+    observatii,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'obstacole';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ObstacoleData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    }
+    if (data.containsKey('plan_id')) {
+      context.handle(
+        _planIdMeta,
+        planId.isAcceptableOrUnknown(data['plan_id']!, _planIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_planIdMeta);
+    }
+    if (data.containsKey('tip')) {
+      context.handle(
+        _tipMeta,
+        tip.isAcceptableOrUnknown(data['tip']!, _tipMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_tipMeta);
+    }
+    if (data.containsKey('inaltime_m')) {
+      context.handle(
+        _inaltimeMMeta,
+        inaltimeM.isAcceptableOrUnknown(data['inaltime_m']!, _inaltimeMMeta),
+      );
+    }
+    if (data.containsKey('distanta_m')) {
+      context.handle(
+        _distantaMMeta,
+        distantaM.isAcceptableOrUnknown(data['distanta_m']!, _distantaMMeta),
+      );
+    }
+    if (data.containsKey('azimut_grade')) {
+      context.handle(
+        _azimutGradeMeta,
+        azimutGrade.isAcceptableOrUnknown(
+          data['azimut_grade']!,
+          _azimutGradeMeta,
+        ),
+      );
+    }
+    if (data.containsKey('latime_m')) {
+      context.handle(
+        _latimeMMeta,
+        latimeM.isAcceptableOrUnknown(data['latime_m']!, _latimeMMeta),
+      );
+    }
+    if (data.containsKey('observatii')) {
+      context.handle(
+        _observatiiMeta,
+        observatii.isAcceptableOrUnknown(data['observatii']!, _observatiiMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ObstacoleData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ObstacoleData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}deleted_at'],
+      ),
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+      planId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}plan_id'],
+      )!,
+      tip: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tip'],
+      )!,
+      inaltimeM: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}inaltime_m'],
+      )!,
+      distantaM: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}distanta_m'],
+      )!,
+      azimutGrade: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}azimut_grade'],
+      ),
+      latimeM: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}latime_m'],
+      ),
+      observatii: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}observatii'],
+      )!,
+    );
+  }
+
+  @override
+  $ObstacoleTable createAlias(String alias) {
+    return $ObstacoleTable(attachedDatabase, alias);
+  }
+}
+
+class ObstacoleData extends DataClass implements Insertable<ObstacoleData> {
+  final String id;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime? deletedAt;
+  final int version;
+  final String planId;
+  final String tip;
+  final double inaltimeM;
+  final double distantaM;
+  final double? azimutGrade;
+  final double? latimeM;
+  final String observatii;
+  const ObstacoleData({
+    required this.id,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+    required this.version,
+    required this.planId,
+    required this.tip,
+    required this.inaltimeM,
+    required this.distantaM,
+    this.azimutGrade,
+    this.latimeM,
+    required this.observatii,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt);
+    }
+    map['version'] = Variable<int>(version);
+    map['plan_id'] = Variable<String>(planId);
+    map['tip'] = Variable<String>(tip);
+    map['inaltime_m'] = Variable<double>(inaltimeM);
+    map['distanta_m'] = Variable<double>(distantaM);
+    if (!nullToAbsent || azimutGrade != null) {
+      map['azimut_grade'] = Variable<double>(azimutGrade);
+    }
+    if (!nullToAbsent || latimeM != null) {
+      map['latime_m'] = Variable<double>(latimeM);
+    }
+    map['observatii'] = Variable<String>(observatii);
+    return map;
+  }
+
+  ObstacoleCompanion toCompanion(bool nullToAbsent) {
+    return ObstacoleCompanion(
+      id: Value(id),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+      version: Value(version),
+      planId: Value(planId),
+      tip: Value(tip),
+      inaltimeM: Value(inaltimeM),
+      distantaM: Value(distantaM),
+      azimutGrade: azimutGrade == null && nullToAbsent
+          ? const Value.absent()
+          : Value(azimutGrade),
+      latimeM: latimeM == null && nullToAbsent
+          ? const Value.absent()
+          : Value(latimeM),
+      observatii: Value(observatii),
+    );
+  }
+
+  factory ObstacoleData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ObstacoleData(
+      id: serializer.fromJson<String>(json['id']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
+      version: serializer.fromJson<int>(json['version']),
+      planId: serializer.fromJson<String>(json['planId']),
+      tip: serializer.fromJson<String>(json['tip']),
+      inaltimeM: serializer.fromJson<double>(json['inaltimeM']),
+      distantaM: serializer.fromJson<double>(json['distantaM']),
+      azimutGrade: serializer.fromJson<double?>(json['azimutGrade']),
+      latimeM: serializer.fromJson<double?>(json['latimeM']),
+      observatii: serializer.fromJson<String>(json['observatii']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
+      'version': serializer.toJson<int>(version),
+      'planId': serializer.toJson<String>(planId),
+      'tip': serializer.toJson<String>(tip),
+      'inaltimeM': serializer.toJson<double>(inaltimeM),
+      'distantaM': serializer.toJson<double>(distantaM),
+      'azimutGrade': serializer.toJson<double?>(azimutGrade),
+      'latimeM': serializer.toJson<double?>(latimeM),
+      'observatii': serializer.toJson<String>(observatii),
+    };
+  }
+
+  ObstacoleData copyWith({
+    String? id,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    Value<DateTime?> deletedAt = const Value.absent(),
+    int? version,
+    String? planId,
+    String? tip,
+    double? inaltimeM,
+    double? distantaM,
+    Value<double?> azimutGrade = const Value.absent(),
+    Value<double?> latimeM = const Value.absent(),
+    String? observatii,
+  }) => ObstacoleData(
+    id: id ?? this.id,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+    version: version ?? this.version,
+    planId: planId ?? this.planId,
+    tip: tip ?? this.tip,
+    inaltimeM: inaltimeM ?? this.inaltimeM,
+    distantaM: distantaM ?? this.distantaM,
+    azimutGrade: azimutGrade.present ? azimutGrade.value : this.azimutGrade,
+    latimeM: latimeM.present ? latimeM.value : this.latimeM,
+    observatii: observatii ?? this.observatii,
+  );
+  ObstacoleData copyWithCompanion(ObstacoleCompanion data) {
+    return ObstacoleData(
+      id: data.id.present ? data.id.value : this.id,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+      version: data.version.present ? data.version.value : this.version,
+      planId: data.planId.present ? data.planId.value : this.planId,
+      tip: data.tip.present ? data.tip.value : this.tip,
+      inaltimeM: data.inaltimeM.present ? data.inaltimeM.value : this.inaltimeM,
+      distantaM: data.distantaM.present ? data.distantaM.value : this.distantaM,
+      azimutGrade: data.azimutGrade.present
+          ? data.azimutGrade.value
+          : this.azimutGrade,
+      latimeM: data.latimeM.present ? data.latimeM.value : this.latimeM,
+      observatii: data.observatii.present
+          ? data.observatii.value
+          : this.observatii,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ObstacoleData(')
+          ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('planId: $planId, ')
+          ..write('tip: $tip, ')
+          ..write('inaltimeM: $inaltimeM, ')
+          ..write('distantaM: $distantaM, ')
+          ..write('azimutGrade: $azimutGrade, ')
+          ..write('latimeM: $latimeM, ')
+          ..write('observatii: $observatii')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+    planId,
+    tip,
+    inaltimeM,
+    distantaM,
+    azimutGrade,
+    latimeM,
+    observatii,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ObstacoleData &&
+          other.id == this.id &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt &&
+          other.version == this.version &&
+          other.planId == this.planId &&
+          other.tip == this.tip &&
+          other.inaltimeM == this.inaltimeM &&
+          other.distantaM == this.distantaM &&
+          other.azimutGrade == this.azimutGrade &&
+          other.latimeM == this.latimeM &&
+          other.observatii == this.observatii);
+}
+
+class ObstacoleCompanion extends UpdateCompanion<ObstacoleData> {
+  final Value<String> id;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<DateTime?> deletedAt;
+  final Value<int> version;
+  final Value<String> planId;
+  final Value<String> tip;
+  final Value<double> inaltimeM;
+  final Value<double> distantaM;
+  final Value<double?> azimutGrade;
+  final Value<double?> latimeM;
+  final Value<String> observatii;
+  final Value<int> rowid;
+  const ObstacoleCompanion({
+    this.id = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.planId = const Value.absent(),
+    this.tip = const Value.absent(),
+    this.inaltimeM = const Value.absent(),
+    this.distantaM = const Value.absent(),
+    this.azimutGrade = const Value.absent(),
+    this.latimeM = const Value.absent(),
+    this.observatii = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ObstacoleCompanion.insert({
+    required String id,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    required String planId,
+    required String tip,
+    this.inaltimeM = const Value.absent(),
+    this.distantaM = const Value.absent(),
+    this.azimutGrade = const Value.absent(),
+    this.latimeM = const Value.absent(),
+    this.observatii = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt),
+       planId = Value(planId),
+       tip = Value(tip);
+  static Insertable<ObstacoleData> custom({
+    Expression<String>? id,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<DateTime>? deletedAt,
+    Expression<int>? version,
+    Expression<String>? planId,
+    Expression<String>? tip,
+    Expression<double>? inaltimeM,
+    Expression<double>? distantaM,
+    Expression<double>? azimutGrade,
+    Expression<double>? latimeM,
+    Expression<String>? observatii,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (version != null) 'version': version,
+      if (planId != null) 'plan_id': planId,
+      if (tip != null) 'tip': tip,
+      if (inaltimeM != null) 'inaltime_m': inaltimeM,
+      if (distantaM != null) 'distanta_m': distantaM,
+      if (azimutGrade != null) 'azimut_grade': azimutGrade,
+      if (latimeM != null) 'latime_m': latimeM,
+      if (observatii != null) 'observatii': observatii,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ObstacoleCompanion copyWith({
+    Value<String>? id,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<DateTime?>? deletedAt,
+    Value<int>? version,
+    Value<String>? planId,
+    Value<String>? tip,
+    Value<double>? inaltimeM,
+    Value<double>? distantaM,
+    Value<double?>? azimutGrade,
+    Value<double?>? latimeM,
+    Value<String>? observatii,
+    Value<int>? rowid,
+  }) {
+    return ObstacoleCompanion(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      version: version ?? this.version,
+      planId: planId ?? this.planId,
+      tip: tip ?? this.tip,
+      inaltimeM: inaltimeM ?? this.inaltimeM,
+      distantaM: distantaM ?? this.distantaM,
+      azimutGrade: azimutGrade ?? this.azimutGrade,
+      latimeM: latimeM ?? this.latimeM,
+      observatii: observatii ?? this.observatii,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (planId.present) {
+      map['plan_id'] = Variable<String>(planId.value);
+    }
+    if (tip.present) {
+      map['tip'] = Variable<String>(tip.value);
+    }
+    if (inaltimeM.present) {
+      map['inaltime_m'] = Variable<double>(inaltimeM.value);
+    }
+    if (distantaM.present) {
+      map['distanta_m'] = Variable<double>(distantaM.value);
+    }
+    if (azimutGrade.present) {
+      map['azimut_grade'] = Variable<double>(azimutGrade.value);
+    }
+    if (latimeM.present) {
+      map['latime_m'] = Variable<double>(latimeM.value);
+    }
+    if (observatii.present) {
+      map['observatii'] = Variable<String>(observatii.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ObstacoleCompanion(')
+          ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('planId: $planId, ')
+          ..write('tip: $tip, ')
+          ..write('inaltimeM: $inaltimeM, ')
+          ..write('distantaM: $distantaM, ')
+          ..write('azimutGrade: $azimutGrade, ')
+          ..write('latimeM: $latimeM, ')
+          ..write('observatii: $observatii, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $TablouriExistenteTable extends TablouriExistente
+    with TableInfo<$TablouriExistenteTable, TablouriExistenteData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TablouriExistenteTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> deletedAt = GeneratedColumn<DateTime>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _releveuIdMeta = const VerificationMeta(
+    'releveuId',
+  );
+  @override
+  late final GeneratedColumn<String> releveuId = GeneratedColumn<String>(
+    'releveu_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'UNIQUE REFERENCES relevee (id)',
+    ),
+  );
+  static const VerificationMeta _pozitiiLibereMeta = const VerificationMeta(
+    'pozitiiLibere',
+  );
+  @override
+  late final GeneratedColumn<int> pozitiiLibere = GeneratedColumn<int>(
+    'pozitii_libere',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _disjunctorGeneralAMeta =
+      const VerificationMeta('disjunctorGeneralA');
+  @override
+  late final GeneratedColumn<int> disjunctorGeneralA = GeneratedColumn<int>(
+    'disjunctor_general_a',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _disjunctorCurbaMeta = const VerificationMeta(
+    'disjunctorCurba',
+  );
+  @override
+  late final GeneratedColumn<String> disjunctorCurba = GeneratedColumn<String>(
+    'disjunctor_curba',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _icuKaMeta = const VerificationMeta('icuKa');
+  @override
+  late final GeneratedColumn<double> icuKa = GeneratedColumn<double>(
+    'icu_ka',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _ddrExistentMeta = const VerificationMeta(
+    'ddrExistent',
+  );
+  @override
+  late final GeneratedColumn<String> ddrExistent = GeneratedColumn<String>(
+    'ddr_existent',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _ddrIdnMaMeta = const VerificationMeta(
+    'ddrIdnMa',
+  );
+  @override
+  late final GeneratedColumn<int> ddrIdnMa = GeneratedColumn<int>(
+    'ddr_idn_ma',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _spdExistentMeta = const VerificationMeta(
+    'spdExistent',
+  );
+  @override
+  late final GeneratedColumn<bool> spdExistent = GeneratedColumn<bool>(
+    'spd_existent',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("spd_existent" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _baraPeSeparataMeta = const VerificationMeta(
+    'baraPeSeparata',
+  );
+  @override
+  late final GeneratedColumn<bool> baraPeSeparata = GeneratedColumn<bool>(
+    'bara_pe_separata',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("bara_pe_separata" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _sectiuneColoanaMm2Meta =
+      const VerificationMeta('sectiuneColoanaMm2');
+  @override
+  late final GeneratedColumn<double> sectiuneColoanaMm2 =
+      GeneratedColumn<double>(
+        'sectiune_coloana_mm2',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _observatiiMeta = const VerificationMeta(
+    'observatii',
+  );
+  @override
+  late final GeneratedColumn<String> observatii = GeneratedColumn<String>(
+    'observatii',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+    releveuId,
+    pozitiiLibere,
+    disjunctorGeneralA,
+    disjunctorCurba,
+    icuKa,
+    ddrExistent,
+    ddrIdnMa,
+    spdExistent,
+    baraPeSeparata,
+    sectiuneColoanaMm2,
+    observatii,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tablouri_existente';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<TablouriExistenteData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    }
+    if (data.containsKey('releveu_id')) {
+      context.handle(
+        _releveuIdMeta,
+        releveuId.isAcceptableOrUnknown(data['releveu_id']!, _releveuIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_releveuIdMeta);
+    }
+    if (data.containsKey('pozitii_libere')) {
+      context.handle(
+        _pozitiiLibereMeta,
+        pozitiiLibere.isAcceptableOrUnknown(
+          data['pozitii_libere']!,
+          _pozitiiLibereMeta,
+        ),
+      );
+    }
+    if (data.containsKey('disjunctor_general_a')) {
+      context.handle(
+        _disjunctorGeneralAMeta,
+        disjunctorGeneralA.isAcceptableOrUnknown(
+          data['disjunctor_general_a']!,
+          _disjunctorGeneralAMeta,
+        ),
+      );
+    }
+    if (data.containsKey('disjunctor_curba')) {
+      context.handle(
+        _disjunctorCurbaMeta,
+        disjunctorCurba.isAcceptableOrUnknown(
+          data['disjunctor_curba']!,
+          _disjunctorCurbaMeta,
+        ),
+      );
+    }
+    if (data.containsKey('icu_ka')) {
+      context.handle(
+        _icuKaMeta,
+        icuKa.isAcceptableOrUnknown(data['icu_ka']!, _icuKaMeta),
+      );
+    }
+    if (data.containsKey('ddr_existent')) {
+      context.handle(
+        _ddrExistentMeta,
+        ddrExistent.isAcceptableOrUnknown(
+          data['ddr_existent']!,
+          _ddrExistentMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_ddrExistentMeta);
+    }
+    if (data.containsKey('ddr_idn_ma')) {
+      context.handle(
+        _ddrIdnMaMeta,
+        ddrIdnMa.isAcceptableOrUnknown(data['ddr_idn_ma']!, _ddrIdnMaMeta),
+      );
+    }
+    if (data.containsKey('spd_existent')) {
+      context.handle(
+        _spdExistentMeta,
+        spdExistent.isAcceptableOrUnknown(
+          data['spd_existent']!,
+          _spdExistentMeta,
+        ),
+      );
+    }
+    if (data.containsKey('bara_pe_separata')) {
+      context.handle(
+        _baraPeSeparataMeta,
+        baraPeSeparata.isAcceptableOrUnknown(
+          data['bara_pe_separata']!,
+          _baraPeSeparataMeta,
+        ),
+      );
+    }
+    if (data.containsKey('sectiune_coloana_mm2')) {
+      context.handle(
+        _sectiuneColoanaMm2Meta,
+        sectiuneColoanaMm2.isAcceptableOrUnknown(
+          data['sectiune_coloana_mm2']!,
+          _sectiuneColoanaMm2Meta,
+        ),
+      );
+    }
+    if (data.containsKey('observatii')) {
+      context.handle(
+        _observatiiMeta,
+        observatii.isAcceptableOrUnknown(data['observatii']!, _observatiiMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TablouriExistenteData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TablouriExistenteData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}deleted_at'],
+      ),
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+      releveuId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}releveu_id'],
+      )!,
+      pozitiiLibere: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}pozitii_libere'],
+      ),
+      disjunctorGeneralA: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}disjunctor_general_a'],
+      ),
+      disjunctorCurba: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}disjunctor_curba'],
+      )!,
+      icuKa: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}icu_ka'],
+      ),
+      ddrExistent: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}ddr_existent'],
+      )!,
+      ddrIdnMa: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}ddr_idn_ma'],
+      ),
+      spdExistent: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}spd_existent'],
+      )!,
+      baraPeSeparata: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}bara_pe_separata'],
+      )!,
+      sectiuneColoanaMm2: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}sectiune_coloana_mm2'],
+      ),
+      observatii: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}observatii'],
+      )!,
+    );
+  }
+
+  @override
+  $TablouriExistenteTable createAlias(String alias) {
+    return $TablouriExistenteTable(attachedDatabase, alias);
+  }
+}
+
+class TablouriExistenteData extends DataClass
+    implements Insertable<TablouriExistenteData> {
+  final String id;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime? deletedAt;
+  final int version;
+  final String releveuId;
+  final int? pozitiiLibere;
+  final int? disjunctorGeneralA;
+  final String disjunctorCurba;
+  final double? icuKa;
+  final String ddrExistent;
+  final int? ddrIdnMa;
+  final bool spdExistent;
+  final bool baraPeSeparata;
+  final double? sectiuneColoanaMm2;
+  final String observatii;
+  const TablouriExistenteData({
+    required this.id,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+    required this.version,
+    required this.releveuId,
+    this.pozitiiLibere,
+    this.disjunctorGeneralA,
+    required this.disjunctorCurba,
+    this.icuKa,
+    required this.ddrExistent,
+    this.ddrIdnMa,
+    required this.spdExistent,
+    required this.baraPeSeparata,
+    this.sectiuneColoanaMm2,
+    required this.observatii,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt);
+    }
+    map['version'] = Variable<int>(version);
+    map['releveu_id'] = Variable<String>(releveuId);
+    if (!nullToAbsent || pozitiiLibere != null) {
+      map['pozitii_libere'] = Variable<int>(pozitiiLibere);
+    }
+    if (!nullToAbsent || disjunctorGeneralA != null) {
+      map['disjunctor_general_a'] = Variable<int>(disjunctorGeneralA);
+    }
+    map['disjunctor_curba'] = Variable<String>(disjunctorCurba);
+    if (!nullToAbsent || icuKa != null) {
+      map['icu_ka'] = Variable<double>(icuKa);
+    }
+    map['ddr_existent'] = Variable<String>(ddrExistent);
+    if (!nullToAbsent || ddrIdnMa != null) {
+      map['ddr_idn_ma'] = Variable<int>(ddrIdnMa);
+    }
+    map['spd_existent'] = Variable<bool>(spdExistent);
+    map['bara_pe_separata'] = Variable<bool>(baraPeSeparata);
+    if (!nullToAbsent || sectiuneColoanaMm2 != null) {
+      map['sectiune_coloana_mm2'] = Variable<double>(sectiuneColoanaMm2);
+    }
+    map['observatii'] = Variable<String>(observatii);
+    return map;
+  }
+
+  TablouriExistenteCompanion toCompanion(bool nullToAbsent) {
+    return TablouriExistenteCompanion(
+      id: Value(id),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+      version: Value(version),
+      releveuId: Value(releveuId),
+      pozitiiLibere: pozitiiLibere == null && nullToAbsent
+          ? const Value.absent()
+          : Value(pozitiiLibere),
+      disjunctorGeneralA: disjunctorGeneralA == null && nullToAbsent
+          ? const Value.absent()
+          : Value(disjunctorGeneralA),
+      disjunctorCurba: Value(disjunctorCurba),
+      icuKa: icuKa == null && nullToAbsent
+          ? const Value.absent()
+          : Value(icuKa),
+      ddrExistent: Value(ddrExistent),
+      ddrIdnMa: ddrIdnMa == null && nullToAbsent
+          ? const Value.absent()
+          : Value(ddrIdnMa),
+      spdExistent: Value(spdExistent),
+      baraPeSeparata: Value(baraPeSeparata),
+      sectiuneColoanaMm2: sectiuneColoanaMm2 == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sectiuneColoanaMm2),
+      observatii: Value(observatii),
+    );
+  }
+
+  factory TablouriExistenteData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TablouriExistenteData(
+      id: serializer.fromJson<String>(json['id']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
+      version: serializer.fromJson<int>(json['version']),
+      releveuId: serializer.fromJson<String>(json['releveuId']),
+      pozitiiLibere: serializer.fromJson<int?>(json['pozitiiLibere']),
+      disjunctorGeneralA: serializer.fromJson<int?>(json['disjunctorGeneralA']),
+      disjunctorCurba: serializer.fromJson<String>(json['disjunctorCurba']),
+      icuKa: serializer.fromJson<double?>(json['icuKa']),
+      ddrExistent: serializer.fromJson<String>(json['ddrExistent']),
+      ddrIdnMa: serializer.fromJson<int?>(json['ddrIdnMa']),
+      spdExistent: serializer.fromJson<bool>(json['spdExistent']),
+      baraPeSeparata: serializer.fromJson<bool>(json['baraPeSeparata']),
+      sectiuneColoanaMm2: serializer.fromJson<double?>(
+        json['sectiuneColoanaMm2'],
+      ),
+      observatii: serializer.fromJson<String>(json['observatii']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
+      'version': serializer.toJson<int>(version),
+      'releveuId': serializer.toJson<String>(releveuId),
+      'pozitiiLibere': serializer.toJson<int?>(pozitiiLibere),
+      'disjunctorGeneralA': serializer.toJson<int?>(disjunctorGeneralA),
+      'disjunctorCurba': serializer.toJson<String>(disjunctorCurba),
+      'icuKa': serializer.toJson<double?>(icuKa),
+      'ddrExistent': serializer.toJson<String>(ddrExistent),
+      'ddrIdnMa': serializer.toJson<int?>(ddrIdnMa),
+      'spdExistent': serializer.toJson<bool>(spdExistent),
+      'baraPeSeparata': serializer.toJson<bool>(baraPeSeparata),
+      'sectiuneColoanaMm2': serializer.toJson<double?>(sectiuneColoanaMm2),
+      'observatii': serializer.toJson<String>(observatii),
+    };
+  }
+
+  TablouriExistenteData copyWith({
+    String? id,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    Value<DateTime?> deletedAt = const Value.absent(),
+    int? version,
+    String? releveuId,
+    Value<int?> pozitiiLibere = const Value.absent(),
+    Value<int?> disjunctorGeneralA = const Value.absent(),
+    String? disjunctorCurba,
+    Value<double?> icuKa = const Value.absent(),
+    String? ddrExistent,
+    Value<int?> ddrIdnMa = const Value.absent(),
+    bool? spdExistent,
+    bool? baraPeSeparata,
+    Value<double?> sectiuneColoanaMm2 = const Value.absent(),
+    String? observatii,
+  }) => TablouriExistenteData(
+    id: id ?? this.id,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+    version: version ?? this.version,
+    releveuId: releveuId ?? this.releveuId,
+    pozitiiLibere: pozitiiLibere.present
+        ? pozitiiLibere.value
+        : this.pozitiiLibere,
+    disjunctorGeneralA: disjunctorGeneralA.present
+        ? disjunctorGeneralA.value
+        : this.disjunctorGeneralA,
+    disjunctorCurba: disjunctorCurba ?? this.disjunctorCurba,
+    icuKa: icuKa.present ? icuKa.value : this.icuKa,
+    ddrExistent: ddrExistent ?? this.ddrExistent,
+    ddrIdnMa: ddrIdnMa.present ? ddrIdnMa.value : this.ddrIdnMa,
+    spdExistent: spdExistent ?? this.spdExistent,
+    baraPeSeparata: baraPeSeparata ?? this.baraPeSeparata,
+    sectiuneColoanaMm2: sectiuneColoanaMm2.present
+        ? sectiuneColoanaMm2.value
+        : this.sectiuneColoanaMm2,
+    observatii: observatii ?? this.observatii,
+  );
+  TablouriExistenteData copyWithCompanion(TablouriExistenteCompanion data) {
+    return TablouriExistenteData(
+      id: data.id.present ? data.id.value : this.id,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+      version: data.version.present ? data.version.value : this.version,
+      releveuId: data.releveuId.present ? data.releveuId.value : this.releveuId,
+      pozitiiLibere: data.pozitiiLibere.present
+          ? data.pozitiiLibere.value
+          : this.pozitiiLibere,
+      disjunctorGeneralA: data.disjunctorGeneralA.present
+          ? data.disjunctorGeneralA.value
+          : this.disjunctorGeneralA,
+      disjunctorCurba: data.disjunctorCurba.present
+          ? data.disjunctorCurba.value
+          : this.disjunctorCurba,
+      icuKa: data.icuKa.present ? data.icuKa.value : this.icuKa,
+      ddrExistent: data.ddrExistent.present
+          ? data.ddrExistent.value
+          : this.ddrExistent,
+      ddrIdnMa: data.ddrIdnMa.present ? data.ddrIdnMa.value : this.ddrIdnMa,
+      spdExistent: data.spdExistent.present
+          ? data.spdExistent.value
+          : this.spdExistent,
+      baraPeSeparata: data.baraPeSeparata.present
+          ? data.baraPeSeparata.value
+          : this.baraPeSeparata,
+      sectiuneColoanaMm2: data.sectiuneColoanaMm2.present
+          ? data.sectiuneColoanaMm2.value
+          : this.sectiuneColoanaMm2,
+      observatii: data.observatii.present
+          ? data.observatii.value
+          : this.observatii,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TablouriExistenteData(')
+          ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('releveuId: $releveuId, ')
+          ..write('pozitiiLibere: $pozitiiLibere, ')
+          ..write('disjunctorGeneralA: $disjunctorGeneralA, ')
+          ..write('disjunctorCurba: $disjunctorCurba, ')
+          ..write('icuKa: $icuKa, ')
+          ..write('ddrExistent: $ddrExistent, ')
+          ..write('ddrIdnMa: $ddrIdnMa, ')
+          ..write('spdExistent: $spdExistent, ')
+          ..write('baraPeSeparata: $baraPeSeparata, ')
+          ..write('sectiuneColoanaMm2: $sectiuneColoanaMm2, ')
+          ..write('observatii: $observatii')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+    releveuId,
+    pozitiiLibere,
+    disjunctorGeneralA,
+    disjunctorCurba,
+    icuKa,
+    ddrExistent,
+    ddrIdnMa,
+    spdExistent,
+    baraPeSeparata,
+    sectiuneColoanaMm2,
+    observatii,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TablouriExistenteData &&
+          other.id == this.id &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt &&
+          other.version == this.version &&
+          other.releveuId == this.releveuId &&
+          other.pozitiiLibere == this.pozitiiLibere &&
+          other.disjunctorGeneralA == this.disjunctorGeneralA &&
+          other.disjunctorCurba == this.disjunctorCurba &&
+          other.icuKa == this.icuKa &&
+          other.ddrExistent == this.ddrExistent &&
+          other.ddrIdnMa == this.ddrIdnMa &&
+          other.spdExistent == this.spdExistent &&
+          other.baraPeSeparata == this.baraPeSeparata &&
+          other.sectiuneColoanaMm2 == this.sectiuneColoanaMm2 &&
+          other.observatii == this.observatii);
+}
+
+class TablouriExistenteCompanion
+    extends UpdateCompanion<TablouriExistenteData> {
+  final Value<String> id;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<DateTime?> deletedAt;
+  final Value<int> version;
+  final Value<String> releveuId;
+  final Value<int?> pozitiiLibere;
+  final Value<int?> disjunctorGeneralA;
+  final Value<String> disjunctorCurba;
+  final Value<double?> icuKa;
+  final Value<String> ddrExistent;
+  final Value<int?> ddrIdnMa;
+  final Value<bool> spdExistent;
+  final Value<bool> baraPeSeparata;
+  final Value<double?> sectiuneColoanaMm2;
+  final Value<String> observatii;
+  final Value<int> rowid;
+  const TablouriExistenteCompanion({
+    this.id = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.releveuId = const Value.absent(),
+    this.pozitiiLibere = const Value.absent(),
+    this.disjunctorGeneralA = const Value.absent(),
+    this.disjunctorCurba = const Value.absent(),
+    this.icuKa = const Value.absent(),
+    this.ddrExistent = const Value.absent(),
+    this.ddrIdnMa = const Value.absent(),
+    this.spdExistent = const Value.absent(),
+    this.baraPeSeparata = const Value.absent(),
+    this.sectiuneColoanaMm2 = const Value.absent(),
+    this.observatii = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TablouriExistenteCompanion.insert({
+    required String id,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    required String releveuId,
+    this.pozitiiLibere = const Value.absent(),
+    this.disjunctorGeneralA = const Value.absent(),
+    this.disjunctorCurba = const Value.absent(),
+    this.icuKa = const Value.absent(),
+    required String ddrExistent,
+    this.ddrIdnMa = const Value.absent(),
+    this.spdExistent = const Value.absent(),
+    this.baraPeSeparata = const Value.absent(),
+    this.sectiuneColoanaMm2 = const Value.absent(),
+    this.observatii = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt),
+       releveuId = Value(releveuId),
+       ddrExistent = Value(ddrExistent);
+  static Insertable<TablouriExistenteData> custom({
+    Expression<String>? id,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<DateTime>? deletedAt,
+    Expression<int>? version,
+    Expression<String>? releveuId,
+    Expression<int>? pozitiiLibere,
+    Expression<int>? disjunctorGeneralA,
+    Expression<String>? disjunctorCurba,
+    Expression<double>? icuKa,
+    Expression<String>? ddrExistent,
+    Expression<int>? ddrIdnMa,
+    Expression<bool>? spdExistent,
+    Expression<bool>? baraPeSeparata,
+    Expression<double>? sectiuneColoanaMm2,
+    Expression<String>? observatii,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (version != null) 'version': version,
+      if (releveuId != null) 'releveu_id': releveuId,
+      if (pozitiiLibere != null) 'pozitii_libere': pozitiiLibere,
+      if (disjunctorGeneralA != null)
+        'disjunctor_general_a': disjunctorGeneralA,
+      if (disjunctorCurba != null) 'disjunctor_curba': disjunctorCurba,
+      if (icuKa != null) 'icu_ka': icuKa,
+      if (ddrExistent != null) 'ddr_existent': ddrExistent,
+      if (ddrIdnMa != null) 'ddr_idn_ma': ddrIdnMa,
+      if (spdExistent != null) 'spd_existent': spdExistent,
+      if (baraPeSeparata != null) 'bara_pe_separata': baraPeSeparata,
+      if (sectiuneColoanaMm2 != null)
+        'sectiune_coloana_mm2': sectiuneColoanaMm2,
+      if (observatii != null) 'observatii': observatii,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TablouriExistenteCompanion copyWith({
+    Value<String>? id,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<DateTime?>? deletedAt,
+    Value<int>? version,
+    Value<String>? releveuId,
+    Value<int?>? pozitiiLibere,
+    Value<int?>? disjunctorGeneralA,
+    Value<String>? disjunctorCurba,
+    Value<double?>? icuKa,
+    Value<String>? ddrExistent,
+    Value<int?>? ddrIdnMa,
+    Value<bool>? spdExistent,
+    Value<bool>? baraPeSeparata,
+    Value<double?>? sectiuneColoanaMm2,
+    Value<String>? observatii,
+    Value<int>? rowid,
+  }) {
+    return TablouriExistenteCompanion(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      version: version ?? this.version,
+      releveuId: releveuId ?? this.releveuId,
+      pozitiiLibere: pozitiiLibere ?? this.pozitiiLibere,
+      disjunctorGeneralA: disjunctorGeneralA ?? this.disjunctorGeneralA,
+      disjunctorCurba: disjunctorCurba ?? this.disjunctorCurba,
+      icuKa: icuKa ?? this.icuKa,
+      ddrExistent: ddrExistent ?? this.ddrExistent,
+      ddrIdnMa: ddrIdnMa ?? this.ddrIdnMa,
+      spdExistent: spdExistent ?? this.spdExistent,
+      baraPeSeparata: baraPeSeparata ?? this.baraPeSeparata,
+      sectiuneColoanaMm2: sectiuneColoanaMm2 ?? this.sectiuneColoanaMm2,
+      observatii: observatii ?? this.observatii,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (releveuId.present) {
+      map['releveu_id'] = Variable<String>(releveuId.value);
+    }
+    if (pozitiiLibere.present) {
+      map['pozitii_libere'] = Variable<int>(pozitiiLibere.value);
+    }
+    if (disjunctorGeneralA.present) {
+      map['disjunctor_general_a'] = Variable<int>(disjunctorGeneralA.value);
+    }
+    if (disjunctorCurba.present) {
+      map['disjunctor_curba'] = Variable<String>(disjunctorCurba.value);
+    }
+    if (icuKa.present) {
+      map['icu_ka'] = Variable<double>(icuKa.value);
+    }
+    if (ddrExistent.present) {
+      map['ddr_existent'] = Variable<String>(ddrExistent.value);
+    }
+    if (ddrIdnMa.present) {
+      map['ddr_idn_ma'] = Variable<int>(ddrIdnMa.value);
+    }
+    if (spdExistent.present) {
+      map['spd_existent'] = Variable<bool>(spdExistent.value);
+    }
+    if (baraPeSeparata.present) {
+      map['bara_pe_separata'] = Variable<bool>(baraPeSeparata.value);
+    }
+    if (sectiuneColoanaMm2.present) {
+      map['sectiune_coloana_mm2'] = Variable<double>(sectiuneColoanaMm2.value);
+    }
+    if (observatii.present) {
+      map['observatii'] = Variable<String>(observatii.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TablouriExistenteCompanion(')
+          ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('releveuId: $releveuId, ')
+          ..write('pozitiiLibere: $pozitiiLibere, ')
+          ..write('disjunctorGeneralA: $disjunctorGeneralA, ')
+          ..write('disjunctorCurba: $disjunctorCurba, ')
+          ..write('icuKa: $icuKa, ')
+          ..write('ddrExistent: $ddrExistent, ')
+          ..write('ddrIdnMa: $ddrIdnMa, ')
+          ..write('spdExistent: $spdExistent, ')
+          ..write('baraPeSeparata: $baraPeSeparata, ')
+          ..write('sectiuneColoanaMm2: $sectiuneColoanaMm2, ')
+          ..write('observatii: $observatii, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $TraseeTable extends Trasee with TableInfo<$TraseeTable, TraseeData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TraseeTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> deletedAt = GeneratedColumn<DateTime>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _releveuIdMeta = const VerificationMeta(
+    'releveuId',
+  );
+  @override
+  late final GeneratedColumn<String> releveuId = GeneratedColumn<String>(
+    'releveu_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES relevee (id)',
+    ),
+  );
+  static const VerificationMeta _segmentMeta = const VerificationMeta(
+    'segment',
+  );
+  @override
+  late final GeneratedColumn<String> segment = GeneratedColumn<String>(
+    'segment',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lungimeMMeta = const VerificationMeta(
+    'lungimeM',
+  );
+  @override
+  late final GeneratedColumn<double> lungimeM = GeneratedColumn<double>(
+    'lungime_m',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _modPozareMeta = const VerificationMeta(
+    'modPozare',
+  );
+  @override
+  late final GeneratedColumn<String> modPozare = GeneratedColumn<String>(
+    'mod_pozare',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('B1'),
+  );
+  static const VerificationMeta _temperaturaMaximaCMeta =
+      const VerificationMeta('temperaturaMaximaC');
+  @override
+  late final GeneratedColumn<double> temperaturaMaximaC =
+      GeneratedColumn<double>(
+        'temperatura_maxima_c',
+        aliasedName,
+        true,
+        type: DriftSqlType.double,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _observatiiMeta = const VerificationMeta(
+    'observatii',
+  );
+  @override
+  late final GeneratedColumn<String> observatii = GeneratedColumn<String>(
+    'observatii',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+    releveuId,
+    segment,
+    lungimeM,
+    modPozare,
+    temperaturaMaximaC,
+    observatii,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'trasee';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<TraseeData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    }
+    if (data.containsKey('releveu_id')) {
+      context.handle(
+        _releveuIdMeta,
+        releveuId.isAcceptableOrUnknown(data['releveu_id']!, _releveuIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_releveuIdMeta);
+    }
+    if (data.containsKey('segment')) {
+      context.handle(
+        _segmentMeta,
+        segment.isAcceptableOrUnknown(data['segment']!, _segmentMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_segmentMeta);
+    }
+    if (data.containsKey('lungime_m')) {
+      context.handle(
+        _lungimeMMeta,
+        lungimeM.isAcceptableOrUnknown(data['lungime_m']!, _lungimeMMeta),
+      );
+    }
+    if (data.containsKey('mod_pozare')) {
+      context.handle(
+        _modPozareMeta,
+        modPozare.isAcceptableOrUnknown(data['mod_pozare']!, _modPozareMeta),
+      );
+    }
+    if (data.containsKey('temperatura_maxima_c')) {
+      context.handle(
+        _temperaturaMaximaCMeta,
+        temperaturaMaximaC.isAcceptableOrUnknown(
+          data['temperatura_maxima_c']!,
+          _temperaturaMaximaCMeta,
+        ),
+      );
+    }
+    if (data.containsKey('observatii')) {
+      context.handle(
+        _observatiiMeta,
+        observatii.isAcceptableOrUnknown(data['observatii']!, _observatiiMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TraseeData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TraseeData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}deleted_at'],
+      ),
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+      releveuId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}releveu_id'],
+      )!,
+      segment: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}segment'],
+      )!,
+      lungimeM: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}lungime_m'],
+      )!,
+      modPozare: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}mod_pozare'],
+      )!,
+      temperaturaMaximaC: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}temperatura_maxima_c'],
+      ),
+      observatii: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}observatii'],
+      )!,
+    );
+  }
+
+  @override
+  $TraseeTable createAlias(String alias) {
+    return $TraseeTable(attachedDatabase, alias);
+  }
+}
+
+class TraseeData extends DataClass implements Insertable<TraseeData> {
+  final String id;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime? deletedAt;
+  final int version;
+  final String releveuId;
+  final String segment;
+  final double lungimeM;
+  final String modPozare;
+  final double? temperaturaMaximaC;
+  final String observatii;
+  const TraseeData({
+    required this.id,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+    required this.version,
+    required this.releveuId,
+    required this.segment,
+    required this.lungimeM,
+    required this.modPozare,
+    this.temperaturaMaximaC,
+    required this.observatii,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt);
+    }
+    map['version'] = Variable<int>(version);
+    map['releveu_id'] = Variable<String>(releveuId);
+    map['segment'] = Variable<String>(segment);
+    map['lungime_m'] = Variable<double>(lungimeM);
+    map['mod_pozare'] = Variable<String>(modPozare);
+    if (!nullToAbsent || temperaturaMaximaC != null) {
+      map['temperatura_maxima_c'] = Variable<double>(temperaturaMaximaC);
+    }
+    map['observatii'] = Variable<String>(observatii);
+    return map;
+  }
+
+  TraseeCompanion toCompanion(bool nullToAbsent) {
+    return TraseeCompanion(
+      id: Value(id),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+      version: Value(version),
+      releveuId: Value(releveuId),
+      segment: Value(segment),
+      lungimeM: Value(lungimeM),
+      modPozare: Value(modPozare),
+      temperaturaMaximaC: temperaturaMaximaC == null && nullToAbsent
+          ? const Value.absent()
+          : Value(temperaturaMaximaC),
+      observatii: Value(observatii),
+    );
+  }
+
+  factory TraseeData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TraseeData(
+      id: serializer.fromJson<String>(json['id']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
+      version: serializer.fromJson<int>(json['version']),
+      releveuId: serializer.fromJson<String>(json['releveuId']),
+      segment: serializer.fromJson<String>(json['segment']),
+      lungimeM: serializer.fromJson<double>(json['lungimeM']),
+      modPozare: serializer.fromJson<String>(json['modPozare']),
+      temperaturaMaximaC: serializer.fromJson<double?>(
+        json['temperaturaMaximaC'],
+      ),
+      observatii: serializer.fromJson<String>(json['observatii']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
+      'version': serializer.toJson<int>(version),
+      'releveuId': serializer.toJson<String>(releveuId),
+      'segment': serializer.toJson<String>(segment),
+      'lungimeM': serializer.toJson<double>(lungimeM),
+      'modPozare': serializer.toJson<String>(modPozare),
+      'temperaturaMaximaC': serializer.toJson<double?>(temperaturaMaximaC),
+      'observatii': serializer.toJson<String>(observatii),
+    };
+  }
+
+  TraseeData copyWith({
+    String? id,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    Value<DateTime?> deletedAt = const Value.absent(),
+    int? version,
+    String? releveuId,
+    String? segment,
+    double? lungimeM,
+    String? modPozare,
+    Value<double?> temperaturaMaximaC = const Value.absent(),
+    String? observatii,
+  }) => TraseeData(
+    id: id ?? this.id,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+    version: version ?? this.version,
+    releveuId: releveuId ?? this.releveuId,
+    segment: segment ?? this.segment,
+    lungimeM: lungimeM ?? this.lungimeM,
+    modPozare: modPozare ?? this.modPozare,
+    temperaturaMaximaC: temperaturaMaximaC.present
+        ? temperaturaMaximaC.value
+        : this.temperaturaMaximaC,
+    observatii: observatii ?? this.observatii,
+  );
+  TraseeData copyWithCompanion(TraseeCompanion data) {
+    return TraseeData(
+      id: data.id.present ? data.id.value : this.id,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+      version: data.version.present ? data.version.value : this.version,
+      releveuId: data.releveuId.present ? data.releveuId.value : this.releveuId,
+      segment: data.segment.present ? data.segment.value : this.segment,
+      lungimeM: data.lungimeM.present ? data.lungimeM.value : this.lungimeM,
+      modPozare: data.modPozare.present ? data.modPozare.value : this.modPozare,
+      temperaturaMaximaC: data.temperaturaMaximaC.present
+          ? data.temperaturaMaximaC.value
+          : this.temperaturaMaximaC,
+      observatii: data.observatii.present
+          ? data.observatii.value
+          : this.observatii,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TraseeData(')
+          ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('releveuId: $releveuId, ')
+          ..write('segment: $segment, ')
+          ..write('lungimeM: $lungimeM, ')
+          ..write('modPozare: $modPozare, ')
+          ..write('temperaturaMaximaC: $temperaturaMaximaC, ')
+          ..write('observatii: $observatii')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+    releveuId,
+    segment,
+    lungimeM,
+    modPozare,
+    temperaturaMaximaC,
+    observatii,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TraseeData &&
+          other.id == this.id &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt &&
+          other.version == this.version &&
+          other.releveuId == this.releveuId &&
+          other.segment == this.segment &&
+          other.lungimeM == this.lungimeM &&
+          other.modPozare == this.modPozare &&
+          other.temperaturaMaximaC == this.temperaturaMaximaC &&
+          other.observatii == this.observatii);
+}
+
+class TraseeCompanion extends UpdateCompanion<TraseeData> {
+  final Value<String> id;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<DateTime?> deletedAt;
+  final Value<int> version;
+  final Value<String> releveuId;
+  final Value<String> segment;
+  final Value<double> lungimeM;
+  final Value<String> modPozare;
+  final Value<double?> temperaturaMaximaC;
+  final Value<String> observatii;
+  final Value<int> rowid;
+  const TraseeCompanion({
+    this.id = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.releveuId = const Value.absent(),
+    this.segment = const Value.absent(),
+    this.lungimeM = const Value.absent(),
+    this.modPozare = const Value.absent(),
+    this.temperaturaMaximaC = const Value.absent(),
+    this.observatii = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TraseeCompanion.insert({
+    required String id,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    required String releveuId,
+    required String segment,
+    this.lungimeM = const Value.absent(),
+    this.modPozare = const Value.absent(),
+    this.temperaturaMaximaC = const Value.absent(),
+    this.observatii = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt),
+       releveuId = Value(releveuId),
+       segment = Value(segment);
+  static Insertable<TraseeData> custom({
+    Expression<String>? id,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<DateTime>? deletedAt,
+    Expression<int>? version,
+    Expression<String>? releveuId,
+    Expression<String>? segment,
+    Expression<double>? lungimeM,
+    Expression<String>? modPozare,
+    Expression<double>? temperaturaMaximaC,
+    Expression<String>? observatii,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (version != null) 'version': version,
+      if (releveuId != null) 'releveu_id': releveuId,
+      if (segment != null) 'segment': segment,
+      if (lungimeM != null) 'lungime_m': lungimeM,
+      if (modPozare != null) 'mod_pozare': modPozare,
+      if (temperaturaMaximaC != null)
+        'temperatura_maxima_c': temperaturaMaximaC,
+      if (observatii != null) 'observatii': observatii,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TraseeCompanion copyWith({
+    Value<String>? id,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<DateTime?>? deletedAt,
+    Value<int>? version,
+    Value<String>? releveuId,
+    Value<String>? segment,
+    Value<double>? lungimeM,
+    Value<String>? modPozare,
+    Value<double?>? temperaturaMaximaC,
+    Value<String>? observatii,
+    Value<int>? rowid,
+  }) {
+    return TraseeCompanion(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      version: version ?? this.version,
+      releveuId: releveuId ?? this.releveuId,
+      segment: segment ?? this.segment,
+      lungimeM: lungimeM ?? this.lungimeM,
+      modPozare: modPozare ?? this.modPozare,
+      temperaturaMaximaC: temperaturaMaximaC ?? this.temperaturaMaximaC,
+      observatii: observatii ?? this.observatii,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (releveuId.present) {
+      map['releveu_id'] = Variable<String>(releveuId.value);
+    }
+    if (segment.present) {
+      map['segment'] = Variable<String>(segment.value);
+    }
+    if (lungimeM.present) {
+      map['lungime_m'] = Variable<double>(lungimeM.value);
+    }
+    if (modPozare.present) {
+      map['mod_pozare'] = Variable<String>(modPozare.value);
+    }
+    if (temperaturaMaximaC.present) {
+      map['temperatura_maxima_c'] = Variable<double>(temperaturaMaximaC.value);
+    }
+    if (observatii.present) {
+      map['observatii'] = Variable<String>(observatii.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TraseeCompanion(')
+          ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('releveuId: $releveuId, ')
+          ..write('segment: $segment, ')
+          ..write('lungimeM: $lungimeM, ')
+          ..write('modPozare: $modPozare, ')
+          ..write('temperaturaMaximaC: $temperaturaMaximaC, ')
+          ..write('observatii: $observatii, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $SetariTable extends Setari with TableInfo<$SetariTable, SetariData> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -5326,6 +9477,12 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $FurnizoriTable furnizori = $FurnizoriTable(this);
   late final $SolutiiTable solutii = $SolutiiTable(this);
   late final $DocumenteTable documente = $DocumenteTable(this);
+  late final $ReleveeTable relevee = $ReleveeTable(this);
+  late final $PlaneMontajTable planeMontaj = $PlaneMontajTable(this);
+  late final $ObstacoleTable obstacole = $ObstacoleTable(this);
+  late final $TablouriExistenteTable tablouriExistente =
+      $TablouriExistenteTable(this);
+  late final $TraseeTable trasee = $TraseeTable(this);
   late final $SetariTable setari = $SetariTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
@@ -5339,6 +9496,11 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     furnizori,
     solutii,
     documente,
+    relevee,
+    planeMontaj,
+    obstacole,
+    tablouriExistente,
+    trasee,
     setari,
   ];
   @override
@@ -6008,6 +10170,24 @@ final class $$LucrariTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$ReleveeTable, List<ReleveeData>>
+  _releveeRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.relevee,
+    aliasName: 'lucrari__id__relevee__lucrare_id',
+  );
+
+  $$ReleveeTableProcessedTableManager get releveeRefs {
+    final manager = $$ReleveeTableTableManager(
+      $_db,
+      $_db.relevee,
+    ).filter((f) => f.lucrareId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_releveeRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$LucrariTableFilterComposer
@@ -6193,6 +10373,31 @@ class $$LucrariTableFilterComposer
           }) => $$DocumenteTableFilterComposer(
             $db: $db,
             $table: $db.documente,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> releveeRefs(
+    Expression<bool> Function($$ReleveeTableFilterComposer f) f,
+  ) {
+    final $$ReleveeTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.relevee,
+      getReferencedColumn: (t) => t.lucrareId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ReleveeTableFilterComposer(
+            $db: $db,
+            $table: $db.relevee,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -6471,6 +10676,31 @@ class $$LucrariTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> releveeRefs<T extends Object>(
+    Expression<T> Function($$ReleveeTableAnnotationComposer a) f,
+  ) {
+    final $$ReleveeTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.relevee,
+      getReferencedColumn: (t) => t.lucrareId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ReleveeTableAnnotationComposer(
+            $db: $db,
+            $table: $db.relevee,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$LucrariTableTableManager
@@ -6492,6 +10722,7 @@ class $$LucrariTableTableManager
             bool locuriConsumRefs,
             bool solutiiRefs,
             bool documenteRefs,
+            bool releveeRefs,
           })
         > {
   $$LucrariTableTableManager(_$AppDatabase db, $LucrariTable table)
@@ -6584,6 +10815,7 @@ class $$LucrariTableTableManager
                 locuriConsumRefs = false,
                 solutiiRefs = false,
                 documenteRefs = false,
+                releveeRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -6592,6 +10824,7 @@ class $$LucrariTableTableManager
                     if (locuriConsumRefs) db.locuriConsum,
                     if (solutiiRefs) db.solutii,
                     if (documenteRefs) db.documente,
+                    if (releveeRefs) db.relevee,
                   ],
                   addJoins:
                       <
@@ -6711,6 +10944,27 @@ class $$LucrariTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (releveeRefs)
+                        await $_getPrefetchedData<
+                          LucrariData,
+                          $LucrariTable,
+                          ReleveeData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$LucrariTableReferences
+                              ._releveeRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$LucrariTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).releveeRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.lucrareId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -6737,6 +10991,7 @@ typedef $$LucrariTableProcessedTableManager =
         bool locuriConsumRefs,
         bool solutiiRefs,
         bool documenteRefs,
+        bool releveeRefs,
       })
     >;
 typedef $$LucrariStariTableCreateCompanionBuilder =
@@ -8842,6 +13097,2909 @@ typedef $$DocumenteTableProcessedTableManager =
       DocumenteData,
       PrefetchHooks Function({bool lucrareId})
     >;
+typedef $$ReleveeTableCreateCompanionBuilder =
+    ReleveeCompanion Function({
+      required String id,
+      required DateTime createdAt,
+      required DateTime updatedAt,
+      Value<DateTime?> deletedAt,
+      Value<int> version,
+      required String lucrareId,
+      required DateTime data,
+      Value<String> operator,
+      Value<double?> temperaturaAmbientaC,
+      Value<double?> zapadaSkKnM2,
+      Value<double?> vantQbKpa,
+      Value<String> observatii,
+      Value<int> rowid,
+    });
+typedef $$ReleveeTableUpdateCompanionBuilder =
+    ReleveeCompanion Function({
+      Value<String> id,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<DateTime?> deletedAt,
+      Value<int> version,
+      Value<String> lucrareId,
+      Value<DateTime> data,
+      Value<String> operator,
+      Value<double?> temperaturaAmbientaC,
+      Value<double?> zapadaSkKnM2,
+      Value<double?> vantQbKpa,
+      Value<String> observatii,
+      Value<int> rowid,
+    });
+
+final class $$ReleveeTableReferences
+    extends BaseReferences<_$AppDatabase, $ReleveeTable, ReleveeData> {
+  $$ReleveeTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $LucrariTable _lucrareIdTable(_$AppDatabase db) =>
+      db.lucrari.createAlias('relevee__lucrare_id__lucrari__id');
+
+  $$LucrariTableProcessedTableManager get lucrareId {
+    final $_column = $_itemColumn<String>('lucrare_id')!;
+
+    final manager = $$LucrariTableTableManager(
+      $_db,
+      $_db.lucrari,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_lucrareIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$PlaneMontajTable, List<PlaneMontajData>>
+  _planeMontajRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.planeMontaj,
+    aliasName: 'relevee__id__plane_montaj__releveu_id',
+  );
+
+  $$PlaneMontajTableProcessedTableManager get planeMontajRefs {
+    final manager = $$PlaneMontajTableTableManager(
+      $_db,
+      $_db.planeMontaj,
+    ).filter((f) => f.releveuId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_planeMontajRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<
+    $TablouriExistenteTable,
+    List<TablouriExistenteData>
+  >
+  _tablouriExistenteRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.tablouriExistente,
+        aliasName: 'relevee__id__tablouri_existente__releveu_id',
+      );
+
+  $$TablouriExistenteTableProcessedTableManager get tablouriExistenteRefs {
+    final manager = $$TablouriExistenteTableTableManager(
+      $_db,
+      $_db.tablouriExistente,
+    ).filter((f) => f.releveuId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _tablouriExistenteRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$TraseeTable, List<TraseeData>> _traseeRefsTable(
+    _$AppDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.trasee,
+    aliasName: 'relevee__id__trasee__releveu_id',
+  );
+
+  $$TraseeTableProcessedTableManager get traseeRefs {
+    final manager = $$TraseeTableTableManager(
+      $_db,
+      $_db.trasee,
+    ).filter((f) => f.releveuId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_traseeRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$ReleveeTableFilterComposer
+    extends Composer<_$AppDatabase, $ReleveeTable> {
+  $$ReleveeTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get data => $composableBuilder(
+    column: $table.data,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get operator => $composableBuilder(
+    column: $table.operator,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get temperaturaAmbientaC => $composableBuilder(
+    column: $table.temperaturaAmbientaC,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get zapadaSkKnM2 => $composableBuilder(
+    column: $table.zapadaSkKnM2,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get vantQbKpa => $composableBuilder(
+    column: $table.vantQbKpa,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$LucrariTableFilterComposer get lucrareId {
+    final $$LucrariTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.lucrareId,
+      referencedTable: $db.lucrari,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LucrariTableFilterComposer(
+            $db: $db,
+            $table: $db.lucrari,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> planeMontajRefs(
+    Expression<bool> Function($$PlaneMontajTableFilterComposer f) f,
+  ) {
+    final $$PlaneMontajTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.planeMontaj,
+      getReferencedColumn: (t) => t.releveuId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PlaneMontajTableFilterComposer(
+            $db: $db,
+            $table: $db.planeMontaj,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> tablouriExistenteRefs(
+    Expression<bool> Function($$TablouriExistenteTableFilterComposer f) f,
+  ) {
+    final $$TablouriExistenteTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.tablouriExistente,
+      getReferencedColumn: (t) => t.releveuId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TablouriExistenteTableFilterComposer(
+            $db: $db,
+            $table: $db.tablouriExistente,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> traseeRefs(
+    Expression<bool> Function($$TraseeTableFilterComposer f) f,
+  ) {
+    final $$TraseeTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.trasee,
+      getReferencedColumn: (t) => t.releveuId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TraseeTableFilterComposer(
+            $db: $db,
+            $table: $db.trasee,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$ReleveeTableOrderingComposer
+    extends Composer<_$AppDatabase, $ReleveeTable> {
+  $$ReleveeTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get data => $composableBuilder(
+    column: $table.data,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get operator => $composableBuilder(
+    column: $table.operator,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get temperaturaAmbientaC => $composableBuilder(
+    column: $table.temperaturaAmbientaC,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get zapadaSkKnM2 => $composableBuilder(
+    column: $table.zapadaSkKnM2,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get vantQbKpa => $composableBuilder(
+    column: $table.vantQbKpa,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$LucrariTableOrderingComposer get lucrareId {
+    final $$LucrariTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.lucrareId,
+      referencedTable: $db.lucrari,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LucrariTableOrderingComposer(
+            $db: $db,
+            $table: $db.lucrari,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ReleveeTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ReleveeTable> {
+  $$ReleveeTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get data =>
+      $composableBuilder(column: $table.data, builder: (column) => column);
+
+  GeneratedColumn<String> get operator =>
+      $composableBuilder(column: $table.operator, builder: (column) => column);
+
+  GeneratedColumn<double> get temperaturaAmbientaC => $composableBuilder(
+    column: $table.temperaturaAmbientaC,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get zapadaSkKnM2 => $composableBuilder(
+    column: $table.zapadaSkKnM2,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get vantQbKpa =>
+      $composableBuilder(column: $table.vantQbKpa, builder: (column) => column);
+
+  GeneratedColumn<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => column,
+  );
+
+  $$LucrariTableAnnotationComposer get lucrareId {
+    final $$LucrariTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.lucrareId,
+      referencedTable: $db.lucrari,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$LucrariTableAnnotationComposer(
+            $db: $db,
+            $table: $db.lucrari,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> planeMontajRefs<T extends Object>(
+    Expression<T> Function($$PlaneMontajTableAnnotationComposer a) f,
+  ) {
+    final $$PlaneMontajTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.planeMontaj,
+      getReferencedColumn: (t) => t.releveuId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PlaneMontajTableAnnotationComposer(
+            $db: $db,
+            $table: $db.planeMontaj,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> tablouriExistenteRefs<T extends Object>(
+    Expression<T> Function($$TablouriExistenteTableAnnotationComposer a) f,
+  ) {
+    final $$TablouriExistenteTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.tablouriExistente,
+          getReferencedColumn: (t) => t.releveuId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$TablouriExistenteTableAnnotationComposer(
+                $db: $db,
+                $table: $db.tablouriExistente,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<T> traseeRefs<T extends Object>(
+    Expression<T> Function($$TraseeTableAnnotationComposer a) f,
+  ) {
+    final $$TraseeTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.trasee,
+      getReferencedColumn: (t) => t.releveuId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TraseeTableAnnotationComposer(
+            $db: $db,
+            $table: $db.trasee,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$ReleveeTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ReleveeTable,
+          ReleveeData,
+          $$ReleveeTableFilterComposer,
+          $$ReleveeTableOrderingComposer,
+          $$ReleveeTableAnnotationComposer,
+          $$ReleveeTableCreateCompanionBuilder,
+          $$ReleveeTableUpdateCompanionBuilder,
+          (ReleveeData, $$ReleveeTableReferences),
+          ReleveeData,
+          PrefetchHooks Function({
+            bool lucrareId,
+            bool planeMontajRefs,
+            bool tablouriExistenteRefs,
+            bool traseeRefs,
+          })
+        > {
+  $$ReleveeTableTableManager(_$AppDatabase db, $ReleveeTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ReleveeTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ReleveeTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ReleveeTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<String> lucrareId = const Value.absent(),
+                Value<DateTime> data = const Value.absent(),
+                Value<String> operator = const Value.absent(),
+                Value<double?> temperaturaAmbientaC = const Value.absent(),
+                Value<double?> zapadaSkKnM2 = const Value.absent(),
+                Value<double?> vantQbKpa = const Value.absent(),
+                Value<String> observatii = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ReleveeCompanion(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                lucrareId: lucrareId,
+                data: data,
+                operator: operator,
+                temperaturaAmbientaC: temperaturaAmbientaC,
+                zapadaSkKnM2: zapadaSkKnM2,
+                vantQbKpa: vantQbKpa,
+                observatii: observatii,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required DateTime createdAt,
+                required DateTime updatedAt,
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                required String lucrareId,
+                required DateTime data,
+                Value<String> operator = const Value.absent(),
+                Value<double?> temperaturaAmbientaC = const Value.absent(),
+                Value<double?> zapadaSkKnM2 = const Value.absent(),
+                Value<double?> vantQbKpa = const Value.absent(),
+                Value<String> observatii = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ReleveeCompanion.insert(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                lucrareId: lucrareId,
+                data: data,
+                operator: operator,
+                temperaturaAmbientaC: temperaturaAmbientaC,
+                zapadaSkKnM2: zapadaSkKnM2,
+                vantQbKpa: vantQbKpa,
+                observatii: observatii,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$ReleveeTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                lucrareId = false,
+                planeMontajRefs = false,
+                tablouriExistenteRefs = false,
+                traseeRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (planeMontajRefs) db.planeMontaj,
+                    if (tablouriExistenteRefs) db.tablouriExistente,
+                    if (traseeRefs) db.trasee,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (lucrareId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.lucrareId,
+                                    referencedTable: $$ReleveeTableReferences
+                                        ._lucrareIdTable(db),
+                                    referencedColumn: $$ReleveeTableReferences
+                                        ._lucrareIdTable(db)
+                                        .id,
+                                  )
+                                  as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (planeMontajRefs)
+                        await $_getPrefetchedData<
+                          ReleveeData,
+                          $ReleveeTable,
+                          PlaneMontajData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ReleveeTableReferences
+                              ._planeMontajRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ReleveeTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).planeMontajRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.releveuId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (tablouriExistenteRefs)
+                        await $_getPrefetchedData<
+                          ReleveeData,
+                          $ReleveeTable,
+                          TablouriExistenteData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ReleveeTableReferences
+                              ._tablouriExistenteRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ReleveeTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).tablouriExistenteRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.releveuId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (traseeRefs)
+                        await $_getPrefetchedData<
+                          ReleveeData,
+                          $ReleveeTable,
+                          TraseeData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ReleveeTableReferences
+                              ._traseeRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ReleveeTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).traseeRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.releveuId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$ReleveeTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ReleveeTable,
+      ReleveeData,
+      $$ReleveeTableFilterComposer,
+      $$ReleveeTableOrderingComposer,
+      $$ReleveeTableAnnotationComposer,
+      $$ReleveeTableCreateCompanionBuilder,
+      $$ReleveeTableUpdateCompanionBuilder,
+      (ReleveeData, $$ReleveeTableReferences),
+      ReleveeData,
+      PrefetchHooks Function({
+        bool lucrareId,
+        bool planeMontajRefs,
+        bool tablouriExistenteRefs,
+        bool traseeRefs,
+      })
+    >;
+typedef $$PlaneMontajTableCreateCompanionBuilder =
+    PlaneMontajCompanion Function({
+      required String id,
+      required DateTime createdAt,
+      required DateTime updatedAt,
+      Value<DateTime?> deletedAt,
+      Value<int> version,
+      required String releveuId,
+      required String denumire,
+      required String tip,
+      required String invelitoare,
+      Value<double> inclinareGrade,
+      Value<double> azimutGrade,
+      Value<double> lungimeM,
+      Value<double> latimeM,
+      Value<double?> inaltimeStreasinaM,
+      Value<String> capriorSectiune,
+      Value<double?> capriorInteraxCm,
+      required String stare,
+      Value<double> factorUmbrire,
+      Value<String> observatii,
+      Value<int> ordine,
+      Value<int> rowid,
+    });
+typedef $$PlaneMontajTableUpdateCompanionBuilder =
+    PlaneMontajCompanion Function({
+      Value<String> id,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<DateTime?> deletedAt,
+      Value<int> version,
+      Value<String> releveuId,
+      Value<String> denumire,
+      Value<String> tip,
+      Value<String> invelitoare,
+      Value<double> inclinareGrade,
+      Value<double> azimutGrade,
+      Value<double> lungimeM,
+      Value<double> latimeM,
+      Value<double?> inaltimeStreasinaM,
+      Value<String> capriorSectiune,
+      Value<double?> capriorInteraxCm,
+      Value<String> stare,
+      Value<double> factorUmbrire,
+      Value<String> observatii,
+      Value<int> ordine,
+      Value<int> rowid,
+    });
+
+final class $$PlaneMontajTableReferences
+    extends BaseReferences<_$AppDatabase, $PlaneMontajTable, PlaneMontajData> {
+  $$PlaneMontajTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $ReleveeTable _releveuIdTable(_$AppDatabase db) =>
+      db.relevee.createAlias('plane_montaj__releveu_id__relevee__id');
+
+  $$ReleveeTableProcessedTableManager get releveuId {
+    final $_column = $_itemColumn<String>('releveu_id')!;
+
+    final manager = $$ReleveeTableTableManager(
+      $_db,
+      $_db.relevee,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_releveuIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$ObstacoleTable, List<ObstacoleData>>
+  _obstacoleRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.obstacole,
+    aliasName: 'plane_montaj__id__obstacole__plan_id',
+  );
+
+  $$ObstacoleTableProcessedTableManager get obstacoleRefs {
+    final manager = $$ObstacoleTableTableManager(
+      $_db,
+      $_db.obstacole,
+    ).filter((f) => f.planId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_obstacoleRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$PlaneMontajTableFilterComposer
+    extends Composer<_$AppDatabase, $PlaneMontajTable> {
+  $$PlaneMontajTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get denumire => $composableBuilder(
+    column: $table.denumire,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get tip => $composableBuilder(
+    column: $table.tip,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get invelitoare => $composableBuilder(
+    column: $table.invelitoare,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get inclinareGrade => $composableBuilder(
+    column: $table.inclinareGrade,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get azimutGrade => $composableBuilder(
+    column: $table.azimutGrade,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get lungimeM => $composableBuilder(
+    column: $table.lungimeM,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get latimeM => $composableBuilder(
+    column: $table.latimeM,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get inaltimeStreasinaM => $composableBuilder(
+    column: $table.inaltimeStreasinaM,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get capriorSectiune => $composableBuilder(
+    column: $table.capriorSectiune,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get capriorInteraxCm => $composableBuilder(
+    column: $table.capriorInteraxCm,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get stare => $composableBuilder(
+    column: $table.stare,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get factorUmbrire => $composableBuilder(
+    column: $table.factorUmbrire,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get ordine => $composableBuilder(
+    column: $table.ordine,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ReleveeTableFilterComposer get releveuId {
+    final $$ReleveeTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.releveuId,
+      referencedTable: $db.relevee,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ReleveeTableFilterComposer(
+            $db: $db,
+            $table: $db.relevee,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> obstacoleRefs(
+    Expression<bool> Function($$ObstacoleTableFilterComposer f) f,
+  ) {
+    final $$ObstacoleTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.obstacole,
+      getReferencedColumn: (t) => t.planId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ObstacoleTableFilterComposer(
+            $db: $db,
+            $table: $db.obstacole,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$PlaneMontajTableOrderingComposer
+    extends Composer<_$AppDatabase, $PlaneMontajTable> {
+  $$PlaneMontajTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get denumire => $composableBuilder(
+    column: $table.denumire,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get tip => $composableBuilder(
+    column: $table.tip,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get invelitoare => $composableBuilder(
+    column: $table.invelitoare,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get inclinareGrade => $composableBuilder(
+    column: $table.inclinareGrade,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get azimutGrade => $composableBuilder(
+    column: $table.azimutGrade,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get lungimeM => $composableBuilder(
+    column: $table.lungimeM,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get latimeM => $composableBuilder(
+    column: $table.latimeM,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get inaltimeStreasinaM => $composableBuilder(
+    column: $table.inaltimeStreasinaM,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get capriorSectiune => $composableBuilder(
+    column: $table.capriorSectiune,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get capriorInteraxCm => $composableBuilder(
+    column: $table.capriorInteraxCm,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get stare => $composableBuilder(
+    column: $table.stare,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get factorUmbrire => $composableBuilder(
+    column: $table.factorUmbrire,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get ordine => $composableBuilder(
+    column: $table.ordine,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ReleveeTableOrderingComposer get releveuId {
+    final $$ReleveeTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.releveuId,
+      referencedTable: $db.relevee,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ReleveeTableOrderingComposer(
+            $db: $db,
+            $table: $db.relevee,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PlaneMontajTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PlaneMontajTable> {
+  $$PlaneMontajTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumn<String> get denumire =>
+      $composableBuilder(column: $table.denumire, builder: (column) => column);
+
+  GeneratedColumn<String> get tip =>
+      $composableBuilder(column: $table.tip, builder: (column) => column);
+
+  GeneratedColumn<String> get invelitoare => $composableBuilder(
+    column: $table.invelitoare,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get inclinareGrade => $composableBuilder(
+    column: $table.inclinareGrade,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get azimutGrade => $composableBuilder(
+    column: $table.azimutGrade,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get lungimeM =>
+      $composableBuilder(column: $table.lungimeM, builder: (column) => column);
+
+  GeneratedColumn<double> get latimeM =>
+      $composableBuilder(column: $table.latimeM, builder: (column) => column);
+
+  GeneratedColumn<double> get inaltimeStreasinaM => $composableBuilder(
+    column: $table.inaltimeStreasinaM,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get capriorSectiune => $composableBuilder(
+    column: $table.capriorSectiune,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get capriorInteraxCm => $composableBuilder(
+    column: $table.capriorInteraxCm,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get stare =>
+      $composableBuilder(column: $table.stare, builder: (column) => column);
+
+  GeneratedColumn<double> get factorUmbrire => $composableBuilder(
+    column: $table.factorUmbrire,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get ordine =>
+      $composableBuilder(column: $table.ordine, builder: (column) => column);
+
+  $$ReleveeTableAnnotationComposer get releveuId {
+    final $$ReleveeTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.releveuId,
+      referencedTable: $db.relevee,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ReleveeTableAnnotationComposer(
+            $db: $db,
+            $table: $db.relevee,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> obstacoleRefs<T extends Object>(
+    Expression<T> Function($$ObstacoleTableAnnotationComposer a) f,
+  ) {
+    final $$ObstacoleTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.obstacole,
+      getReferencedColumn: (t) => t.planId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ObstacoleTableAnnotationComposer(
+            $db: $db,
+            $table: $db.obstacole,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$PlaneMontajTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $PlaneMontajTable,
+          PlaneMontajData,
+          $$PlaneMontajTableFilterComposer,
+          $$PlaneMontajTableOrderingComposer,
+          $$PlaneMontajTableAnnotationComposer,
+          $$PlaneMontajTableCreateCompanionBuilder,
+          $$PlaneMontajTableUpdateCompanionBuilder,
+          (PlaneMontajData, $$PlaneMontajTableReferences),
+          PlaneMontajData,
+          PrefetchHooks Function({bool releveuId, bool obstacoleRefs})
+        > {
+  $$PlaneMontajTableTableManager(_$AppDatabase db, $PlaneMontajTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PlaneMontajTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PlaneMontajTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PlaneMontajTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<String> releveuId = const Value.absent(),
+                Value<String> denumire = const Value.absent(),
+                Value<String> tip = const Value.absent(),
+                Value<String> invelitoare = const Value.absent(),
+                Value<double> inclinareGrade = const Value.absent(),
+                Value<double> azimutGrade = const Value.absent(),
+                Value<double> lungimeM = const Value.absent(),
+                Value<double> latimeM = const Value.absent(),
+                Value<double?> inaltimeStreasinaM = const Value.absent(),
+                Value<String> capriorSectiune = const Value.absent(),
+                Value<double?> capriorInteraxCm = const Value.absent(),
+                Value<String> stare = const Value.absent(),
+                Value<double> factorUmbrire = const Value.absent(),
+                Value<String> observatii = const Value.absent(),
+                Value<int> ordine = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PlaneMontajCompanion(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                releveuId: releveuId,
+                denumire: denumire,
+                tip: tip,
+                invelitoare: invelitoare,
+                inclinareGrade: inclinareGrade,
+                azimutGrade: azimutGrade,
+                lungimeM: lungimeM,
+                latimeM: latimeM,
+                inaltimeStreasinaM: inaltimeStreasinaM,
+                capriorSectiune: capriorSectiune,
+                capriorInteraxCm: capriorInteraxCm,
+                stare: stare,
+                factorUmbrire: factorUmbrire,
+                observatii: observatii,
+                ordine: ordine,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required DateTime createdAt,
+                required DateTime updatedAt,
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                required String releveuId,
+                required String denumire,
+                required String tip,
+                required String invelitoare,
+                Value<double> inclinareGrade = const Value.absent(),
+                Value<double> azimutGrade = const Value.absent(),
+                Value<double> lungimeM = const Value.absent(),
+                Value<double> latimeM = const Value.absent(),
+                Value<double?> inaltimeStreasinaM = const Value.absent(),
+                Value<String> capriorSectiune = const Value.absent(),
+                Value<double?> capriorInteraxCm = const Value.absent(),
+                required String stare,
+                Value<double> factorUmbrire = const Value.absent(),
+                Value<String> observatii = const Value.absent(),
+                Value<int> ordine = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PlaneMontajCompanion.insert(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                releveuId: releveuId,
+                denumire: denumire,
+                tip: tip,
+                invelitoare: invelitoare,
+                inclinareGrade: inclinareGrade,
+                azimutGrade: azimutGrade,
+                lungimeM: lungimeM,
+                latimeM: latimeM,
+                inaltimeStreasinaM: inaltimeStreasinaM,
+                capriorSectiune: capriorSectiune,
+                capriorInteraxCm: capriorInteraxCm,
+                stare: stare,
+                factorUmbrire: factorUmbrire,
+                observatii: observatii,
+                ordine: ordine,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$PlaneMontajTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({releveuId = false, obstacoleRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (obstacoleRefs) db.obstacole],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (releveuId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.releveuId,
+                                referencedTable: $$PlaneMontajTableReferences
+                                    ._releveuIdTable(db),
+                                referencedColumn: $$PlaneMontajTableReferences
+                                    ._releveuIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (obstacoleRefs)
+                    await $_getPrefetchedData<
+                      PlaneMontajData,
+                      $PlaneMontajTable,
+                      ObstacoleData
+                    >(
+                      currentTable: table,
+                      referencedTable: $$PlaneMontajTableReferences
+                          ._obstacoleRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $$PlaneMontajTableReferences(
+                            db,
+                            table,
+                            p0,
+                          ).obstacoleRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where((e) => e.planId == item.id),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$PlaneMontajTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $PlaneMontajTable,
+      PlaneMontajData,
+      $$PlaneMontajTableFilterComposer,
+      $$PlaneMontajTableOrderingComposer,
+      $$PlaneMontajTableAnnotationComposer,
+      $$PlaneMontajTableCreateCompanionBuilder,
+      $$PlaneMontajTableUpdateCompanionBuilder,
+      (PlaneMontajData, $$PlaneMontajTableReferences),
+      PlaneMontajData,
+      PrefetchHooks Function({bool releveuId, bool obstacoleRefs})
+    >;
+typedef $$ObstacoleTableCreateCompanionBuilder =
+    ObstacoleCompanion Function({
+      required String id,
+      required DateTime createdAt,
+      required DateTime updatedAt,
+      Value<DateTime?> deletedAt,
+      Value<int> version,
+      required String planId,
+      required String tip,
+      Value<double> inaltimeM,
+      Value<double> distantaM,
+      Value<double?> azimutGrade,
+      Value<double?> latimeM,
+      Value<String> observatii,
+      Value<int> rowid,
+    });
+typedef $$ObstacoleTableUpdateCompanionBuilder =
+    ObstacoleCompanion Function({
+      Value<String> id,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<DateTime?> deletedAt,
+      Value<int> version,
+      Value<String> planId,
+      Value<String> tip,
+      Value<double> inaltimeM,
+      Value<double> distantaM,
+      Value<double?> azimutGrade,
+      Value<double?> latimeM,
+      Value<String> observatii,
+      Value<int> rowid,
+    });
+
+final class $$ObstacoleTableReferences
+    extends BaseReferences<_$AppDatabase, $ObstacoleTable, ObstacoleData> {
+  $$ObstacoleTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $PlaneMontajTable _planIdTable(_$AppDatabase db) =>
+      db.planeMontaj.createAlias('obstacole__plan_id__plane_montaj__id');
+
+  $$PlaneMontajTableProcessedTableManager get planId {
+    final $_column = $_itemColumn<String>('plan_id')!;
+
+    final manager = $$PlaneMontajTableTableManager(
+      $_db,
+      $_db.planeMontaj,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_planIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$ObstacoleTableFilterComposer
+    extends Composer<_$AppDatabase, $ObstacoleTable> {
+  $$ObstacoleTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get tip => $composableBuilder(
+    column: $table.tip,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get inaltimeM => $composableBuilder(
+    column: $table.inaltimeM,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get distantaM => $composableBuilder(
+    column: $table.distantaM,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get azimutGrade => $composableBuilder(
+    column: $table.azimutGrade,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get latimeM => $composableBuilder(
+    column: $table.latimeM,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$PlaneMontajTableFilterComposer get planId {
+    final $$PlaneMontajTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.planId,
+      referencedTable: $db.planeMontaj,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PlaneMontajTableFilterComposer(
+            $db: $db,
+            $table: $db.planeMontaj,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ObstacoleTableOrderingComposer
+    extends Composer<_$AppDatabase, $ObstacoleTable> {
+  $$ObstacoleTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get tip => $composableBuilder(
+    column: $table.tip,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get inaltimeM => $composableBuilder(
+    column: $table.inaltimeM,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get distantaM => $composableBuilder(
+    column: $table.distantaM,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get azimutGrade => $composableBuilder(
+    column: $table.azimutGrade,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get latimeM => $composableBuilder(
+    column: $table.latimeM,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$PlaneMontajTableOrderingComposer get planId {
+    final $$PlaneMontajTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.planId,
+      referencedTable: $db.planeMontaj,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PlaneMontajTableOrderingComposer(
+            $db: $db,
+            $table: $db.planeMontaj,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ObstacoleTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ObstacoleTable> {
+  $$ObstacoleTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumn<String> get tip =>
+      $composableBuilder(column: $table.tip, builder: (column) => column);
+
+  GeneratedColumn<double> get inaltimeM =>
+      $composableBuilder(column: $table.inaltimeM, builder: (column) => column);
+
+  GeneratedColumn<double> get distantaM =>
+      $composableBuilder(column: $table.distantaM, builder: (column) => column);
+
+  GeneratedColumn<double> get azimutGrade => $composableBuilder(
+    column: $table.azimutGrade,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get latimeM =>
+      $composableBuilder(column: $table.latimeM, builder: (column) => column);
+
+  GeneratedColumn<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => column,
+  );
+
+  $$PlaneMontajTableAnnotationComposer get planId {
+    final $$PlaneMontajTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.planId,
+      referencedTable: $db.planeMontaj,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PlaneMontajTableAnnotationComposer(
+            $db: $db,
+            $table: $db.planeMontaj,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ObstacoleTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ObstacoleTable,
+          ObstacoleData,
+          $$ObstacoleTableFilterComposer,
+          $$ObstacoleTableOrderingComposer,
+          $$ObstacoleTableAnnotationComposer,
+          $$ObstacoleTableCreateCompanionBuilder,
+          $$ObstacoleTableUpdateCompanionBuilder,
+          (ObstacoleData, $$ObstacoleTableReferences),
+          ObstacoleData,
+          PrefetchHooks Function({bool planId})
+        > {
+  $$ObstacoleTableTableManager(_$AppDatabase db, $ObstacoleTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ObstacoleTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ObstacoleTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ObstacoleTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<String> planId = const Value.absent(),
+                Value<String> tip = const Value.absent(),
+                Value<double> inaltimeM = const Value.absent(),
+                Value<double> distantaM = const Value.absent(),
+                Value<double?> azimutGrade = const Value.absent(),
+                Value<double?> latimeM = const Value.absent(),
+                Value<String> observatii = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ObstacoleCompanion(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                planId: planId,
+                tip: tip,
+                inaltimeM: inaltimeM,
+                distantaM: distantaM,
+                azimutGrade: azimutGrade,
+                latimeM: latimeM,
+                observatii: observatii,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required DateTime createdAt,
+                required DateTime updatedAt,
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                required String planId,
+                required String tip,
+                Value<double> inaltimeM = const Value.absent(),
+                Value<double> distantaM = const Value.absent(),
+                Value<double?> azimutGrade = const Value.absent(),
+                Value<double?> latimeM = const Value.absent(),
+                Value<String> observatii = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ObstacoleCompanion.insert(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                planId: planId,
+                tip: tip,
+                inaltimeM: inaltimeM,
+                distantaM: distantaM,
+                azimutGrade: azimutGrade,
+                latimeM: latimeM,
+                observatii: observatii,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$ObstacoleTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({planId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (planId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.planId,
+                                referencedTable: $$ObstacoleTableReferences
+                                    ._planIdTable(db),
+                                referencedColumn: $$ObstacoleTableReferences
+                                    ._planIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$ObstacoleTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ObstacoleTable,
+      ObstacoleData,
+      $$ObstacoleTableFilterComposer,
+      $$ObstacoleTableOrderingComposer,
+      $$ObstacoleTableAnnotationComposer,
+      $$ObstacoleTableCreateCompanionBuilder,
+      $$ObstacoleTableUpdateCompanionBuilder,
+      (ObstacoleData, $$ObstacoleTableReferences),
+      ObstacoleData,
+      PrefetchHooks Function({bool planId})
+    >;
+typedef $$TablouriExistenteTableCreateCompanionBuilder =
+    TablouriExistenteCompanion Function({
+      required String id,
+      required DateTime createdAt,
+      required DateTime updatedAt,
+      Value<DateTime?> deletedAt,
+      Value<int> version,
+      required String releveuId,
+      Value<int?> pozitiiLibere,
+      Value<int?> disjunctorGeneralA,
+      Value<String> disjunctorCurba,
+      Value<double?> icuKa,
+      required String ddrExistent,
+      Value<int?> ddrIdnMa,
+      Value<bool> spdExistent,
+      Value<bool> baraPeSeparata,
+      Value<double?> sectiuneColoanaMm2,
+      Value<String> observatii,
+      Value<int> rowid,
+    });
+typedef $$TablouriExistenteTableUpdateCompanionBuilder =
+    TablouriExistenteCompanion Function({
+      Value<String> id,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<DateTime?> deletedAt,
+      Value<int> version,
+      Value<String> releveuId,
+      Value<int?> pozitiiLibere,
+      Value<int?> disjunctorGeneralA,
+      Value<String> disjunctorCurba,
+      Value<double?> icuKa,
+      Value<String> ddrExistent,
+      Value<int?> ddrIdnMa,
+      Value<bool> spdExistent,
+      Value<bool> baraPeSeparata,
+      Value<double?> sectiuneColoanaMm2,
+      Value<String> observatii,
+      Value<int> rowid,
+    });
+
+final class $$TablouriExistenteTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $TablouriExistenteTable,
+          TablouriExistenteData
+        > {
+  $$TablouriExistenteTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $ReleveeTable _releveuIdTable(_$AppDatabase db) =>
+      db.relevee.createAlias('tablouri_existente__releveu_id__relevee__id');
+
+  $$ReleveeTableProcessedTableManager get releveuId {
+    final $_column = $_itemColumn<String>('releveu_id')!;
+
+    final manager = $$ReleveeTableTableManager(
+      $_db,
+      $_db.relevee,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_releveuIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$TablouriExistenteTableFilterComposer
+    extends Composer<_$AppDatabase, $TablouriExistenteTable> {
+  $$TablouriExistenteTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get pozitiiLibere => $composableBuilder(
+    column: $table.pozitiiLibere,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get disjunctorGeneralA => $composableBuilder(
+    column: $table.disjunctorGeneralA,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get disjunctorCurba => $composableBuilder(
+    column: $table.disjunctorCurba,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get icuKa => $composableBuilder(
+    column: $table.icuKa,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get ddrExistent => $composableBuilder(
+    column: $table.ddrExistent,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get ddrIdnMa => $composableBuilder(
+    column: $table.ddrIdnMa,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get spdExistent => $composableBuilder(
+    column: $table.spdExistent,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get baraPeSeparata => $composableBuilder(
+    column: $table.baraPeSeparata,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get sectiuneColoanaMm2 => $composableBuilder(
+    column: $table.sectiuneColoanaMm2,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ReleveeTableFilterComposer get releveuId {
+    final $$ReleveeTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.releveuId,
+      referencedTable: $db.relevee,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ReleveeTableFilterComposer(
+            $db: $db,
+            $table: $db.relevee,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TablouriExistenteTableOrderingComposer
+    extends Composer<_$AppDatabase, $TablouriExistenteTable> {
+  $$TablouriExistenteTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get pozitiiLibere => $composableBuilder(
+    column: $table.pozitiiLibere,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get disjunctorGeneralA => $composableBuilder(
+    column: $table.disjunctorGeneralA,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get disjunctorCurba => $composableBuilder(
+    column: $table.disjunctorCurba,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get icuKa => $composableBuilder(
+    column: $table.icuKa,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get ddrExistent => $composableBuilder(
+    column: $table.ddrExistent,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get ddrIdnMa => $composableBuilder(
+    column: $table.ddrIdnMa,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get spdExistent => $composableBuilder(
+    column: $table.spdExistent,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get baraPeSeparata => $composableBuilder(
+    column: $table.baraPeSeparata,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get sectiuneColoanaMm2 => $composableBuilder(
+    column: $table.sectiuneColoanaMm2,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ReleveeTableOrderingComposer get releveuId {
+    final $$ReleveeTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.releveuId,
+      referencedTable: $db.relevee,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ReleveeTableOrderingComposer(
+            $db: $db,
+            $table: $db.relevee,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TablouriExistenteTableAnnotationComposer
+    extends Composer<_$AppDatabase, $TablouriExistenteTable> {
+  $$TablouriExistenteTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumn<int> get pozitiiLibere => $composableBuilder(
+    column: $table.pozitiiLibere,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get disjunctorGeneralA => $composableBuilder(
+    column: $table.disjunctorGeneralA,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get disjunctorCurba => $composableBuilder(
+    column: $table.disjunctorCurba,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get icuKa =>
+      $composableBuilder(column: $table.icuKa, builder: (column) => column);
+
+  GeneratedColumn<String> get ddrExistent => $composableBuilder(
+    column: $table.ddrExistent,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get ddrIdnMa =>
+      $composableBuilder(column: $table.ddrIdnMa, builder: (column) => column);
+
+  GeneratedColumn<bool> get spdExistent => $composableBuilder(
+    column: $table.spdExistent,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get baraPeSeparata => $composableBuilder(
+    column: $table.baraPeSeparata,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get sectiuneColoanaMm2 => $composableBuilder(
+    column: $table.sectiuneColoanaMm2,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => column,
+  );
+
+  $$ReleveeTableAnnotationComposer get releveuId {
+    final $$ReleveeTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.releveuId,
+      referencedTable: $db.relevee,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ReleveeTableAnnotationComposer(
+            $db: $db,
+            $table: $db.relevee,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TablouriExistenteTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $TablouriExistenteTable,
+          TablouriExistenteData,
+          $$TablouriExistenteTableFilterComposer,
+          $$TablouriExistenteTableOrderingComposer,
+          $$TablouriExistenteTableAnnotationComposer,
+          $$TablouriExistenteTableCreateCompanionBuilder,
+          $$TablouriExistenteTableUpdateCompanionBuilder,
+          (TablouriExistenteData, $$TablouriExistenteTableReferences),
+          TablouriExistenteData,
+          PrefetchHooks Function({bool releveuId})
+        > {
+  $$TablouriExistenteTableTableManager(
+    _$AppDatabase db,
+    $TablouriExistenteTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TablouriExistenteTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TablouriExistenteTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TablouriExistenteTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<String> releveuId = const Value.absent(),
+                Value<int?> pozitiiLibere = const Value.absent(),
+                Value<int?> disjunctorGeneralA = const Value.absent(),
+                Value<String> disjunctorCurba = const Value.absent(),
+                Value<double?> icuKa = const Value.absent(),
+                Value<String> ddrExistent = const Value.absent(),
+                Value<int?> ddrIdnMa = const Value.absent(),
+                Value<bool> spdExistent = const Value.absent(),
+                Value<bool> baraPeSeparata = const Value.absent(),
+                Value<double?> sectiuneColoanaMm2 = const Value.absent(),
+                Value<String> observatii = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => TablouriExistenteCompanion(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                releveuId: releveuId,
+                pozitiiLibere: pozitiiLibere,
+                disjunctorGeneralA: disjunctorGeneralA,
+                disjunctorCurba: disjunctorCurba,
+                icuKa: icuKa,
+                ddrExistent: ddrExistent,
+                ddrIdnMa: ddrIdnMa,
+                spdExistent: spdExistent,
+                baraPeSeparata: baraPeSeparata,
+                sectiuneColoanaMm2: sectiuneColoanaMm2,
+                observatii: observatii,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required DateTime createdAt,
+                required DateTime updatedAt,
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                required String releveuId,
+                Value<int?> pozitiiLibere = const Value.absent(),
+                Value<int?> disjunctorGeneralA = const Value.absent(),
+                Value<String> disjunctorCurba = const Value.absent(),
+                Value<double?> icuKa = const Value.absent(),
+                required String ddrExistent,
+                Value<int?> ddrIdnMa = const Value.absent(),
+                Value<bool> spdExistent = const Value.absent(),
+                Value<bool> baraPeSeparata = const Value.absent(),
+                Value<double?> sectiuneColoanaMm2 = const Value.absent(),
+                Value<String> observatii = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => TablouriExistenteCompanion.insert(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                releveuId: releveuId,
+                pozitiiLibere: pozitiiLibere,
+                disjunctorGeneralA: disjunctorGeneralA,
+                disjunctorCurba: disjunctorCurba,
+                icuKa: icuKa,
+                ddrExistent: ddrExistent,
+                ddrIdnMa: ddrIdnMa,
+                spdExistent: spdExistent,
+                baraPeSeparata: baraPeSeparata,
+                sectiuneColoanaMm2: sectiuneColoanaMm2,
+                observatii: observatii,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$TablouriExistenteTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({releveuId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (releveuId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.releveuId,
+                                referencedTable:
+                                    $$TablouriExistenteTableReferences
+                                        ._releveuIdTable(db),
+                                referencedColumn:
+                                    $$TablouriExistenteTableReferences
+                                        ._releveuIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$TablouriExistenteTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $TablouriExistenteTable,
+      TablouriExistenteData,
+      $$TablouriExistenteTableFilterComposer,
+      $$TablouriExistenteTableOrderingComposer,
+      $$TablouriExistenteTableAnnotationComposer,
+      $$TablouriExistenteTableCreateCompanionBuilder,
+      $$TablouriExistenteTableUpdateCompanionBuilder,
+      (TablouriExistenteData, $$TablouriExistenteTableReferences),
+      TablouriExistenteData,
+      PrefetchHooks Function({bool releveuId})
+    >;
+typedef $$TraseeTableCreateCompanionBuilder =
+    TraseeCompanion Function({
+      required String id,
+      required DateTime createdAt,
+      required DateTime updatedAt,
+      Value<DateTime?> deletedAt,
+      Value<int> version,
+      required String releveuId,
+      required String segment,
+      Value<double> lungimeM,
+      Value<String> modPozare,
+      Value<double?> temperaturaMaximaC,
+      Value<String> observatii,
+      Value<int> rowid,
+    });
+typedef $$TraseeTableUpdateCompanionBuilder =
+    TraseeCompanion Function({
+      Value<String> id,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<DateTime?> deletedAt,
+      Value<int> version,
+      Value<String> releveuId,
+      Value<String> segment,
+      Value<double> lungimeM,
+      Value<String> modPozare,
+      Value<double?> temperaturaMaximaC,
+      Value<String> observatii,
+      Value<int> rowid,
+    });
+
+final class $$TraseeTableReferences
+    extends BaseReferences<_$AppDatabase, $TraseeTable, TraseeData> {
+  $$TraseeTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $ReleveeTable _releveuIdTable(_$AppDatabase db) =>
+      db.relevee.createAlias('trasee__releveu_id__relevee__id');
+
+  $$ReleveeTableProcessedTableManager get releveuId {
+    final $_column = $_itemColumn<String>('releveu_id')!;
+
+    final manager = $$ReleveeTableTableManager(
+      $_db,
+      $_db.relevee,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_releveuIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$TraseeTableFilterComposer
+    extends Composer<_$AppDatabase, $TraseeTable> {
+  $$TraseeTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get segment => $composableBuilder(
+    column: $table.segment,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get lungimeM => $composableBuilder(
+    column: $table.lungimeM,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get modPozare => $composableBuilder(
+    column: $table.modPozare,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get temperaturaMaximaC => $composableBuilder(
+    column: $table.temperaturaMaximaC,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ReleveeTableFilterComposer get releveuId {
+    final $$ReleveeTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.releveuId,
+      referencedTable: $db.relevee,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ReleveeTableFilterComposer(
+            $db: $db,
+            $table: $db.relevee,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TraseeTableOrderingComposer
+    extends Composer<_$AppDatabase, $TraseeTable> {
+  $$TraseeTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get segment => $composableBuilder(
+    column: $table.segment,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get lungimeM => $composableBuilder(
+    column: $table.lungimeM,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get modPozare => $composableBuilder(
+    column: $table.modPozare,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get temperaturaMaximaC => $composableBuilder(
+    column: $table.temperaturaMaximaC,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ReleveeTableOrderingComposer get releveuId {
+    final $$ReleveeTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.releveuId,
+      referencedTable: $db.relevee,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ReleveeTableOrderingComposer(
+            $db: $db,
+            $table: $db.relevee,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TraseeTableAnnotationComposer
+    extends Composer<_$AppDatabase, $TraseeTable> {
+  $$TraseeTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumn<String> get segment =>
+      $composableBuilder(column: $table.segment, builder: (column) => column);
+
+  GeneratedColumn<double> get lungimeM =>
+      $composableBuilder(column: $table.lungimeM, builder: (column) => column);
+
+  GeneratedColumn<String> get modPozare =>
+      $composableBuilder(column: $table.modPozare, builder: (column) => column);
+
+  GeneratedColumn<double> get temperaturaMaximaC => $composableBuilder(
+    column: $table.temperaturaMaximaC,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get observatii => $composableBuilder(
+    column: $table.observatii,
+    builder: (column) => column,
+  );
+
+  $$ReleveeTableAnnotationComposer get releveuId {
+    final $$ReleveeTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.releveuId,
+      referencedTable: $db.relevee,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ReleveeTableAnnotationComposer(
+            $db: $db,
+            $table: $db.relevee,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TraseeTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $TraseeTable,
+          TraseeData,
+          $$TraseeTableFilterComposer,
+          $$TraseeTableOrderingComposer,
+          $$TraseeTableAnnotationComposer,
+          $$TraseeTableCreateCompanionBuilder,
+          $$TraseeTableUpdateCompanionBuilder,
+          (TraseeData, $$TraseeTableReferences),
+          TraseeData,
+          PrefetchHooks Function({bool releveuId})
+        > {
+  $$TraseeTableTableManager(_$AppDatabase db, $TraseeTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TraseeTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TraseeTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TraseeTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<String> releveuId = const Value.absent(),
+                Value<String> segment = const Value.absent(),
+                Value<double> lungimeM = const Value.absent(),
+                Value<String> modPozare = const Value.absent(),
+                Value<double?> temperaturaMaximaC = const Value.absent(),
+                Value<String> observatii = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => TraseeCompanion(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                releveuId: releveuId,
+                segment: segment,
+                lungimeM: lungimeM,
+                modPozare: modPozare,
+                temperaturaMaximaC: temperaturaMaximaC,
+                observatii: observatii,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required DateTime createdAt,
+                required DateTime updatedAt,
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                required String releveuId,
+                required String segment,
+                Value<double> lungimeM = const Value.absent(),
+                Value<String> modPozare = const Value.absent(),
+                Value<double?> temperaturaMaximaC = const Value.absent(),
+                Value<String> observatii = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => TraseeCompanion.insert(
+                id: id,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                releveuId: releveuId,
+                segment: segment,
+                lungimeM: lungimeM,
+                modPozare: modPozare,
+                temperaturaMaximaC: temperaturaMaximaC,
+                observatii: observatii,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) =>
+                    (e.readTable(table), $$TraseeTableReferences(db, table, e)),
+              )
+              .toList(),
+          prefetchHooksCallback: ({releveuId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (releveuId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.releveuId,
+                                referencedTable: $$TraseeTableReferences
+                                    ._releveuIdTable(db),
+                                referencedColumn: $$TraseeTableReferences
+                                    ._releveuIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$TraseeTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $TraseeTable,
+      TraseeData,
+      $$TraseeTableFilterComposer,
+      $$TraseeTableOrderingComposer,
+      $$TraseeTableAnnotationComposer,
+      $$TraseeTableCreateCompanionBuilder,
+      $$TraseeTableUpdateCompanionBuilder,
+      (TraseeData, $$TraseeTableReferences),
+      TraseeData,
+      PrefetchHooks Function({bool releveuId})
+    >;
 typedef $$SetariTableCreateCompanionBuilder =
     SetariCompanion Function({
       required String cheie,
@@ -8994,6 +16152,16 @@ class $AppDatabaseManager {
       $$SolutiiTableTableManager(_db, _db.solutii);
   $$DocumenteTableTableManager get documente =>
       $$DocumenteTableTableManager(_db, _db.documente);
+  $$ReleveeTableTableManager get relevee =>
+      $$ReleveeTableTableManager(_db, _db.relevee);
+  $$PlaneMontajTableTableManager get planeMontaj =>
+      $$PlaneMontajTableTableManager(_db, _db.planeMontaj);
+  $$ObstacoleTableTableManager get obstacole =>
+      $$ObstacoleTableTableManager(_db, _db.obstacole);
+  $$TablouriExistenteTableTableManager get tablouriExistente =>
+      $$TablouriExistenteTableTableManager(_db, _db.tablouriExistente);
+  $$TraseeTableTableManager get trasee =>
+      $$TraseeTableTableManager(_db, _db.trasee);
   $$SetariTableTableManager get setari =>
       $$SetariTableTableManager(_db, _db.setari);
 }

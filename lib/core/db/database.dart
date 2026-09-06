@@ -16,6 +16,11 @@ part 'database.g.dart';
     Furnizori,
     Solutii,
     Documente,
+    Relevee,
+    PlaneMontaj,
+    Obstacole,
+    TablouriExistente,
+    Trasee,
     Setari,
   ],
 )
@@ -26,7 +31,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.inMemory(super.executor);
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -48,6 +53,14 @@ class AppDatabase extends _$AppDatabase {
         // E1: soluții tehnice pe revizii + documente emise
         await m.createTable(solutii);
         await m.createTable(documente);
+      }
+      if (from < 4) {
+        // E2: releveul de șantier
+        await m.createTable(relevee);
+        await m.createTable(planeMontaj);
+        await m.createTable(obstacole);
+        await m.createTable(tablouriExistente);
+        await m.createTable(trasee);
       }
     },
     beforeOpen: (details) async {

@@ -12,6 +12,9 @@ import '../../widgets/common_widgets.dart';
 import '../../core/db/solutii_repository.dart';
 import '../../core/models/solutie.dart';
 import '../../core/services/raport_pdf_service.dart';
+import '../../core/calc/echipamente.dart';
+import '../../core/calc/releveu.dart';
+import '../../core/db/releveu_repository.dart';
 import 'solutie_detail_screen.dart';
 
 class LucrareDetailScreen extends ConsumerWidget {
@@ -190,11 +193,7 @@ class _Continut extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 12),
-          const SectiunePlanificata(
-            titlu: 'Releveu tehnic de șantier',
-            icon: Icons.roofing_outlined,
-            etapa: 'E2',
-          ),
+          _SectiuneReleveu(lucrareId: l.id, judet: lc?.judet ?? ''),
           const SectiunePlanificata(
             titlu: 'Măsurători instrumentale',
             icon: Icons.speed_outlined,
@@ -561,6 +560,85 @@ class _SectiuneDocumente extends ConsumerWidget {
               trailing: const Icon(Icons.more_horiz),
               onTap: () => deschideDocument(context, d),
             ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SectiuneReleveu extends ConsumerWidget {
+  final String lucrareId;
+  final String judet;
+  const _SectiuneReleveu({required this.lucrareId, required this.judet});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final complet = ref.watch(releveuProvider(lucrareId)).value;
+    final plane = complet?.plane ?? const <PlanCuObstacole>[];
+    var module = 0;
+    var kWp = 0.0;
+    for (final p in plane) {
+      final cap = CalculReleveu.capacitate(
+        tip: TipPlanMontaj.dinCod(p.plan.tip),
+        lungimeM: p.plan.lungimeM,
+        latimeM: p.plan.latimeM,
+        inclinareGrade: p.plan.inclinareGrade,
+        modul: CatalogImplicit.module.first,
+        latitudine: CalculReleveu.latitudineJudet(judet),
+        stare: StarePlan.dinCod(p.plan.stare),
+        obstacole: [
+          for (final o in p.obstacole)
+            (inaltimeM: o.inaltimeM, distantaM: o.distantaM),
+        ],
+      );
+      module += cap.nrModule;
+      kWp += cap.kWp;
+    }
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: SectiuneCard(
+        titlu: 'Releveu tehnic de șantier',
+        icon: Icons.roofing_outlined,
+        actiune: TextButton.icon(
+          onPressed: () => context.push('/registru/$lucrareId/releveu'),
+          icon: const Icon(Icons.straighten, size: 18),
+          label: Text(plane.isEmpty ? 'Deschide' : 'Editează'),
+        ),
+        children: [
+          if (plane.isEmpty)
+            Text(
+              'Fără releveu. Măsoară planele de montaj, tabloul și traseele.',
+              style: TextStyle(fontSize: 13, color: context.subtitleColor),
+            )
+          else ...[
+            CampInfo('Plane de montaj', '${plane.length}'),
+            CampInfo('Capacitate', '$module module ≈ ${formatNumar(kWp)} kWp'),
+            CampInfo(
+              'Suprafață măsurată',
+              '${formatNumar(complet?.suprafataTotalaM2 ?? 0, zecimale: 0)} m²',
+            ),
+            if (complet?.tablou != null)
+              CampInfo(
+                'Tablou existent',
+                [
+                  if (complet!.tablou!.pozitiiLibere != null)
+                    '${complet.tablou!.pozitiiLibere} poziții libere',
+                  if (complet.tablou!.disjunctorGeneralA != null)
+                    'general ${complet.tablou!.disjunctorGeneralA} A',
+                  'DDR ${TipDdr.dinCod(complet.tablou!.ddrExistent).eticheta}',
+                ].join(' · '),
+              ),
+            if ((complet?.trasee ?? const []).isNotEmpty)
+              CampInfo(
+                'Trasee',
+                complet!.trasee
+                    .map(
+                      (t) =>
+                          '${SegmentTraseu.dinCod(t.segment).eticheta.split(' ').first} ${formatNumar(t.lungimeM)} m',
+                    )
+                    .join(' · '),
+              ),
+          ],
         ],
       ),
     );
