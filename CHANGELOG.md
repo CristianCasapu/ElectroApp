@@ -1,15 +1,11 @@
 # Changelog
 
-## [Nelansat]
+## [v0.1.6] — 2026-09-06
 
 ### Added
 - **Registrul aparaturii de măsură**, în Setări: denumire, producător, serie și
   termenul de etalonare. Aparatele cu etalonarea expirată apar marcate, iar
   seria și termenul intră în buletinul de verificări la punerea în funcțiune.
-
-## [v0.1.6] — 2026-09-06
-
-### Added
 - **E2 — Măsurători instrumentale**, deschise din fișa de lucrare, pe trei faze:
   la releveu, la punerea în funcțiune și la service.
   - **Verificările de categoria 1 din IEC 62446-1**: continuitatea

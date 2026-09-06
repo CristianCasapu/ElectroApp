@@ -86,4 +86,4 @@ Build-ul de release cere `android/key.properties` cu keystore-ul propriu (nu est
 Cod sursă publicat pentru transparență. Toate drepturile rezervate — Cristian Casapu.
 
 ---
-v0.1.5
+v0.1.6

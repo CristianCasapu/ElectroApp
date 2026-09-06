@@ -73,8 +73,10 @@ jobs:
         run: |
           mkdir -p symbols/android
           flutter build apk --release --obfuscate --split-debug-info=symbols/android/
+          # Numele APK-ului nu conține versiunea, ca adresa
+          # releases/latest/download/ElectroApp.apk să rămână stabilă.
           mv build/app/outputs/flutter-apk/app-release.apk \
-             "build/app/outputs/flutter-apk/ElectroApp-v${{ steps.version.outputs.VERSION }}.apk"
+             build/app/outputs/flutter-apk/ElectroApp.apk
 
       - name: Simboluri debug
         uses: actions/upload-artifact@v4
