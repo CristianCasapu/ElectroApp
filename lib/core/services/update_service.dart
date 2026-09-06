@@ -19,6 +19,12 @@ class UpdateService {
   static const _apiLatest =
       'https://api.github.com/repos/$owner/$repo/releases/latest';
 
+  /// Numele fișierului publicat de CI: fără versiune, ca adresa
+  /// `releases/latest/download/ElectroApp.apk` să fie stabilă.
+  static const numeApk = 'ElectroApp.apk';
+  static const urlApkLatest =
+      'https://github.com/$owner/$repo/releases/latest/download/$numeApk';
+
   final http.Client _client;
   UpdateService({http.Client? client}) : _client = client ?? http.Client();
 
@@ -86,12 +92,18 @@ class UpdateService {
 
     final assets = (json['assets'] as List<dynamic>? ?? const [])
         .cast<Map<String, dynamic>>();
-    final apk = assets.where((a) => (a['name'] as String).endsWith('.apk'));
+    final apk = assets
+        .where((a) => (a['name'] as String).endsWith('.apk'))
+        .toList();
     if (apk.isEmpty) {
       ultimaEroare = 'Release-ul $tag nu are fișier APK atașat.';
       return null;
     }
-    final a = apk.first;
+    // Release-urile vechi au APK-ul numit cu versiunea; cele noi, `ElectroApp.apk`.
+    final a = apk.firstWhere(
+      (x) => x['name'] == numeApk,
+      orElse: () => apk.first,
+    );
     return UpdateInfo(
       versiune: remote,
       tag: tag,

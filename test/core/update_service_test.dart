@@ -47,6 +47,27 @@ void main() {
       expect(info.note, 'Note de versiune');
     });
 
+    test('preferă ElectroApp.apk față de un APK cu versiunea în nume', () {
+      final info = UpdateService().parseRelease({
+        'tag_name': 'v0.1.6',
+        'assets': [
+          {
+            'name': 'ElectroApp-v0.1.6.apk',
+            'browser_download_url': 'https://x/ElectroApp-v0.1.6.apk',
+            'size': 1,
+          },
+          {
+            'name': UpdateService.numeApk,
+            'browser_download_url': UpdateService.urlApkLatest,
+            'size': 2,
+          },
+        ],
+      }, versiuneLocala: '0.1.5');
+      expect(info, isNotNull);
+      expect(info!.numeFisier, 'ElectroApp.apk');
+      expect(info.url, endsWith('/releases/latest/download/ElectroApp.apk'));
+    });
+
     test('returnează null când versiunea locală e la zi', () {
       expect(
         UpdateService().parseRelease(release, versiuneLocala: '0.1.5'),

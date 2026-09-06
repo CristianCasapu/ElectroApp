@@ -1,5 +1,12 @@
 # Changelog
 
+## [Nelansat]
+
+### Changed
+- APK-ul publicat se numește `ElectroApp.apk`, fără versiune în nume, ca adresa
+  `releases/latest/download/ElectroApp.apk` să rămână stabilă; aplicația preferă
+  acest fișier la actualizare, dar acceptă și release-urile vechi.
+
 ## [v0.1.5] — 2026-09-06
 
 ### Added

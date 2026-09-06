@@ -53,7 +53,7 @@ if (-not $AllAbi) { $args += @('--target-platform', 'android-arm64') }
 flutter @args; if ($LASTEXITCODE -ne 0) { exit 1 }
 
 $out = 'build\app\outputs\flutter-apk'
-$apk = Join-Path $out "ElectroApp-$tag.apk"
+$apk = Join-Path $out 'ElectroApp.apk'   # fara versiune in nume, ca in CI
 Copy-Item (Join-Path $out 'app-release.apk') $apk -Force
 Write-Host "APK: $apk" -ForegroundColor Green
 

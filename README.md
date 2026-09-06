@@ -48,9 +48,11 @@ Urmează (vezi [docs/CERCETARE.md](docs/CERCETARE.md) §4.4):
 
 ## Instalare
 
-Descarcă cel mai recent `ElectroApp-vX.Y.Z.apk` din
-[Releases](https://github.com/CristianCasapu/ElectroApp/releases) și instalează-l pe telefon
-(Android 7.0+; acceptă „Instalare din surse necunoscute").
+Descarcă ultimul APK de la adresa stabilă
+[releases/latest/download/ElectroApp.apk](https://github.com/CristianCasapu/ElectroApp/releases/latest/download/ElectroApp.apk)
+(sau din [Releases](https://github.com/CristianCasapu/ElectroApp/releases)) și instalează-l pe
+telefon (Android 7.0+; acceptă „Instalare din surse necunoscute"). Aplicația instalată își caută
+singură actualizările din Setări.
 
 ## Compilare
 
